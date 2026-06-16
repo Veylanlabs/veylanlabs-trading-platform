@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: veylanlabs-tv-worker
+    env: docker
+    rootDir: tv-worker
+    plan: free
+    envVars:
+      - key: PORT
+        value: 4000
+      - key: WORKER_SECRET
+        sync: false
+      - key: TV_SCRIPT_URL
+        sync: false
+      - key: TV_SESSION_ID
+        sync: false

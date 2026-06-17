@@ -46,27 +46,9 @@ export async function POST(req: Request) {
           .update({ telegram_user_id: telegramUserId })
           .eq('id', clerkUserId);
 
-        // Determine which plan they bought by fetching their exact subscription from Stripe
-        let hasChartAccess = false;
-        try {
-          // Import Stripe dynamically since we only need it here
-          const { stripe } = await import('@/lib/stripe');
-          if (user.stripe_subscription_id) {
-            const subscription = await stripe.subscriptions.retrieve(user.stripe_subscription_id);
-            const priceId = subscription.items.data[0].price.id;
-            
-            // If the price matches any of the "Inner Circle" plans, grant chart access
-            if (
-              priceId === process.env.NEXT_PUBLIC_STRIPE_PRICE_INNER_MONTHLY ||
-              priceId === process.env.NEXT_PUBLIC_STRIPE_PRICE_INNER_QUARTERLY ||
-              priceId === process.env.NEXT_PUBLIC_STRIPE_PRICE_INNER_ANNUAL
-            ) {
-              hasChartAccess = true;
-            }
-          }
-        } catch (error) {
-          console.error('Failed to retrieve subscription from Stripe:', error);
-        }
+        // Since there is now only one membership tier ("Member"), 
+        // all active subscribers automatically get access to both groups.
+        const hasChartAccess = true;
 
         // Generate invite links based on access level
         const mainLink = await generateInviteLink(TELEGRAM_MAIN_GROUP_ID);
@@ -80,10 +62,6 @@ export async function POST(req: Request) {
           if (hasChartAccess && chartLink?.startsWith('http')) {
             // They bought Inner Circle and both links generated successfully
             const replyMsg = `Welcome to VeylanLabs, ${user.email}!\n\nHere are your exclusive, single-use invite links:\n\nMain Group: ${mainLink}\nChart Group: ${chartLink}\n\nPlease join now. These links will expire after one use.`;
-            await sendDirectMessage(chatId, replyMsg);
-          } else if (!hasChartAccess) {
-            // They bought Member Plan, only get Main Group
-            const replyMsg = `Welcome to VeylanLabs, ${user.email}!\n\nHere is your exclusive, single-use invite link to the War Room:\n\nMain Group: ${mainLink}\n\n(Note: The Chart Group is reserved for Inner Circle members).\n\nPlease join now. This link will expire after one use.`;
             await sendDirectMessage(chatId, replyMsg);
           } else {
             // Inner circle but chart link failed

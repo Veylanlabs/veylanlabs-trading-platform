@@ -42,7 +42,6 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <RippleEffect />
       <html
         lang="en"
         suppressHydrationWarning
@@ -50,6 +49,7 @@ export default function RootLayout({
       >
         <body className="min-h-full flex flex-col transition-colors duration-500">
           <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange={false}>
+            <RippleEffect />
             {children}
           </ThemeProvider>
         </body>

@@ -13,7 +13,6 @@ import {
   ChevronRight,
   ChevronLeft,
   Search,
-
   ShieldAlert,
   BarChart3,
   Quote,
@@ -37,6 +36,51 @@ import { useTheme } from "next-themes";
 import { QuantLoader } from "@/components/quant-loader";
 import { TradingViewWidget } from "@/components/tradingview-widget";
 import { useUser, UserButton } from '@clerk/nextjs';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+
+// --- Interactive 3D Tilt Component ---
+const TiltCard = ({ children, className }: { children: React.ReactNode, className?: string }) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
+  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["12deg", "-12deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-12deg", "12deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      className={className}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+      }}
+    >
+      <div style={{ transform: "translateZ(50px)" }}>{children}</div>
+    </motion.div>
+  );
+};
 
 // Reusable CountUp Component for the Stats Bar
 const CountUp = ({ end, duration = 2000, suffix = "", prefix = "", decimals = 0 }: { end: number, duration?: number, suffix?: string, prefix?: string, decimals?: number }) => {
@@ -142,6 +186,21 @@ const SYMBOLS = [
   },
 ];
 
+const TESTIMONIALS = [
+  { name: "Alex T.", role: "FULL-TIME TRADER", text1: "VeylanLabs indicators have completely transformed the way I trade. ", text2: "The edge is real." },
+  { name: "Sarah M.", role: "PROP FIRM FUNDED", text1: "I've been trading for 5 years and nothing comes close to this. ", text2: "Absolute game changer." },
+  { name: "Marcus L.", role: "SWING TRADER", text1: "The context alerts save me from taking bad setups every single day. ", text2: "Invaluable tool." },
+  { name: "David R.", role: "DAY TRADER", text1: "I made back my yearly subscription fee in my first two trades. ", text2: "Highly recommend." },
+  { name: "Elena V.", role: "CRYPTO TRADER", text1: "Finally, indicators that actually understand market structure and liquidity. ", text2: "Top tier stuff." },
+  { name: "James B.", role: "FULL-TIME TRADER", text1: "The live daily session breakdowns are like a masterclass. ", text2: "I learn something new daily." },
+  { name: "Michael C.", role: "SCALPER", text1: "Clean charts, zero lag, and ridiculously accurate levels. ", text2: "Can't trade without it." },
+  { name: "Sophia K.", role: "PART-TIME TRADER", text1: "This isn't just an indicator suite, it's a complete trading system. ", text2: "It just works." },
+  { name: "Ryan W.", role: "PROP FIRM FUNDED", text1: "I used to overtrade constantly. These tools gave me the patience to wait for ", text2: "the perfect setups." },
+  { name: "Thomas N.", role: "SWING TRADER", text1: "The War Room community is the best group of traders I've ever been around. ", text2: "Pure alpha." },
+  { name: "Oliver H.", role: "DAY TRADER", text1: "No more second-guessing my entries. The signals are ", text2: "crystal clear." },
+  { name: "Emma D.", role: "FULL-TIME TRADER", text1: "Best investment I've made in my trading career. ", text2: "Period." },
+];
+
 export default function LandingPageClient({ initialPrices }: { initialPrices: any }) {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
@@ -159,6 +218,16 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
 
   const [dynamicPrices, setDynamicPrices] = useState<any>(initialPrices);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  // Global Mouse Glow Effect
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      document.documentElement.style.setProperty('--mouse-x', `${e.clientX}`);
+      document.documentElement.style.setProperty('--mouse-y', `${e.clientY}`);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   const galleryImages = [
     { src: "/sc-1.png", title: "Market Cap BTC Dominance" },
@@ -291,9 +360,9 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
         <div className="nav-in">
           <Logo />
           <div className="nav-links">
-            <Link href="#features" className={activeSection === "features" ? "active" : ""}>Features</Link>
-            <Link href="#pricing" className={activeSection === "pricing" ? "active" : ""}>Pricing</Link>
-            <Link href="#faq" className={activeSection === "faq" ? "active" : ""}>FAQ</Link>
+            <a href="#features" className={activeSection === "features" ? "active" : ""}>Features</a>
+            <a href="#pricing" className={activeSection === "pricing" ? "active" : ""}>Pricing</a>
+            <a href="#faq" className={activeSection === "faq" ? "active" : ""}>FAQ</a>
           </div>
           <div className="nav-right" style={{ gap: "16px" }}>
             <ThemeToggle />
@@ -320,9 +389,9 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
         {/* Mobile Menu Drawer */}
         {mobileMenuOpen && (
           <div className="md:hidden border-b border-border bg-[var(--bg)] px-6 py-6 flex flex-col gap-4">
-            <Link href="#features" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "features" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>Features</Link>
-            <Link href="#pricing" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "pricing" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>Pricing</Link>
-            <Link href="#faq" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "faq" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>FAQ</Link>
+            <a href="#features" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "features" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>Features</a>
+            <a href="#pricing" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "pricing" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>Pricing</a>
+            <a href="#faq" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "faq" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>FAQ</a>
             {isSignedIn ? (
               <>
                 <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)} className="btn btn-soft btn-block justify-center py-3">Dashboard</Link>
@@ -358,8 +427,8 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
               VeylanLabs reads the session for you in real-time — structure, liquidity sweeps, and high-probability entries — so you can trade with institutional precision.
             </p>
             <div className="hero-cta" style={{ justifyContent: "center" }}>
-              <Link href="#pricing" className="btn btn-primary hover-pulse-glow" style={{ padding: "14px 28px", fontSize: 16 }}>Start trading smarter</Link>
-              <Link href="#features" className="btn btn-ghost" style={{ padding: "14px 28px", fontSize: 16 }}>View features</Link>
+              <a href="#pricing" className="btn btn-primary hover-pulse-glow" style={{ padding: "14px 28px", fontSize: 16 }}>Start trading smarter</a>
+              <a href="#features" className="btn btn-ghost" style={{ padding: "14px 28px", fontSize: 16 }}>View features</a>
             </div>
           </div>
         </div>
@@ -423,32 +492,36 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
             </div>
             
             <div className="ba">
-              <div className="card card-old-way glass-premium animate-fade-in-up delay-100">
-                <div className="h">
-                  <span className="badge-comparison badge-old-way">The Old Way</span>
-                  <span>SIGNAL ONLY</span>
+              <TiltCard>
+                <div className="card card-old-way glass-premium animate-fade-in-up delay-100">
+                  <div className="h">
+                    <span className="badge-comparison badge-old-way">The Old Way</span>
+                    <span>SIGNAL ONLY</span>
+                  </div>
+                  <div className="ch" style={{ height: "220px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <Candles c={c} n={24} vol={20} seed={5} tr={0.5} w={460} h={180} />
+                    <div className="lonebuy">BUY</div>
+                  </div>
+                  <div className="f">One arrow. No context, no session, no invalidation — you're guessing why it fired and holding when it fails.</div>
                 </div>
-                <div className="ch" style={{ height: "220px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <Candles c={c} n={24} vol={20} seed={5} tr={0.5} w={460} h={180} />
-                  <div className="lonebuy">BUY</div>
+              </TiltCard>
+              <TiltCard>
+                <div className="card card-new-way glass-premium moving-border animate-fade-in-up delay-200">
+                  <div className="h">
+                    <span className="badge-comparison badge-new-way">The VeylanLabs Way</span>
+                    <span>FULL CONTEXT</span>
+                  </div>
+                  <div className="ch" style={{ padding: 0, height: "220px", overflow: "hidden" }}>
+                    <img 
+                      src={resolvedTheme === "light" ? "/chart-vway-light.png" : "/chart-vway-dark.png"} 
+                      alt="VeylanLabs Full Chart Context" 
+                      className="indicator-card-img" 
+                      style={{ marginTop: 0, borderRadius: 0, border: "none", width: "100%", height: "100%", objectFit: "cover", objectPosition: "left 52%" }} 
+                    />
+                  </div>
+                  <div className="f">What the session is doing, where liquidity sits, the structure shift, your entry — and the level that says you're wrong.</div>
                 </div>
-                <div className="f">One arrow. No context, no session, no invalidation — you're guessing why it fired and holding when it fails.</div>
-              </div>
-              <div className="card card-new-way glass-premium moving-border animate-fade-in-up delay-200">
-                <div className="h">
-                  <span className="badge-comparison badge-new-way">The VeylanLabs Way</span>
-                  <span>FULL CONTEXT</span>
-                </div>
-                <div className="ch" style={{ padding: 0, height: "220px", overflow: "hidden" }}>
-                  <img 
-                    src={resolvedTheme === "light" ? "/chart-vway-light.png" : "/chart-vway-dark.png"} 
-                    alt="VeylanLabs Full Chart Context" 
-                    className="indicator-card-img" 
-                    style={{ marginTop: 0, borderRadius: 0, border: "none", width: "100%", height: "100%", objectFit: "cover", objectPosition: "left 52%" }} 
-                  />
-                </div>
-                <div className="f">What the session is doing, where liquidity sits, the structure shift, your entry — and the level that says you're wrong.</div>
-              </div>
+              </TiltCard>
             </div>
             
 
@@ -558,6 +631,48 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
             <p style={{ textAlign: "center", fontFamily: "var(--font-mono)", fontSize: 11.5, color: "var(--text-3)", margin: "24px 0 90px" }}>
               <span className="grn">◆ Founding Member pricing</span> — locked for life while we build.
             </p>
+          </div>
+        </div>
+
+        <div className="sec">
+          <div className="mk">
+            <div className="sec-head center mb-12">
+              <span className="eyebrow">WALL OF LOVE</span>
+              <h2>Don't just take our word for it.</h2>
+            </div>
+          </div>
+          
+          <div className="marquee-container mt-8 py-4 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+            <div className="marquee-content" style={{ animationDuration: '40s' }}>
+              {/* Double the array for seamless infinite looping */}
+              {[...TESTIMONIALS, ...TESTIMONIALS].map((t, i) => (
+                <div key={i} className="glass-premium border border-border/50 rounded-2xl p-8 flex flex-col justify-between" style={{ minWidth: '400px', maxWidth: '450px', whiteSpace: 'normal', backgroundColor: 'var(--surface)' }}>
+                  <div>
+                    <div className="flex gap-1 mb-6 text-[var(--neon)]">
+                      <Star className="w-5 h-5 fill-current" />
+                      <Star className="w-5 h-5 fill-current" />
+                      <Star className="w-5 h-5 fill-current" />
+                      <Star className="w-5 h-5 fill-current" />
+                      <Star className="w-5 h-5 fill-current" />
+                    </div>
+                    <p className="text-[17px] leading-relaxed text-foreground/90 font-medium tracking-wide">
+                      "{t.text1}
+                      <span className="text-[var(--neon)] font-bold">{t.text2}</span>"
+                    </p>
+                  </div>
+                  
+                  <div className="flex items-center gap-4 mt-8">
+                    <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center bg-[var(--surface-2)] overflow-hidden shadow-[0_0_15px_rgba(163,230,53,0.1)]">
+                      <Users className="w-5 h-5 text-[var(--neon)] opacity-80" />
+                    </div>
+                    <div>
+                      <div className="text-foreground font-bold text-[15px]">{t.name}</div>
+                      <div className="font-mono text-[10px] tracking-widest text-[var(--neon)] opacity-80 mt-1 uppercase">{t.role}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 

@@ -76,18 +76,20 @@ export default function PreferencesPage() {
 
   // Fetch profile
   const fetchProfile = useCallback(() => {
-    setLoading(true);
     fetch('/api/user/profile')
       .then(r => r.json())
       .then(data => {
         setProfile(data);
         setTvUser(data.tradingview_username || '');
         setTgUser(data.telegram_username || '');
+        setLoading(false);
       })
-      .finally(() => setLoading(false));
+      .catch(() => setLoading(false));
   }, []);
 
-  useEffect(() => { fetchProfile(); }, [fetchProfile]);
+  useEffect(() => {
+    fetchProfile();
+  }, [fetchProfile]);
 
   // Save integrations
   const handleSaveIntegrations = async () => {
@@ -315,7 +317,7 @@ export default function PreferencesPage() {
 
               {/* Bot link CTA */}
               <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
-                <span>Haven't linked yet?</span>
+                <span>Haven&apos;t linked yet?</span>
                 <a
                   href={`https://t.me/${process.env.NEXT_PUBLIC_TELEGRAM_BOT_USERNAME || 'VeylanLabsBot'}?start=${user?.id}`}
                   target="_blank"

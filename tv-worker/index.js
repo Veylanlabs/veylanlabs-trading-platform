@@ -16,12 +16,39 @@ const verifySecret = (req, res, next) => {
 };
 
 /**
+ * Detects and dismisses the TradingView "Session disconnected" popup.
+ * This popup appears when the account is accessed from another device/browser.
+ * It clicks the black "Connect" button to resume the session automatically.
+ * @param {import('puppeteer').Page} page
+ */
+async function dismissSessionDisconnectedPopup(page) {
+  try {
+    // Wait briefly to see if the popup appears (3 seconds max)
+    const connectBtn = await page.waitForSelector(
+      // Targets a button whose visible text is exactly "Connect"
+      'button ::-p-text(Connect)',
+      { timeout: 3000 }
+    );
+    if (connectBtn) {
+      await connectBtn.click();
+      console.log('[TV-Worker] ✅ "Session disconnected" popup detected and dismissed. Clicked "Connect".');
+      // Wait for TradingView to re-establish the session after clicking Connect
+      await new Promise(resolve => setTimeout(resolve, 3000));
+    }
+  } catch {
+    // No popup appeared — session is healthy, continue normally
+    console.log('[TV-Worker] ✅ No "Session disconnected" popup detected. Session is healthy.');
+  }
+}
+
+/**
  * Automate TradingView Script Whitelist
  * @param {string} username - TV Username
  * @param {string} action - 'grant' | 'revoke'
  */
 async function manageTradingViewAccess(username, action) {
   let browser;
+  let page;
   try {
     // Launch headless Chrome
     browser = await puppeteer.launch({
@@ -29,7 +56,7 @@ async function manageTradingViewAccess(username, action) {
       args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
     
-    const page = await browser.newPage();
+    page = await browser.newPage();
 
     // 1. Inject the Session Cookie to bypass login
     await page.setCookie({
@@ -42,6 +69,9 @@ async function manageTradingViewAccess(username, action) {
     
     // 2. Go to the exact script management URL
     await page.goto(process.env.TV_SCRIPT_URL, { waitUntil: 'networkidle2' });
+
+    // 3. ⚡ Auto-dismiss "Session disconnected" popup BEFORE doing anything else
+    await dismissSessionDisconnectedPopup(page);
 
     // --- WARNING: SELECTORS MAY NEED ADJUSTMENT BASED ON CURRENT TRADINGVIEW UI ---
     
@@ -63,7 +93,7 @@ async function manageTradingViewAccess(username, action) {
       await page.click(addBtnSelector);
       
       // Wait for success indicator
-      await page.waitForTimeout(2000); 
+      await new Promise(resolve => setTimeout(resolve, 2000));
       console.log(`[TV-Worker] Successfully granted access to ${username}`);
 
     } else if (action === 'revoke') {
@@ -73,7 +103,7 @@ async function manageTradingViewAccess(username, action) {
       // Example pseudo-selector logic:
       // const userRow = await page.$x(`//div[contains(text(), '${username}')]/../button[@title='Remove']`);
       // if (userRow.length > 0) await userRow[0].click();
-      await page.waitForTimeout(2000); 
+      await new Promise(resolve => setTimeout(resolve, 2000));
       console.log(`[TV-Worker] Successfully revoked access for ${username}`);
     }
 

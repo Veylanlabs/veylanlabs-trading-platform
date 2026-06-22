@@ -29,8 +29,8 @@ export async function POST(req: Request) {
       ...(userId && { client_reference_id: userId }),
       // Pre-fill email if user is already logged in
       ...(email && { customer_email: email }),
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/dashboard?welcome=true`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/#pricing`,
+      success_url: `${process.env.NEXT_PUBLIC_APP_URL || req.headers.get('origin') || 'http://localhost:3000'}/dashboard?welcome=true`,
+      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || req.headers.get('origin') || 'http://localhost:3000'}/#pricing`,
     });
 
     return NextResponse.json({ url: session.url });

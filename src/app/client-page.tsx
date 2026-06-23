@@ -792,7 +792,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
             <div className="sec-head center mb-12">
               <span className="eyebrow">Trading Modules</span>
               <h2 className="text-4xl md:text-5xl font-display font-bold uppercase tracking-tight mt-2">
-                Learn with <span className="text-[var(--neon)]">video modules</span>
+                VeylanLabs <span className="text-[var(--neon)]">Indicators</span>
               </h2>
               <p className="text-[var(--text-2)] text-lg max-w-2xl mx-auto mt-4">
                 Click any module to explore our comprehensive indicator suite for that trading concept.

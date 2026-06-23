@@ -207,6 +207,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
   const [cycle, setCycle] = useState("m");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeScreener, setActiveScreener] = useState("sfx");
 
   const { theme, systemTheme } = useTheme();
   const { isSignedIn } = useUser();
@@ -413,22 +414,102 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
         <div className="bg-grid" />
         <div className="bg-mesh" />
 
-        <div className="mk animate-fade-in-up">
-          <div className="hero">
-            <div className="badge-interactive" style={{ margin: "0 auto 24px" }}>
-              <span className="dotg" />
-              PREMIUM TRADING ECOSYSTEM
-            </div>
-            <h1 style={{ fontSize: "clamp(38px, 6vw, 64px)", lineHeight: 1.12, marginBottom: 24, fontWeight: 800, maxWidth: "800px", margin: "0 auto 24px", position: "relative" }}>
-              Stop chasing signals.<br />
-              Understand <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon)] to-emerald-400 drop-shadow-[0_0_15px_var(--neon-dim)]" style={{ display: "inline-block", minWidth: "280px", textAlign: "left" }}>{heroWords[heroWordIdx]}</span>
-            </h1>
-            <p style={{ fontSize: "19px", color: "var(--text-2)", marginBottom: 36, maxWidth: "600px", margin: "0 auto 36px", lineHeight: 1.6 }}>
-              VeylanLabs reads the session for you in real-time — structure, liquidity sweeps, and high-probability entries — so you can trade with institutional precision.
-            </p>
-            <div className="hero-cta" style={{ justifyContent: "center" }}>
-              <a href="#pricing" className="btn btn-primary hover-pulse-glow" style={{ padding: "14px 28px", fontSize: 16 }}>Start trading smarter</a>
-              <a href="#features" className="btn btn-ghost" style={{ padding: "14px 28px", fontSize: 16 }}>View features</a>
+      <div className="mk animate-fade-in-up" style={{ 
+          margin: 0, 
+          padding: 0, 
+          width: "100%", 
+          maxWidth: "100%" 
+        }}>
+          <div className="hero" style={{ 
+            position: "relative", 
+            overflow: "hidden",
+            width: "100%",
+            minHeight: "100vh",
+            margin: 0,
+            padding: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+          }}>
+            {/* Video Background - Full Width */}
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                minWidth: "100%",
+                minHeight: "100%",
+                width: "100%",
+                height: "100%",
+                transform: "translate(-50%, -50%)",
+                objectFit: "cover",
+                zIndex: 0,
+                opacity: 0.4, // Adjust as needed
+              }}
+            >
+              <source src="/hero_bg_video.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+
+            {/* Dark Overlay for Text Readability */}
+            <div style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: "rgba(0, 0, 0, 0.5)", // Adjust opacity as needed
+              zIndex: 0,
+            }} />
+
+            {/* Content */}
+            <div style={{ 
+              position: "relative", 
+              zIndex: 1, 
+              width: "100%",
+              maxWidth: "1200px", // Keeps content readable
+              padding: "40px 20px",
+              margin: "0 auto",
+              textAlign: "center"
+            }}>
+              <div className="badge-interactive" style={{ margin: "0 auto 24px" }}>
+                <span className="dotg" />
+                PREMIUM TRADING ECOSYSTEM
+              </div>
+              
+              <h1 style={{ 
+                fontSize: "clamp(38px, 6vw, 64px)", 
+                lineHeight: 1.12, 
+                marginBottom: 24, 
+                fontWeight: 800, 
+                maxWidth: "800px", 
+                margin: "0 auto 24px", 
+                position: "relative",
+                color: "#fff" // Ensures text is readable
+              }}>
+                Stop chasing signals.<br />
+                Understand <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon)] to-emerald-400 drop-shadow-[0_0_15px_var(--neon-dim)]" style={{ display: "inline-block", minWidth: "280px", textAlign: "left" }}>{heroWords[heroWordIdx]}</span>
+              </h1>
+              
+              <p style={{ 
+                fontSize: "19px", 
+                color: "rgba(255, 255, 255, 0.9)", // Lighter for better contrast
+                marginBottom: 36, 
+                maxWidth: "600px", 
+                margin: "0 auto 36px", 
+                lineHeight: 1.6 
+              }}>
+                VeylanLabs reads the session for you in real-time — structure, liquidity sweeps, and high-probability entries — so you can trade with institutional precision.
+              </p>
+              
+              <div className="hero-cta" style={{ justifyContent: "center", display: "flex", gap: "16px" }}>
+                <a href="#pricing" className="btn btn-primary hover-pulse-glow" style={{ padding: "14px 28px", fontSize: 16 }}>Start trading smarter</a>
+                <a href="#features" className="btn btn-ghost" style={{ padding: "14px 28px", fontSize: 16 }}>View features</a>
+              </div>
             </div>
           </div>
         </div>
@@ -528,47 +609,253 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
           </div>
         </div>
 
-
-
+        {/* Screener Section */}
         <div className="sec">
           <div className="mk animate-fade-in-up">
             <div className="sec-head center mb-16">
-              <span className="eyebrow">The Indicators</span>
+              <span className="eyebrow">Advanced Screeners</span>
               <h2 className="text-4xl md:text-5xl font-display font-bold uppercase tracking-tight mt-2">
-                Designed for <span className="text-[var(--neon)]">Performance.</span>
+                Find exactly what <span className="text-[var(--neon)]">you're looking for.</span>
+              </h2>
+            </div>
+            <div className="flex flex-col md:flex-row gap-8 lg:gap-16 items-start">
+              <div className="w-full md:w-1/3 screener-tabs-container">
+                <div 
+                  className={`screener-tab ${activeScreener === 'sfx' ? 'active' : ''}`}
+                  onClick={() => setActiveScreener('sfx')}
+                >
+                  <div className="flex items-center gap-3">
+                    <Activity className={`w-5 h-5 ${activeScreener === 'sfx' ? 'text-[var(--neon)]' : 'text-text-2'}`} />
+                    <span>SFX Screener</span>
+                  </div>
+                  <ChevronRight className={`w-4 h-4 transition-transform ${activeScreener === 'sfx' ? 'translate-x-1 text-[var(--neon)]' : 'opacity-0'}`} />
+                </div>
+                <div 
+                  className={`screener-tab ${activeScreener === 'sd' ? 'active' : ''}`}
+                  onClick={() => setActiveScreener('sd')}
+                >
+                  <div className="flex items-center gap-3">
+                    <BarChart3 className={`w-5 h-5 ${activeScreener === 'sd' ? 'text-[var(--neon)]' : 'text-text-2'}`} />
+                    <span>S&D Screener</span>
+                  </div>
+                  <ChevronRight className={`w-4 h-4 transition-transform ${activeScreener === 'sd' ? 'translate-x-1 text-[var(--neon)]' : 'opacity-0'}`} />
+                </div>
+                <div 
+                  className={`screener-tab ${activeScreener === 'pat' ? 'active' : ''}`}
+                  onClick={() => setActiveScreener('pat')}
+                >
+                  <div className="flex items-center gap-3">
+                    <TrendingUp className={`w-5 h-5 ${activeScreener === 'pat' ? 'text-[var(--neon)]' : 'text-text-2'}`} />
+                    <span>PAT Screener</span>
+                  </div>
+                  <ChevronRight className={`w-4 h-4 transition-transform ${activeScreener === 'pat' ? 'translate-x-1 text-[var(--neon)]' : 'opacity-0'}`} />
+                </div>
+              </div>
+              <div className="w-full md:w-2/3 glass-premium p-6 rounded-2xl border border-border/50 bg-[var(--surface-2)] shadow-xl relative overflow-hidden min-h-[350px]">
+                <div className="absolute inset-0 bg-mesh opacity-20 pointer-events-none" />
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between border-b border-border/50 pb-4 mb-4">
+                    <div className="text-sm font-bold font-mono tracking-widest text-text-2 uppercase">Symbol</div>
+                    <div className="text-sm font-bold font-mono tracking-widest text-text-2 uppercase">Status</div>
+                    <div className="text-sm font-bold font-mono tracking-widest text-text-2 uppercase">Signal</div>
+                  </div>
+                  {[
+                    { sym: "EURUSD", status: "Active", sig: "Bullish Divergence", col: "text-[var(--neon)]" },
+                    { sym: "BTCUSD", status: "Sweeping", sig: "Liquidity Grab", col: "text-amber-500" },
+                    { sym: "SPX500", status: "Choppy", sig: "Wait for NY", col: "text-text-3" },
+                    { sym: "GBPUSD", status: "Active", sig: "Bearish MSS", col: "text-red-500" },
+                    { sym: "XAUUSD", status: "Trending", sig: "Premium Rejection", col: "text-red-500" }
+                  ].map((row, i) => (
+                    <motion.div 
+                      key={row.sym + activeScreener}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.1 }}
+                      className="flex items-center justify-between py-3 border-b border-border/20 last:border-0 hover:bg-[var(--surface)] transition-colors rounded-lg px-2 -mx-2"
+                    >
+                      <div className="font-bold text-text flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-full bg-[var(--surface)] border border-border flex items-center justify-center text-xs">
+                          {row.sym.slice(0, 1)}
+                        </div>
+                        {row.sym}
+                      </div>
+                      <div className="text-sm text-text-2">{row.status}</div>
+                      <div className={`text-sm font-bold ${row.col}`}>{row.sig}</div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="sec">
+          <div className="mk animate-fade-in-up">
+            <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+              <div className="w-full lg:w-1/2 flex flex-col items-start text-left">
+                <span className="eyebrow mb-4">THE INDICATORS</span>
+                <h2 className="text-4xl md:text-5xl font-display font-bold uppercase tracking-tight mb-6">
+                  Next generation <span className="text-[var(--neon)]">trading toolkit</span>
+                </h2>
+                <p className="text-[var(--text-2)] text-lg mb-8 leading-relaxed max-w-xl">
+                  Trade with confidence using our comprehensive suite of advanced indicators. Built for modern markets to help you spot institutional footprints.
+                </p>
+                <ul className="flex flex-col gap-4 mb-10 w-full max-w-md">
+                  {[
+                    "SFX Advanced Support & Resistance",
+                    "Supply & Demand Imbalance Zones",
+                    "Dynamic Liquidity Pools",
+                    "Trend Structure Break Alerts"
+                  ].map((feature, idx) => (
+                    <li key={idx} className="flex items-center gap-3">
+                      <div className="w-6 h-6 rounded-full bg-[var(--glow)] border border-[var(--accent)] flex items-center justify-center flex-shrink-0">
+                        <Check className="w-3.5 h-3.5 text-[var(--neon)]" />
+                      </div>
+                      <span className="text-text font-medium">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <button className="btn btn-indicator-explore px-8 py-4 text-base font-bold uppercase tracking-wider rounded-xl">
+                  Explore indicators
+                </button>
+              </div>
+
+              {/* Dark UI Graphic Replica */}
+              <div className="w-full lg:w-1/2 relative mt-10 lg:mt-0">
+                <div className="absolute inset-0 bg-mesh opacity-30 pointer-events-none" />
+                <div className="glass-premium rounded-2xl border border-border bg-[#0a0a0a]/90 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden relative z-10">
+                  <div className="bg-[#111] border-b border-border/30 px-4 py-3 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                      <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                      <div className="w-3 h-3 rounded-full bg-green-500/80" />
+                    </div>
+                    <div className="text-xs font-mono text-text-3 font-semibold tracking-widest">VEYLANLABS SETTINGS</div>
+                    <div className="w-16" />
+                  </div>
+                  <div className="p-6 md:p-8">
+                    <div className="mb-8 flex items-center justify-between bg-[#1a1a1a] p-4 rounded-xl border border-border/20">
+                      <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-lg bg-[var(--glow)] flex items-center justify-center border border-[var(--accent)]/50">
+                          <Activity className="w-5 h-5 text-[var(--neon)]" />
+                        </div>
+                        <span className="font-semibold text-text text-base">VeylanLabs Master Suite</span>
+                      </div>
+                      <div className="w-12 h-6 bg-[var(--neon)]/20 rounded-full flex items-center p-1 border border-[var(--neon)]/30">
+                        <div className="w-4 h-4 bg-[var(--neon)] rounded-full translate-x-6 shadow-[0_0_8px_var(--neon)]" />
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-5">
+                      <div className="text-xs font-mono font-bold text-text-3 uppercase tracking-wider mb-3">Display Settings</div>
+                      {[
+                        { name: "Show Liquidity Grabs", active: true },
+                        { name: "Market Structure Shifts", active: true },
+                        { name: "Order Block Zones", active: false },
+                        { name: "Fair Value Gaps", active: true }
+                      ].map((setting, idx) => (
+                        <div key={idx} className="flex items-center justify-between px-2 py-1">
+                          <span className="text-sm font-medium text-text-2">{setting.name}</span>
+                          <div className={`w-9 h-5 rounded-full flex items-center p-0.5 transition-colors ${setting.active ? 'bg-[var(--accent)]' : 'bg-surface-3'}`}>
+                            <div className={`w-4 h-4 rounded-full bg-white transition-transform ${setting.active ? 'translate-x-4 shadow-sm' : ''}`} />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="mt-8 pt-5 border-t border-border/20">
+                      <div className="flex justify-end gap-3">
+                        <button className="px-5 py-2.5 text-sm font-bold rounded-lg bg-surface-2 text-text-2 hover:bg-surface-3 transition-colors">Cancel</button>
+                        <button className="px-5 py-2.5 text-sm font-bold rounded-lg bg-[var(--accent)] text-[var(--accent-ink)] shadow-[0_0_10px_var(--ring)] hover:bg-[var(--accent-2)] transition-colors">Apply changes</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* Floating elements for aesthetic */}
+                <div className="absolute -right-6 -bottom-6 w-40 h-40 bg-[var(--ring)] blur-3xl rounded-full pointer-events-none z-0" />
+                <div className="absolute -left-6 -top-6 w-40 h-40 bg-[var(--ring)] blur-3xl rounded-full pointer-events-none z-0" />
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* Chart Graphics Update */}
+        <div className="sec">
+          <div className="mk animate-fade-in-up delay-100">
+            <div className="sec-head center mb-12">
+              <span className="eyebrow">Visual Clarity</span>
+              <h2 className="text-4xl md:text-5xl font-display font-bold uppercase tracking-tight mt-2">
+                See the market <span className="text-[var(--neon)]">clearly.</span>
               </h2>
             </div>
             
-            {/* Feature / Info Cards matching mockup */}
-            <div className="mt-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="glass-premium p-8 rounded-2xl flex flex-col items-start transition-all duration-300 hover:border-accent group">
-                  <div className="w-12 h-12 rounded-xl bg-surface-2 border border-border flex items-center justify-center mb-5 text-accent group-hover:scale-110 transition-transform">
-                    <Clock className="w-6 h-6" />
+            <div className="max-w-5xl mx-auto rainbow-border ">
+              <div className="bg-[var(--bg)] rounded-[14px] overflow-hidden relative">
+                <div className="absolute inset-0 bg-mesh opacity-20 pointer-events-none" />
+                
+                <div className="p-4 md:p-8 relative z-10 flex flex-col md:flex-row gap-6 items-start">
+                  <div className="flex-1 w-full bg-[var(--surface)] border border-border/50 rounded-xl p-4 shadow-2xl relative">
+                    {/* Simulated Chart UI */}
+                    <div className="flex items-center justify-between mb-4 border-b border-border/30 pb-3">
+                      <div className="flex items-center gap-3 flex-wrap">
+                        <div className="font-bold text-lg text-text font-mono">BTCUSD</div>
+                        <div className="text-sm text-text-2">15m</div>
+                        <div className="px-2 py-0.5 rounded bg-[var(--glow)] text-[var(--neon)] text-[10px] sm:text-xs font-bold border border-[var(--accent)]/30">
+                          STRONG BULLISH
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-4 hidden sm:flex">
+                        <div className="flex items-center gap-2">
+                          <span className="w-2 h-2 rounded-full bg-[var(--neon)] shadow-[0_0_8px_var(--neon)] animate-pulse" />
+                          <span className="text-xs text-text-3 uppercase font-mono font-bold tracking-widest">Live</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="h-[250px] md:h-[350px] flex items-center justify-center w-full relative overflow-hidden">
+                       <Candles c={c} n={40} vol={25} seed={42} tr={0.7} w={700} h={300} />
+                       
+                       {/* Floating Trendlines & Badges */}
+                       <div className="absolute top-[20%] right-[15%] px-3 py-1 bg-red-500/10 border border-red-500/30 text-red-500 text-xs font-bold font-mono rounded shadow-[0_0_15px_rgba(239,68,68,0.2)] backdrop-blur-md">
+                          SELL SIGNAL
+                       </div>
+                       <div className="absolute bottom-[30%] left-[25%] px-3 py-1 bg-[var(--glow)] border border-[var(--accent)]/30 text-[var(--neon)] text-xs font-bold font-mono rounded shadow-[0_0_15px_var(--ring)] backdrop-blur-md">
+                          BUY SIGNAL
+                       </div>
+                    </div>
                   </div>
-                  <h4 className="text-lg font-bold font-display uppercase tracking-wide mb-2">High Performance</h4>
-                  <p className="text-text-2 text-sm">Optimized for speed and accuracy in all market conditions.</p>
-                </div>
-                <div className="glass-premium p-8 rounded-2xl flex flex-col items-start transition-all duration-300 hover:border-accent group">
-                  <div className="w-12 h-12 rounded-xl bg-surface-2 border border-border flex items-center justify-center mb-5 text-accent group-hover:scale-110 transition-transform">
-                    <ShieldCheck className="w-6 h-6" />
+                  
+                  {/* Bull/Bear Percentage Bar */}
+                  <div className="w-full md:w-64 flex flex-col gap-4">
+                    <div className="glass-premium p-5 rounded-xl border border-border/50 bg-[var(--surface)] text-center">
+                      <h4 className="text-sm font-mono text-text-3 font-bold tracking-widest uppercase mb-4">Trend Strength</h4>
+                      <div className="relative h-4 rounded-full bg-surface-3 overflow-hidden mb-2">
+                        <div className="absolute top-0 left-0 bottom-0 bg-gradient-to-r from-emerald-500 to-[var(--neon)] w-[75%] transition-all duration-1000" />
+                        <div className="absolute top-0 right-0 bottom-0 bg-gradient-to-l from-red-500 to-rose-500 w-[25%] transition-all duration-1000" />
+                      </div>
+                      <div className="flex justify-between items-center text-sm font-bold font-mono mt-3">
+                        <span className="text-emerald-500">75% BULL</span>
+                        <span className="text-red-500">25% BEAR</span>
+                      </div>
+                    </div>
+                    
+                    <div className="glass-premium p-5 rounded-xl border border-border/50 bg-[var(--surface)]">
+                       <h4 className="text-sm font-mono text-text-3 font-bold tracking-widest uppercase mb-4 text-center">Key Levels</h4>
+                       <div className="space-y-3">
+                         <div className="flex justify-between items-center">
+                           <span className="text-xs text-text-2">Resistance</span>
+                           <span className="text-xs font-bold text-red-400">64,250.00</span>
+                         </div>
+                         <div className="flex justify-between items-center">
+                           <span className="text-xs text-text-2">Support</span>
+                           <span className="text-xs font-bold text-emerald-400">62,800.00</span>
+                         </div>
+                         <div className="flex justify-between items-center">
+                           <span className="text-xs text-text-2">Target</span>
+                           <span className="text-xs font-bold text-[var(--neon)]">65,100.00</span>
+                         </div>
+                       </div>
+                    </div>
                   </div>
-                  <h4 className="text-lg font-bold font-display uppercase tracking-wide mb-2">Risk Management</h4>
-                  <p className="text-text-2 text-sm">Advanced risk tools to help you protect capital and stay consistent.</p>
-                </div>
-                <div className="glass-premium p-8 rounded-2xl flex flex-col items-start transition-all duration-300 hover:border-accent group">
-                  <div className="w-12 h-12 rounded-xl bg-surface-2 border border-border flex items-center justify-center mb-5 text-accent group-hover:scale-110 transition-transform">
-                    <TrendingUp className="w-6 h-6" />
-                  </div>
-                  <h4 className="text-lg font-bold font-display uppercase tracking-wide mb-2">Data Driven</h4>
-                  <p className="text-text-2 text-sm">Backtested strategies and real market data power everything we build.</p>
-                </div>
-                <div className="glass-premium p-8 rounded-2xl flex flex-col items-start transition-all duration-300 hover:border-accent group">
-                  <div className="w-12 h-12 rounded-xl bg-surface-2 border border-border flex items-center justify-center mb-5 text-accent group-hover:scale-110 transition-transform">
-                    <Users className="w-6 h-6" />
-                  </div>
-                  <h4 className="text-lg font-bold font-display uppercase tracking-wide mb-2">Trader Focused</h4>
-                  <p className="text-text-2 text-sm">Built by traders, for traders. We understand what really matters.</p>
                 </div>
               </div>
             </div>
@@ -594,6 +881,59 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
                   <p>{s[2]}</p>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Feature Comparison Section */}
+        <div className="sec">
+          <div className="mk animate-fade-in-up">
+            <div className="sec-head center mb-12">
+              <span className="eyebrow">Comparison</span>
+              <h2 className="text-4xl md:text-5xl font-display font-bold uppercase tracking-tight mt-2">
+                Why <span className="text-[var(--neon)]">VeylanLabs?</span>
+              </h2>
+            </div>
+            
+            <div className="max-w-4xl mx-auto glass-premium rounded-2xl overflow-hidden border border-border/50 shadow-2xl relative z-10">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-[var(--surface-2)]">
+                      <th className="p-5 border-b border-border/50 text-sm font-bold font-mono tracking-widest uppercase text-text-3 w-1/2">Features</th>
+                      <th className="p-5 border-b border-border/50 text-center border-x border-border/50 bg-[var(--surface-3)]/50 relative">
+                        <div className="absolute inset-0 bg-gradient-to-b from-[var(--neon)]/10 to-transparent pointer-events-none" />
+                        <div className="flex flex-col items-center relative z-10">
+                          <span className="font-bold text-lg text-text">VeylanLabs</span>
+                          <span className="text-[10px] font-mono text-[var(--neon)] mt-1 font-bold">ALGO V3</span>
+                        </div>
+                      </th>
+                      <th className="p-5 border-b border-border/50 text-center text-sm font-bold font-mono tracking-widest uppercase text-text-3">Typical Indicators</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { f: "Real-time Structure Break Alerts", v: true, t: false },
+                      { f: "Dynamic Liquidity Sweeps Detection", v: true, t: false },
+                      { f: "Multi-Timeframe Trend Confirmation", v: true, t: true },
+                      { f: "Built-in Risk Management Tools", v: true, t: false },
+                      { f: "Non-Repainting Signals", v: true, t: false },
+                      { f: "Basic Moving Averages & RSI", v: true, t: true },
+                      { f: "Live Session Trade Setups", v: true, t: false }
+                    ].map((row, i) => (
+                      <tr key={i} className="hover:bg-[var(--surface-2)] transition-colors border-b border-border/20 last:border-0">
+                        <td className="p-5 text-sm font-medium text-text-2">{row.f}</td>
+                        <td className="p-5 text-center border-x border-border/20 bg-[var(--surface-3)]/20">
+                          {row.v ? <Check className="w-5 h-5 text-[var(--neon)] mx-auto drop-shadow-[0_0_8px_var(--neon)]" /> : <X className="w-5 h-5 text-text-3 mx-auto" />}
+                        </td>
+                        <td className="p-5 text-center">
+                          {row.t ? <Check className="w-5 h-5 text-text-3 mx-auto" /> : <X className="w-5 h-5 text-red-500/70 mx-auto" />}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>

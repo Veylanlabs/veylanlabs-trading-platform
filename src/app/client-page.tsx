@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { PricingButton } from '@/components/pricing-button';
 import { Candles } from '@/components/charts';
@@ -29,7 +30,9 @@ import {
   Code2,
   TrendingUp,
   ShieldCheck,
-  Globe
+  Globe,
+  Play,
+  ArrowRight
 } from 'lucide-react';
 import { FaTwitter, FaYoutube, FaDiscord, FaInstagram, FaTelegramPlane } from 'react-icons/fa';
 import { useTheme } from "next-themes";
@@ -201,13 +204,79 @@ const TESTIMONIALS = [
   { name: "Emma D.", role: "FULL-TIME TRADER", text1: "Best investment I've made in my trading career. ", text2: "Period." },
 ];
 
+// Trading video modules configuration with expanded content
+const TRADING_MODULES = [
+  {
+    id: "structure",
+    title: "Market Structure",
+    badge: "Foundation",
+    description: "Master the art of reading market structure — the foundation of all successful trading strategies.",
+    details: [
+      "Identify higher highs and lower lows with precision",
+      "Understand trend shifts before they happen",
+      "Spot accumulation and distribution patterns",
+      "Learn to distinguish between retracements and reversals",
+      "Build a framework for any market condition"
+    ],
+    videoPath: "/video_1.mp4",
+    cta: "Explore Market Structure Indicators →"
+  },
+  {
+    id: "liquidity",
+    title: "Liquidity Sweeps",
+    badge: "Advanced",
+    description: "Learn to identify where institutional money is hiding and how to trade liquidity grabs with confidence.",
+    details: [
+      "Spot liquidity pools and stop hunts in real-time",
+      "Understand the psychology behind liquidity sweeps",
+      "Trade breakouts with institutional confirmation",
+      "Identify false breaks and genuine momentum shifts",
+      "Master the art of trading with smart money"
+    ],
+    videoPath: "/video_2.mp4",
+    cta: "Explore Liquidity Indicators →"
+  },
+  {
+    id: "supply_demand",
+    title: "Supply & Demand",
+    badge: "Core",
+    description: "Understand the fundamental forces driving price action through supply and demand zone analysis.",
+    details: [
+      "Identify high-probability supply and demand zones",
+      "Learn to distinguish between strong and weak zones",
+      "Master zone entries with precise risk management",
+      "Understand order flow and imbalance dynamics",
+      "Combine zones with structure for optimal entries"
+    ],
+    videoPath: "/video_3.mp4",
+    cta: "Explore Supply & Demand Tools →"
+  },
+  {
+    id: "session_trading",
+    title: "Session Trading",
+    badge: "Practical",
+    description: "Learn how to trade different market sessions effectively using session-specific strategies and tools.",
+    details: [
+      "Understand London, New York, and Asia session dynamics",
+      "Identify session-specific opportunities and risks",
+      "Learn optimal entry times for each session",
+      "Master session overlap strategies",
+      "Build a session-based trading routine"
+    ],
+    videoPath: "/video_4.mp4",
+    cta: "Explore Session Trading Tools →"
+  }
+];
+
 export default function LandingPageClient({ initialPrices }: { initialPrices: any }) {
+  const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [cycle, setCycle] = useState("m");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeScreener, setActiveScreener] = useState("sfx");
+  const [activeModule, setActiveModule] = useState(0);
 
   const { theme, systemTheme } = useTheme();
   const { isSignedIn } = useUser();
@@ -344,6 +413,10 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
     return process.env.NEXT_PUBLIC_STRIPE_PRICE_MEMBER_ANNUAL || "";
   };
 
+  const handleModuleClick = (moduleId: string) => {
+    router.push('/indicators');
+  };
+
   return (
     <>
       <div className="vl">
@@ -362,6 +435,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
           <Logo />
           <div className="nav-links">
             <a href="#features" className={activeSection === "features" ? "active" : ""}>Features</a>
+             <Link href="/indicators" > <a href="" className={activeSection === "indicators" ? "active" : ""}>Indicators</a></Link>
             <a href="#pricing" className={activeSection === "pricing" ? "active" : ""}>Pricing</a>
             <a href="#faq" className={activeSection === "faq" ? "active" : ""}>FAQ</a>
           </div>
@@ -521,7 +595,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
               <div className="flex items-center justify-center gap-2 mb-2 text-accent group-hover:text-[var(--neon)] transition-colors">
                 <Users className="w-8 h-8 group-hover:scale-110 group-hover:-translate-y-1 transition-transform duration-300" />
                 <span className="text-4xl font-extrabold font-display drop-shadow-[0_0_15px_var(--neon-dim)]">
-                  <CountUp end={25} suffix="K+" />
+                  <CountUp end={11} suffix="k+" />
                 </span>
               </div>
               <div className="text-sm text-text-2 uppercase tracking-widest font-mono group-hover:text-foreground transition-colors">Active Traders</div>
@@ -610,84 +684,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
         </div>
 
         {/* Screener Section */}
-        <div className="sec">
-          <div className="mk animate-fade-in-up">
-            <div className="sec-head center mb-16">
-              <span className="eyebrow">Advanced Screeners</span>
-              <h2 className="text-4xl md:text-5xl font-display font-bold uppercase tracking-tight mt-2">
-                Find exactly what <span className="text-[var(--neon)]">you're looking for.</span>
-              </h2>
-            </div>
-            <div className="flex flex-col md:flex-row gap-8 lg:gap-16 items-start">
-              <div className="w-full md:w-1/3 screener-tabs-container">
-                <div 
-                  className={`screener-tab ${activeScreener === 'sfx' ? 'active' : ''}`}
-                  onClick={() => setActiveScreener('sfx')}
-                >
-                  <div className="flex items-center gap-3">
-                    <Activity className={`w-5 h-5 ${activeScreener === 'sfx' ? 'text-[var(--neon)]' : 'text-text-2'}`} />
-                    <span>SFX Screener</span>
-                  </div>
-                  <ChevronRight className={`w-4 h-4 transition-transform ${activeScreener === 'sfx' ? 'translate-x-1 text-[var(--neon)]' : 'opacity-0'}`} />
-                </div>
-                <div 
-                  className={`screener-tab ${activeScreener === 'sd' ? 'active' : ''}`}
-                  onClick={() => setActiveScreener('sd')}
-                >
-                  <div className="flex items-center gap-3">
-                    <BarChart3 className={`w-5 h-5 ${activeScreener === 'sd' ? 'text-[var(--neon)]' : 'text-text-2'}`} />
-                    <span>S&D Screener</span>
-                  </div>
-                  <ChevronRight className={`w-4 h-4 transition-transform ${activeScreener === 'sd' ? 'translate-x-1 text-[var(--neon)]' : 'opacity-0'}`} />
-                </div>
-                <div 
-                  className={`screener-tab ${activeScreener === 'pat' ? 'active' : ''}`}
-                  onClick={() => setActiveScreener('pat')}
-                >
-                  <div className="flex items-center gap-3">
-                    <TrendingUp className={`w-5 h-5 ${activeScreener === 'pat' ? 'text-[var(--neon)]' : 'text-text-2'}`} />
-                    <span>PAT Screener</span>
-                  </div>
-                  <ChevronRight className={`w-4 h-4 transition-transform ${activeScreener === 'pat' ? 'translate-x-1 text-[var(--neon)]' : 'opacity-0'}`} />
-                </div>
-              </div>
-              <div className="w-full md:w-2/3 glass-premium p-6 rounded-2xl border border-border/50 bg-[var(--surface-2)] shadow-xl relative overflow-hidden min-h-[350px]">
-                <div className="absolute inset-0 bg-mesh opacity-20 pointer-events-none" />
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between border-b border-border/50 pb-4 mb-4">
-                    <div className="text-sm font-bold font-mono tracking-widest text-text-2 uppercase">Symbol</div>
-                    <div className="text-sm font-bold font-mono tracking-widest text-text-2 uppercase">Status</div>
-                    <div className="text-sm font-bold font-mono tracking-widest text-text-2 uppercase">Signal</div>
-                  </div>
-                  {[
-                    { sym: "EURUSD", status: "Active", sig: "Bullish Divergence", col: "text-[var(--neon)]" },
-                    { sym: "BTCUSD", status: "Sweeping", sig: "Liquidity Grab", col: "text-amber-500" },
-                    { sym: "SPX500", status: "Choppy", sig: "Wait for NY", col: "text-text-3" },
-                    { sym: "GBPUSD", status: "Active", sig: "Bearish MSS", col: "text-red-500" },
-                    { sym: "XAUUSD", status: "Trending", sig: "Premium Rejection", col: "text-red-500" }
-                  ].map((row, i) => (
-                    <motion.div 
-                      key={row.sym + activeScreener}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.1 }}
-                      className="flex items-center justify-between py-3 border-b border-border/20 last:border-0 hover:bg-[var(--surface)] transition-colors rounded-lg px-2 -mx-2"
-                    >
-                      <div className="font-bold text-text flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-[var(--surface)] border border-border flex items-center justify-center text-xs">
-                          {row.sym.slice(0, 1)}
-                        </div>
-                        {row.sym}
-                      </div>
-                      <div className="text-sm text-text-2">{row.status}</div>
-                      <div className={`text-sm font-bold ${row.col}`}>{row.sig}</div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+     
 
         <div className="sec">
           <div className="mk animate-fade-in-up">
@@ -715,9 +712,19 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
                     </li>
                   ))}
                 </ul>
-                <button className="btn btn-indicator-explore px-8 py-4 text-base font-bold uppercase tracking-wider rounded-xl">
-                  Explore indicators
-                </button>
+           <Link href="/indicators" className="block mt-4">
+            <div className="screener-tab hover:border-[var(--neon)] transition-all duration-300 group cursor-pointer">
+                <div className="flex items-center justify-between w-full">
+                  <div className="flex items-center gap-3">
+                    <div className="w-5 h-5 rounded-full border-2 border-[var(--neon)] flex items-center justify-center">
+                      <span className="text-[10px] font-bold text-[var(--neon)]">+</span>
+                    </div>
+                    <span className="text-[var(--neon)] font-medium">Show More Indicators</span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-[var(--neon)] group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </Link>
               </div>
 
               {/* Dark UI Graphic Replica */}
@@ -778,6 +785,89 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
             </div>
           </div>
         </div>
+        
+        {/* Trading Modules Section with Video Backgrounds and Expanded Content */}
+        <div className="sec">
+          <div className="mk animate-fade-in-up delay-100">
+            <div className="sec-head center mb-12">
+              <span className="eyebrow">Trading Modules</span>
+              <h2 className="text-4xl md:text-5xl font-display font-bold uppercase tracking-tight mt-2">
+                Learn with <span className="text-[var(--neon)]">video modules</span>
+              </h2>
+              <p className="text-[var(--text-2)] text-lg max-w-2xl mx-auto mt-4">
+                Click any module to explore our comprehensive indicator suite for that trading concept.
+              </p>
+            </div>
+            
+            {/* Module Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+              {TRADING_MODULES.map((module, index) => (
+                <div
+                  key={module.id}
+                  onClick={() => handleModuleClick(module.id)}
+                  className="group relative rounded-2xl overflow-hidden cursor-pointer border border-border/50 hover:border-[var(--neon)] transition-all duration-500 hover:shadow-[0_0_40px_rgba(16,185,129,0.15)] bg-[var(--surface)]"
+                >
+                  {/* Video Background - Smaller and contained */}
+                  <div className="relative h-48 overflow-hidden">
+                    <video
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    >
+                      <source src={module.videoPath} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                    
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg)] via-[var(--bg)]/70 to-transparent" />
+                    
+                    {/* Play Button Overlay */}
+                    {/* <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-16 h-16 rounded-full bg-[var(--neon)]/20 backdrop-blur-sm flex items-center justify-center border border-[var(--neon)]/30 group-hover:bg-[var(--neon)]/40 group-hover:scale-110 transition-all duration-300 shadow-[0_0_30px_rgba(16,185,129,0.2)]">
+                        <Play className="w-8 h-8 text-[var(--neon)] group-hover:text-white transition-colors duration-300" fill="currentColor" />
+                      </div>
+                    </div> */}
+                    
+                    {/* Badge */}
+                    <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-[var(--neon)]/20 backdrop-blur-sm border border-[var(--neon)]/30 text-[var(--neon)] text-xs font-bold font-mono tracking-wider">
+                      {module.badge}
+                    </div>
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-text mb-2 group-hover:text-[var(--neon)] transition-colors duration-300">
+                      {module.title}
+                    </h3>
+                    
+                    <p className="text-text-2 text-sm mb-4 leading-relaxed">
+                      {module.description}
+                    </p>
+                    
+                    {/* Expanded Details List */}
+                    <ul className="space-y-2 mb-6">
+                      {module.details.map((detail, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-sm text-text-2">
+                          <Check className="w-4 h-4 text-[var(--neon)] flex-shrink-0 mt-0.5" />
+                          <span>{detail}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    
+                    {/* CTA */}
+                    <div className="flex items-center gap-2 text-[var(--neon)] font-medium text-sm group-hover:gap-3 transition-all duration-300">
+                      <span>{module.cta}</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         {/* Chart Graphics Update */}
         <div className="sec">
           <div className="mk animate-fade-in-up delay-100">

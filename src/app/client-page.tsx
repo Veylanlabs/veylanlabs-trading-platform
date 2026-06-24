@@ -296,13 +296,63 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
 
   const [dynamicPrices, setDynamicPrices] = useState<any>(initialPrices);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-  const videoRef = React.useRef<HTMLVideoElement>(null);
+
+  const videoRefA = React.useRef<HTMLVideoElement>(null);
+  const videoRefB = React.useRef<HTMLVideoElement>(null);
+  const [activeVideo, setActiveVideo] = useState<'A' | 'B'>('A');
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.5;
-    }
+    if (videoRefA.current) videoRefA.current.playbackRate = 0.3;
+    if (videoRefB.current) videoRefB.current.playbackRate = 0.3;
   }, []);
+
+  const handleTimeUpdateA = (e: React.SyntheticEvent<HTMLVideoElement>) => {
+    const video = e.currentTarget;
+    const duration = video.duration;
+    if (!duration) return;
+
+    // Transition to B when within 3.5 seconds of the end
+    if (activeVideo === 'A' && video.currentTime >= duration - 3.5) {
+      const nextVideo = videoRefB.current;
+      if (nextVideo && nextVideo.paused) {
+        nextVideo.currentTime = 0;
+        nextVideo.playbackRate = 0.3;
+        nextVideo.play().catch(err => console.log("Video B playback error:", err));
+        setActiveVideo('B');
+      }
+    }
+  };
+
+  const handleTimeUpdateB = (e: React.SyntheticEvent<HTMLVideoElement>) => {
+    const video = e.currentTarget;
+    const duration = video.duration;
+    if (!duration) return;
+
+    // Transition to A when within 3.5 seconds of the end
+    if (activeVideo === 'B' && video.currentTime >= duration - 3.5) {
+      const nextVideo = videoRefA.current;
+      if (nextVideo && nextVideo.paused) {
+        nextVideo.currentTime = 0;
+        nextVideo.playbackRate = 0.3;
+        nextVideo.play().catch(err => console.log("Video A playback error:", err));
+        setActiveVideo('A');
+      }
+    }
+  };
+
+  const handleEndedA = () => {
+    if (videoRefA.current) {
+      videoRefA.current.pause();
+      videoRefA.current.currentTime = 0;
+    }
+  };
+
+  const handleEndedB = () => {
+    if (videoRefB.current) {
+      videoRefB.current.pause();
+      videoRefB.current.currentTime = 0;
+    }
+  };
 
   // Global Mouse Glow Effect
   useEffect(() => {
@@ -514,13 +564,31 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
               {/* Background Video */}
               <div className="absolute inset-0 z-[0] pointer-events-none overflow-hidden bg-black">
                 <video
-                  ref={videoRef}
+                  ref={videoRefA}
                   autoPlay
-                  loop
                   muted
                   playsInline
-                  className="absolute inset-0 w-full h-full object-cover"
+                  preload="auto"
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[3000ms] ease-in-out ${
+                    activeVideo === 'A' ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  style={{ willChange: "opacity", transform: "translate3d(0, 0, 0)" }}
                   src="/test.mp4"
+                  onTimeUpdate={handleTimeUpdateA}
+                  onEnded={handleEndedA}
+                />
+                <video
+                  ref={videoRefB}
+                  muted
+                  playsInline
+                  preload="auto"
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[3000ms] ease-in-out ${
+                    activeVideo === 'B' ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  style={{ willChange: "opacity", transform: "translate3d(0, 0, 0)" }}
+                  src="/test.mp4"
+                  onTimeUpdate={handleTimeUpdateB}
+                  onEnded={handleEndedB}
                 />
 
                 {/* Dark overlay for text readability */}
@@ -1045,98 +1113,74 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
           </div>
         </div>
 
-          {/* Chart Graphics Update */}
-          <div className="sec">
+          {/* Aether Board Section */}
+          <div className="sec" id="aether-board">
             <div className="mk animate-fade-in-up delay-100">
               <div className="sec-head center mb-12">
-                <span className="eyebrow">Session Structure</span>
+                <span className="eyebrow">Aether Board</span>
                 <h2 className="text-4xl md:text-5xl font-display font-bold uppercase tracking-tight mt-2 text-center text-white">
-                  See the session <span className="text-[var(--neon)]">clearly.</span>
+                  Real-time intelligence. <span className="text-[var(--neon)]">On your chart.</span>
                 </h2>
+                <p className="max-w-2xl mx-auto text-text-2 text-center mt-4" style={{ fontSize: 16 }}>
+                  The Aether Dashboard sits directly on your TradingView chart, acting as your personal mentor to keep you aligned with trend, power, and session timing.
+                </p>
+                <div className="flex justify-center mt-6">
+                  <Link href="/aether-board" className="btn btn-soft btn-sm" style={{ padding: '8px 16px', height: 36, display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                    <span>View more</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
               </div>
 
               <div className="max-w-5xl mx-auto rainbow-border">
                 <div className="bg-[var(--bg)] rounded-[14px] overflow-hidden relative">
                   <div className="absolute inset-0 bg-mesh opacity-20 pointer-events-none" />
 
-                  <div className="p-4 md:p-8 relative z-10 flex flex-col md:flex-row gap-6 items-start">
-                    {/* Simulated TradingView Viewport with Aether Indicators */}
-                    <div className="flex-1 w-full bg-[var(--surface)] border border-border/50 rounded-xl p-4 shadow-2xl relative">
-                      <div className="flex items-center justify-between mb-4 border-b border-border/30 pb-3">
-                        <div className="flex items-center gap-3 flex-wrap">
-                          <div className="font-bold text-lg text-white font-mono">XAUUSD</div>
-                          <div className="text-sm text-text-2">15m</div>
-                          <div className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 text-[10px] sm:text-xs font-bold border border-emerald-500/30">
-                            LONDON ACTIVE
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-4 hidden sm:flex">
-                          <div className="flex items-center gap-2">
-                            <span className="w-2 h-2 rounded-full bg-[var(--neon)] shadow-[0_0_8px_var(--neon)] animate-pulse" />
-                            <span className="text-xs text-text-3 uppercase font-mono font-bold tracking-widest">NY Opens in 5h 42m</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Interactive chart visual wrapper */}
-                      <div className="h-[250px] md:h-[350px] flex items-center justify-center w-full relative overflow-hidden">
-                        <Candles c={c} n={40} vol={25} seed={42} tr={0.7} w={700} h={300} />
-
-                        {/* Dynamic Breakout Markers over the chart area */}
-                        <div className="absolute top-[25%] right-[20%] px-3 py-1 bg-emerald-500/20 border border-emerald-500 text-emerald-400 text-xs font-bold font-mono rounded shadow-[0_0_15px_rgba(16,185,129,0.3)] backdrop-blur-md flex items-center gap-1">
-                          <span>✅ CLEAN BREAKOUT</span>
-                        </div>
-                        
-                        <div className="absolute bottom-[25%] left-[30%] px-3 py-1 bg-amber-500/20 border border-amber-500 text-amber-400 text-xs font-bold font-mono rounded shadow-[0_0_15px_rgba(245,158,11,0.3)] backdrop-blur-md flex items-center gap-1">
-                          <span>⚠️ CAUTION: LIQUIDITY SWEEP</span>
-                        </div>
-                      </div>
+                  <div className="p-6 md:p-8 relative z-10 flex flex-col lg:flex-row gap-8 items-center">
+                    {/* Aether Image Container */}
+                    <div className="flex-1 w-full bg-[var(--surface)] border border-border/50 rounded-xl overflow-hidden shadow-2xl relative group">
+                      <div className="absolute inset-0 bg-gradient-to-tr from-[var(--neon)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                      <img 
+                        src="/aether.png" 
+                        alt="Aether Board Interface" 
+                        className="w-full h-auto object-cover block"
+                        style={{ borderBottom: '1px solid var(--border)' }}
+                      />
                     </div>
 
-                    {/* Right Sidebar: Aether Mentor Panel Status */}
-                    <div className="w-full md:w-72 flex flex-col gap-4">
-                      {/* Context/Bias Module */}
-                      <div className="glass-premium p-5 rounded-xl border border-border/50 bg-[var(--surface)]">
-                        <h4 className="text-xs font-mono text-text-3 font-bold tracking-widest uppercase mb-4 text-center">Aether Mentor Panel</h4>
-                        
-                        <div className="mb-4 text-center py-2 px-3 bg-white/5 border border-white/10 rounded-lg">
-                          <span className="text-xs font-bold font-mono text-white tracking-wide block uppercase">Current State</span>
-                          <span className="text-[var(--neon)] text-sm font-bold font-mono">15M CONFIRMS. 5M REFINES.</span>
+                    {/* Feature Details Column */}
+                    <div className="w-full lg:w-80 flex flex-col gap-5">
+                      {/* Trend & Power Card */}
+                      <div className="glass-premium p-5 rounded-xl border border-border/50 bg-[var(--surface)] hover:bg-[var(--surface-2)] transition-all duration-300">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Activity className="w-5 h-5 text-[var(--neon)]" />
+                          <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono">Trend &amp; Power</h4>
                         </div>
-
-                        <div className="space-y-3 font-mono">
-                          <div className="flex justify-between items-center text-xs pb-1 border-b border-border/10">
-                            <span className="text-text-2">HTF Bias (1H)</span>
-                            <span className="font-bold text-emerald-400">🟢 Bullish</span>
-                          </div>
-                          <div className="flex justify-between items-center text-xs pb-1 border-b border-border/10">
-                            <span className="text-text-2">Intraday (15M)</span>
-                            <span className="font-bold text-amber-400">🟡 Mixed</span>
-                          </div>
-                          <div className="flex justify-between items-center text-xs">
-                            <span className="text-text-2">Trigger (5M)</span>
-                            <span className="font-bold text-emerald-400">⚡ Open Chart</span>
-                          </div>
-                        </div>
+                        <p className="text-[11px] text-text-2 leading-relaxed">
+                          Monitor directional trend bias and momentum levels across 1H, 15M, and 5M timeframes simultaneously to ensure high-probability alignment.
+                        </p>
                       </div>
 
-                      {/* Session Range Levels Module */}
-                      <div className="glass-premium p-5 rounded-xl border border-border/50 bg-[var(--surface)]">
-                        <h4 className="text-xs font-mono text-text-3 font-bold tracking-widest uppercase mb-4 text-center">Session Key Levels</h4>
-                        <div className="space-y-3 font-mono">
-                          <div className="flex justify-between items-center">
-                            <span className="text-xs text-text-2">Range High</span>
-                            <span className="text-xs font-bold text-purple-400">4,365.50</span>
-                          </div>
-                          <div className="flex justify-between items-center">
-                            <span className="text-xs text-text-2">Session Mid</span>
-                            <span className="text-xs font-bold text-slate-400">4,332.00</span>
-                          </div>
-                          <div className="flex justify-between items-center">
-                            <span className="text-xs text-text-2">Range Low</span>
-                            <span className="text-xs font-bold text-purple-400">4,305.20</span>
-                          </div>
+                      {/* Aether Mentor Card */}
+                      <div className="glass-premium p-5 rounded-xl border border-border/50 bg-[var(--surface)] hover:bg-[var(--surface-2)] transition-all duration-300">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Zap className="w-5 h-5 text-purple-400" />
+                          <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono">Aether Advisor</h4>
                         </div>
+                        <p className="text-[11px] text-text-2 leading-relaxed">
+                          Provides plain-language guidance directly on your chart, preventing bad entries during dead zones and reminding you when to wait for fresh ranges.
+                        </p>
+                      </div>
+
+                      {/* Session countdown Card */}
+                      <div className="glass-premium p-5 rounded-xl border border-border/50 bg-[var(--surface)] hover:bg-[var(--surface-2)] transition-all duration-300">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Clock className="w-5 h-5 text-emerald-400" />
+                          <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono">Session Clock</h4>
+                        </div>
+                        <p className="text-[11px] text-text-2 leading-relaxed">
+                          Track countdowns to upcoming sessions (e.g. Pre-London, London, New York opens) so you can prepare for opening range breakout strategies in advance.
+                        </p>
                       </div>
                     </div>
 

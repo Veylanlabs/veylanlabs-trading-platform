@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { Logo } from '@/components/logo';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { FaTwitter, FaYoutube, FaDiscord, FaInstagram, FaTelegramPlane } from 'react-icons/fa';
 import { useUser, UserButton } from '@clerk/nextjs';
 
 // Indicator data
@@ -635,9 +636,7 @@ export default function IndicatorsPage() {
       {/* Navigation */}
       <div className="topnav scrolled">
         <div className="nav-in">
-          <Link href="/">
-            <Logo />
-          </Link>
+          <Logo />
           <div className="nav-links">
             <Link href="/#features">Features</Link>
             <Link href="/indicators">Indicators</Link>
@@ -794,6 +793,59 @@ export default function IndicatorsPage() {
           </div>
         </div>
       </section>
+
+      <footer className="footer">
+        <div className="foot">
+          <div className="fb">
+            <Logo />
+            <p>See the structure. Discipline, structure, execution — and a community that trades it live.</p>
+          </div>
+          <div>
+            <h5>Product</h5>
+            <Link href="#features">Indicators</Link>
+            <Link href="#pricing">Pricing</Link>
+            <Link href="/login">Log in</Link>
+          </div>
+          <div>
+            <h5>Learn</h5>
+            <Link href="#features">Features</Link>
+            <Link href="#faq">FAQ</Link>
+            <Link href="#">Academy</Link>
+          </div>
+          <div>
+            <h5>Company</h5>
+            <Link href="#">About</Link>
+            <Link href="#">Contact</Link>
+            <Link href="#">Terms & Privacy</Link>
+          </div>
+        </div>
+
+        <div className="foot-bot flex flex-col md:flex-row justify-between items-center gap-6 mt-16 pt-8 border-t border-white/10">
+          <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left text-sm text-text-3">
+            <span>© 2026 VeylanLabs</span>
+            <span className="hidden md:inline">·</span>
+            <span>Educational use only · Not financial advice · Trade at your own risk.</span>
+          </div>
+
+          <div className="flex items-center gap-6">
+            <Link href="#" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
+              <FaTwitter className="w-6 h-6" />
+            </Link>
+            <Link href="#" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
+              <FaYoutube className="w-6 h-6" />
+            </Link>
+            <Link href="#" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
+              <FaDiscord className="w-6 h-6" />
+            </Link>
+            <Link href="#" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
+              <FaInstagram className="w-6 h-6" />
+            </Link>
+            <Link href="#" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
+              <FaTelegramPlane className="w-6 h-6" />
+            </Link>
+          </div>
+        </div>
+      </footer>
 
       {/* Detail Modal */}
       {selectedIndicator && (

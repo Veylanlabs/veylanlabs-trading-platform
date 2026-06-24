@@ -297,60 +297,33 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
   const [dynamicPrices, setDynamicPrices] = useState<any>(initialPrices);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-  const videoRefA = React.useRef<HTMLVideoElement>(null);
-  const videoRefB = React.useRef<HTMLVideoElement>(null);
-  const [activeVideo, setActiveVideo] = useState<'A' | 'B'>('A');
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+  const [videoVisible, setVideoVisible] = useState(true);
 
   useEffect(() => {
-    if (videoRefA.current) videoRefA.current.playbackRate = 0.3;
-    if (videoRefB.current) videoRefB.current.playbackRate = 0.3;
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.5;
+    }
   }, []);
 
-  const handleTimeUpdateA = (e: React.SyntheticEvent<HTMLVideoElement>) => {
+  const handleTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement>) => {
     const video = e.currentTarget;
     const duration = video.duration;
     if (!duration) return;
 
-    // Transition to B when within 3.5 seconds of the end
-    if (activeVideo === 'A' && video.currentTime >= duration - 3.5) {
-      const nextVideo = videoRefB.current;
-      if (nextVideo && nextVideo.paused) {
-        nextVideo.currentTime = 0;
-        nextVideo.playbackRate = 0.3;
-        nextVideo.play().catch(err => console.log("Video B playback error:", err));
-        setActiveVideo('B');
-      }
+    // Start fading out 1.2 seconds before the end
+    if (videoVisible && video.currentTime >= duration - 1.2) {
+      setVideoVisible(false);
     }
   };
 
-  const handleTimeUpdateB = (e: React.SyntheticEvent<HTMLVideoElement>) => {
-    const video = e.currentTarget;
-    const duration = video.duration;
-    if (!duration) return;
-
-    // Transition to A when within 3.5 seconds of the end
-    if (activeVideo === 'B' && video.currentTime >= duration - 3.5) {
-      const nextVideo = videoRefA.current;
-      if (nextVideo && nextVideo.paused) {
-        nextVideo.currentTime = 0;
-        nextVideo.playbackRate = 0.3;
-        nextVideo.play().catch(err => console.log("Video A playback error:", err));
-        setActiveVideo('A');
-      }
-    }
-  };
-
-  const handleEndedA = () => {
-    if (videoRefA.current) {
-      videoRefA.current.pause();
-      videoRefA.current.currentTime = 0;
-    }
-  };
-
-  const handleEndedB = () => {
-    if (videoRefB.current) {
-      videoRefB.current.pause();
-      videoRefB.current.currentTime = 0;
+  const handleEnded = () => {
+    const video = videoRef.current;
+    if (video) {
+      video.currentTime = 0;
+      video.playbackRate = 0.5;
+      video.play().catch(err => console.log("Video playback error:", err));
+      setVideoVisible(true);
     }
   };
 
@@ -563,33 +536,24 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
             }}>
               {/* Background Video */}
               <div className="absolute inset-0 z-[0] pointer-events-none overflow-hidden bg-black">
-                <video
-                  ref={videoRefA}
-                  autoPlay
-                  muted
-                  playsInline
-                  preload="auto"
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[3000ms] ease-in-out ${
-                    activeVideo === 'A' ? 'opacity-100' : 'opacity-0'
+                <div 
+                  className={`absolute inset-0 w-full h-full transition-opacity duration-[1000ms] ease-in-out ${
+                    videoVisible ? 'opacity-100' : 'opacity-0'
                   }`}
-                  style={{ willChange: "opacity", transform: "translate3d(0, 0, 0)" }}
-                  src="/test.mp4"
-                  onTimeUpdate={handleTimeUpdateA}
-                  onEnded={handleEndedA}
-                />
-                <video
-                  ref={videoRefB}
-                  muted
-                  playsInline
-                  preload="auto"
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[3000ms] ease-in-out ${
-                    activeVideo === 'B' ? 'opacity-100' : 'opacity-0'
-                  }`}
-                  style={{ willChange: "opacity", transform: "translate3d(0, 0, 0)" }}
-                  src="/test.mp4"
-                  onTimeUpdate={handleTimeUpdateB}
-                  onEnded={handleEndedB}
-                />
+                  style={{ willChange: "opacity" }}
+                >
+                  <video
+                    ref={videoRef}
+                    autoPlay
+                    muted
+                    playsInline
+                    preload="auto"
+                    className="absolute inset-0 w-full h-full object-cover"
+                    src="/test.mp4"
+                    onTimeUpdate={handleTimeUpdate}
+                    onEnded={handleEnded}
+                  />
+                </div>
 
                 {/* Dark overlay for text readability */}
                 <div className="absolute inset-0 bg-black/10" />
@@ -1117,7 +1081,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
           <div className="sec" id="aether-board">
             <div className="mk animate-fade-in-up delay-100">
               <div className="sec-head center mb-12">
-                <span className="eyebrow">Aether Board</span>
+                <span className="eyebrow">Aether Bot</span>
                 <h2 className="text-4xl md:text-5xl font-display font-bold uppercase tracking-tight mt-2 text-center text-white">
                   Real-time intelligence. <span className="text-[var(--neon)]">On your chart.</span>
                 </h2>
@@ -1142,7 +1106,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
                       <div className="absolute inset-0 bg-gradient-to-tr from-[var(--neon)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                       <img 
                         src="/aether.png" 
-                        alt="Aether Board Interface" 
+                        alt="Aether Bot Interface" 
                         className="w-full h-auto object-cover block"
                         style={{ borderBottom: '1px solid var(--border)' }}
                       />

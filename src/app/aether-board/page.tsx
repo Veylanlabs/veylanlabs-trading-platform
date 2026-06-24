@@ -3,13 +3,13 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { 
-  ArrowLeft, 
-  Activity, 
-  Clock, 
-  Zap, 
-  ShieldCheck, 
-  TrendingUp, 
+import {
+  ArrowLeft,
+  Activity,
+  Clock,
+  Zap,
+  ShieldCheck,
+  TrendingUp,
   AlertTriangle,
   CheckCircle2,
   XCircle,
@@ -64,7 +64,7 @@ export default function AetherBoardPage() {
 
       <section style={{ position: 'relative', overflow: 'hidden', paddingTop: '100px', paddingBottom: '80px' }}>
         <div className="mk animate-fade-in-up">
-          
+
           {/* Back Navigation */}
           <div className="max-w-5xl mx-auto mb-6">
             <Link href="/" className="inline-flex items-center gap-2 text-text-3 hover:text-[var(--neon)] transition-colors text-sm font-medium">
@@ -88,12 +88,12 @@ export default function AetherBoardPage() {
           <div className="max-w-5xl mx-auto rainbow-border mb-16">
             <div className="bg-[var(--bg)] rounded-[14px] overflow-hidden relative p-4 md:p-8">
               <div className="absolute inset-0 bg-mesh opacity-20 pointer-events-none" />
-              
+
               <div className="relative z-10 flex flex-col items-center">
                 <div className="w-full bg-[var(--surface)] border border-border/50 rounded-xl overflow-hidden shadow-2xl">
-                  <img 
-                    src="/aether.png" 
-                    alt="Aether Board Interface Detail" 
+                  <img
+                    src="/aether.png"
+                    alt="Aether Bot Interface Detail"
                     className="w-full h-auto object-cover block"
                   />
                 </div>
@@ -115,13 +115,13 @@ export default function AetherBoardPage() {
 
           {/* Breakdown Section */}
           <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-            
+
             {/* Left: Component Details */}
             <div className="space-y-6">
               <h2 className="text-2xl font-bold uppercase tracking-tight text-white font-display border-b border-border/50 pb-3">
                 Interface Breakdown
               </h2>
-              
+
               <div className="space-y-4">
                 <div className="flex gap-4">
                   <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-[var(--neon)]/10 border border-[var(--neon)]/30 flex items-center justify-center text-[var(--neon)]">
@@ -185,12 +185,12 @@ export default function AetherBoardPage() {
                     Built For Discipline
                   </h2>
                 </div>
-                
+
                 <p className="text-[11px] text-text-2 leading-relaxed mb-4">
-                  The primary cause of retail trading losses is overtrading during low-liquidity zones or forcing trades when no structured session ranges are valid. 
+                  The primary cause of retail trading losses is overtrading during low-liquidity zones or forcing trades when no structured session ranges are valid.
                 </p>
                 <p className="text-[11px] text-text-2 leading-relaxed mb-4">
-                  Aether Board directly corrects this behavior. By combining multi-timeframe trends with a literal rule-engine interface on-chart, it enforces discipline and keeps you patient.
+                  Aether Bot  directly corrects this behavior. By combining multi-timeframe trends with a literal rule-engine interface on-chart, it enforces discipline and keeps you patient.
                 </p>
 
                 <div className="border-t border-border/30 pt-4 mt-6">
@@ -223,7 +223,7 @@ export default function AetherBoardPage() {
             <h2 className="text-2xl font-bold uppercase tracking-tight text-white font-display border-b border-border/50 pb-3 mb-8 text-center">
               The Execution Workflow: 15M Confirms, 5M Refines
             </h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="glass-premium p-6 rounded-xl border border-border/50 bg-[var(--surface)] text-center relative">
                 <div className="w-10 h-10 rounded-full bg-[var(--neon)]/10 border border-[var(--neon)]/30 flex items-center justify-center text-[var(--neon)] font-mono font-bold text-sm mx-auto mb-4">
@@ -262,7 +262,7 @@ export default function AetherBoardPage() {
             <h2 className="text-2xl font-bold uppercase tracking-tight text-white font-display border-b border-border/50 pb-3 mb-8">
               Breakout Quality Classifications
             </h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="glass-premium p-5 rounded-xl border border-border/50 bg-[var(--surface)] flex gap-4">
                 <div className="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400">
@@ -304,11 +304,11 @@ export default function AetherBoardPage() {
 
           {/* Specifications & Release Notes Grid */}
           <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-            
+
             {/* Left: Recommended Markets */}
             <div className="glass-premium p-6 rounded-2xl border border-border/50 bg-[var(--surface)]">
               <h3 className="text-lg font-bold text-white uppercase tracking-wider font-mono mb-4">Supported Environment</h3>
-              
+
               <div className="space-y-4">
                 <div>
                   <h4 className="text-xs font-bold text-white font-mono uppercase mb-1">Recommended Timeframes</h4>
@@ -316,7 +316,7 @@ export default function AetherBoardPage() {
                     Aether SR functions best with a **15-minute chart** for range breakout confirmations, and a **5-minute chart** to refine your pullback entries.
                   </p>
                 </div>
-                
+
                 <div>
                   <h4 className="text-xs font-bold text-white font-mono uppercase mb-1">Best Trading Markets</h4>
                   <p className="text-[11px] text-text-2 leading-relaxed">
@@ -329,7 +329,7 @@ export default function AetherBoardPage() {
             {/* Right: Release Notes */}
             <div className="glass-premium p-6 rounded-2xl border border-border/50 bg-[var(--surface)]">
               <h3 className="text-lg font-bold text-white uppercase tracking-wider font-mono mb-4">Recent Release Notes</h3>
-              
+
               <div className="space-y-4">
                 <div className="border-b border-border/30 pb-3">
                   <div className="flex justify-between items-center mb-1">

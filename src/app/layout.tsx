@@ -48,7 +48,7 @@ export default function RootLayout({
         className={`${rajdhani.variable} ${bebasNeue.variable} ${jetbrains.variable} h-full antialiased`}
       >
         <body className="min-h-full flex flex-col transition-colors duration-500">
-          <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange={false}>
+          <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark" disableTransitionOnChange={false}>
             <RippleEffect />
             {children}
           </ThemeProvider>

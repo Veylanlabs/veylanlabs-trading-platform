@@ -1394,3 +1394,529 @@ html:not(.dark) .vl .input { background: var(--surface-2); }
 }
 
 
+/* ============================================================
+   VeylanLabs — Particle Background Canvas
+   ============================================================ */
+.vl-particle-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  opacity: 0.55;
+}
+.dark .vl-particle-canvas { opacity: 0.65; }
+
+/* ============================================================
+   VeylanLabs — Indicator Tools Section (Image 3 style)
+   ============================================================ */
+.vl-tools-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.vl-tools-row-1 {
+  display: grid;
+  grid-template-columns: 1fr 1.8fr; /* Text on left, Wide Card on right */
+  gap: 24px;
+  align-items: stretch;
+}
+
+@keyframes slow-pan {
+  0% { transform: scale(1.05) translate(0px, 0px); }
+  50% { transform: scale(1.1) translate(-10px, 5px); }
+  100% { transform: scale(1.05) translate(0px, 0px); }
+}
+
+@media (max-width: 1024px) {
+  .vl-tools-row-1 { grid-template-columns: 1fr; }
+}
+
+.vl-tools-title-area {
+  padding-right: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.vl-tools-title-area h2 {
+  font-size: clamp(36px, 4vw, 56px);
+  line-height: 1.05;
+  font-weight: 800;
+  margin: 12px 0 18px;
+}
+.vl-tools-title-area p {
+  font-size: 16px;
+  color: var(--text-2);
+  line-height: 1.65;
+  margin-bottom: 28px;
+}
+
+/* Wide Card (Aether) */
+.vl-tools-card-wide {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+@media (max-width: 768px) {
+  .vl-tools-card-wide { grid-template-columns: 1fr; }
+}
+.vl-tools-card-wide:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 30px var(--ring), 0 8px 30px rgba(0,0,0,0.4);
+  transform: translateY(-2px);
+}
+.vl-tools-card-content {
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Row 2 (Bottom Cards) */
+.vl-tools-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+@media (max-width: 860px) {
+  .vl-tools-row-2 { grid-template-columns: 1fr; }
+}
+
+/* Chart Mocks Backgrounds */
+.vl-tools-hero-right {
+  position: relative;
+  background: #050a06;
+  min-height: 380px;
+  overflow: hidden;
+  border-left: 1px solid rgba(163,230,53,0.1);
+  display: flex;
+  flex-direction: column;
+}
+.dark .vl-tools-hero-right { background: #020502; }
+
+.vl-aether-chart-mock {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.vl-chart-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.vl-chart-pill {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 3px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+.vl-chart-pill.green { background: rgba(163,230,53,0.15); color: #a3e635; border: 1px solid rgba(163,230,53,0.3); }
+.vl-chart-pill.gray  { background: rgba(255,255,255,0.05); color: #64748b; border: 1px solid rgba(255,255,255,0.08); }
+.vl-chart-pill.red   { background: rgba(255,51,102,0.12); color: #ff3366; border: 1px solid rgba(255,51,102,0.25); }
+
+.vl-session-labels {
+  display: flex;
+  gap: 0;
+  margin-bottom: 8px;
+  font-family: var(--font-mono), monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #64748b;
+  text-transform: uppercase;
+}
+.vl-session-label { flex: 1; text-align: center; padding: 4px 0; border-right: 1px solid rgba(255,255,255,0.05); }
+.vl-session-label:last-child { border-right: none; }
+.vl-session-label.active { color: #a3e635; }
+
+/* Fake candles chart area */
+.vl-chart-candles {
+  flex: 1;
+  position: relative;
+  background: rgba(0,0,0,0.3);
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+  overflow: hidden;
+}
+.vl-chart-candles canvas { display: block; width: 100%; height: 100%; }
+
+/* The guidance panel floating on chart */
+.vl-aether-panel {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(5,5,5,0.92);
+  border: 1px solid rgba(163,230,53,0.25);
+  border-radius: 10px;
+  padding: 12px 14px;
+  min-width: 160px;
+  box-shadow: 0 0 20px rgba(163,230,53,0.1);
+  backdrop-filter: blur(12px);
+}
+.vl-aether-panel-title {
+  font-family: var(--font-mono), monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #a3e635;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(163,230,53,0.15);
+}
+.vl-aether-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 3px 0;
+  font-size: 10px;
+  font-family: var(--font-mono), monospace;
+}
+.vl-aether-row .k { color: #64748b; }
+.vl-aether-row .v { font-weight: 700; }
+.vl-aether-row .v.green { color: #a3e635; }
+.vl-aether-row .v.yellow { color: #f59e0b; }
+.vl-aether-row .v.red { color: #ff3366; }
+.vl-aether-row .v.white { color: #e2e8f0; }
+
+/* Bottom indicator cards row */
+.vl-indicator-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+@media (max-width: 860px) { .vl-indicator-cards { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .vl-indicator-cards { grid-template-columns: 1fr; } }
+
+.vl-indicator-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.vl-indicator-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 30px var(--ring), 0 8px 24px rgba(0,0,0,0.3);
+  transform: translateY(-3px);
+}
+.vl-indicator-card-img {
+  height: 160px;
+  overflow: hidden;
+  position: relative;
+  background: #050a06;
+}
+.vl-indicator-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.4s ease;
+}
+.vl-indicator-card:hover .vl-indicator-card-img img { transform: scale(1.04); }
+.vl-indicator-card-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, var(--surface) 100%);
+}
+.vl-indicator-card-body {
+  padding: 18px 20px 22px;
+}
+.vl-indicator-card-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.vl-indicator-card-icon {
+  width: 26px; height: 26px;
+  border-radius: 7px;
+  background: var(--glow);
+  border: 1px solid rgba(163,230,53,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+.vl-indicator-card-icon svg { width: 13px; height: 13px; }
+.vl-indicator-card-label {
+  font-family: var(--font-mono), monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+.vl-indicator-card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.vl-indicator-card p {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.55;
+  margin-bottom: 12px;
+}
+.vl-indicator-card-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 14px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.vl-indicator-card-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  font-size: 12px;
+  color: var(--text-2);
+}
+.vl-indicator-card-features li svg {
+  width: 11px; height: 11px;
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.vl-indicator-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-text);
+  transition: gap 0.2s ease;
+}
+.vl-indicator-card:hover .vl-indicator-card-link { gap: 8px; }
+.vl-indicator-card-link svg { width: 12px; height: 12px; }
+
+/* Pair Screener Panel */
+.vl-pair-screener {
+  background: rgba(5,10,6,0.95);
+  border: 1px solid rgba(163,230,53,0.15);
+  border-radius: 10px;
+  overflow: hidden;
+  font-family: var(--font-mono), monospace;
+  font-size: 10.5px;
+}
+.vl-pair-screener-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: rgba(0,0,0,0.4);
+}
+.vl-pair-screener-title { color: #a3e635; font-weight: 700; font-size: 10px; letter-spacing: 0.1em; }
+.vl-pair-screener-live { display: flex; align-items: center; gap: 5px; color: #a3e635; font-size: 9px; }
+.vl-pair-screener-live span { width: 5px; height: 5px; border-radius: 50%; background: #a3e635; animation: blink 1.2s infinite; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+
+.vl-pair-screener-cols {
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr 1fr 0.9fr 0.7fr;
+  padding: 6px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  color: #475569;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.vl-pair-screener-row {
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr 1fr 0.9fr 0.7fr;
+  padding: 7px 14px;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  transition: background 0.2s;
+}
+.vl-pair-screener-row:last-child { border-bottom: none; }
+.vl-pair-screener-row:hover { background: rgba(163,230,53,0.04); }
+.vl-pair-row-pair { color: #e2e8f0; font-weight: 700; font-size: 11px; }
+.vl-pair-row-trend-up { color: #a3e635; }
+.vl-pair-row-trend-dn { color: #ff3366; }
+.vl-pair-row-setup-buy { color: #a3e635; font-size: 9px; font-weight: 700; }
+.vl-pair-row-setup-sell { color: #ff3366; font-size: 9px; font-weight: 700; }
+.vl-pair-strength { display: flex; gap: 2px; }
+.vl-pair-strength-dot { width: 7px; height: 7px; border-radius: 1px; }
+.vl-pair-signal-buy { background: rgba(163,230,53,0.2); color: #a3e635; border: 1px solid rgba(163,230,53,0.4); padding: 1px 7px; border-radius: 3px; font-size: 9px; font-weight: 700; }
+.vl-pair-signal-sell { background: rgba(255,51,102,0.15); color: #ff3366; border: 1px solid rgba(255,51,102,0.3); padding: 1px 7px; border-radius: 3px; font-size: 9px; font-weight: 700; }
+
+/* ============================================================
+   VeylanLabs — Pill Badge Comparison Table
+   ============================================================ */
+.vl-compare-table { width: 100%; border-collapse: collapse; }
+
+.vl-compare-table th:first-child {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  font-weight: 700;
+  padding: 20px 24px;
+  text-align: left;
+  width: 35%;
+}
+.vl-compare-table th.col-ours {
+  text-align: center;
+  padding: 20px 24px;
+  position: relative;
+  background: linear-gradient(180deg, rgba(163,230,53,0.08) 0%, transparent 100%);
+  border-left: 1px solid rgba(163,230,53,0.15);
+  border-right: 1px solid rgba(163,230,53,0.15);
+  width: 32.5%;
+}
+.vl-compare-table th.col-theirs {
+  text-align: center;
+  padding: 20px 24px;
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  font-weight: 700;
+  width: 32.5%;
+}
+.vl-compare-col-label { font-size: 17px; font-weight: 700; color: var(--text); display: block; margin-bottom: 2px; }
+.vl-compare-col-sub { font-size: 10px; font-family: var(--font-mono), monospace; color: var(--accent-text); letter-spacing: 0.1em; }
+
+.vl-compare-table tr.body-row { border-top: 1px solid var(--border); }
+.vl-compare-table tr.body-row:hover { background: var(--surface-2); }
+
+.vl-compare-table td:first-child {
+  padding: 14px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-2);
+}
+.vl-compare-table td.col-ours {
+  padding: 14px 24px;
+  text-align: center;
+  background: rgba(163,230,53,0.03);
+  border-left: 1px solid rgba(163,230,53,0.1);
+  border-right: 1px solid rgba(163,230,53,0.1);
+}
+.vl-compare-table td.col-theirs {
+  padding: 14px 24px;
+  text-align: center;
+}
+
+.vl-pill-yes {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(163,230,53,0.12);
+  color: #a3e635;
+  border: 1px solid rgba(163,230,53,0.3);
+  border-radius: 5px;
+  padding: 4px 12px;
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.vl-pill-no {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255,51,102,0.1);
+  color: #ff3366;
+  border: 1px solid rgba(255,51,102,0.25);
+  border-radius: 5px;
+  padding: 4px 12px;
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.vl-pill-neutral {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(100,116,139,0.1);
+  color: #64748b;
+  border: 1px solid rgba(100,116,139,0.2);
+  border-radius: 5px;
+  padding: 4px 12px;
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* Benefits strip below cards */
+.vl-benefits-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+@media (max-width: 700px) { .vl-benefits-strip { grid-template-columns: 1fr; } }
+.vl-benefit {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  transition: all 0.25s;
+}
+.vl-benefit:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px var(--ring); }
+.vl-benefit-icon {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  background: var(--glow);
+  border: 1px solid rgba(163,230,53,0.2);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.vl-benefit-icon svg { width: 18px; height: 18px; }
+.vl-benefit h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+.vl-benefit p { font-size: 12.5px; color: var(--text-2); line-height: 1.55; }
+
+/* All-in-one CTA band */
+.vl-cta-band {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 36px;
+  margin-top: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.vl-cta-band::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(163,230,53,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+.vl-cta-band h3 { font-size: clamp(18px,2.5vw,26px); line-height: 1.2; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.vl-cta-band p { font-size: 14px; color: var(--text-2); }
+@media (max-width: 640px) { .vl-cta-band { flex-direction: column; text-align: center; padding: 24px 20px; } }
+

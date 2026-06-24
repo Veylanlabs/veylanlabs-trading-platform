@@ -3,6 +3,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { 
   ArrowLeft, 
@@ -12,11 +13,7 @@ import {
   TrendingUp,
   Check,
   X,
-  ExternalLink,
-  Shield,
-  Clock,
-  Zap,
-  AlertTriangle
+  Zap
 } from 'lucide-react';
 import { Logo } from '@/components/logo';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -25,10 +22,11 @@ import { useUser, UserButton } from '@clerk/nextjs';
 // Indicator data
 const INDICATORS = [
   {
+    image_path : "/indicator_1.png",
     id: 'veyran-sr-screener',
     name: 'VeylanLabs SR Screener',
     category: 'Screener',
-    description: 'Compact multi-symbol dashboard built around the Session Range / ORB opening-range workflow. Monitors the first 15-minute candle of selected market sessions.',
+    shortDescription: 'Multi-symbol dashboard built around the Session Range / ORB opening-range workflow. Monitors the first 15-minute candle of selected market sessions across Tokyo, London, and New York opens.',
     fullDescription: `VeylanLabs SR Screener is a compact multi-symbol dashboard built around the Session Range / ORB opening-range workflow.
 
 The screener monitors the first 15-minute candle of selected market sessions and uses that opening range as the main structure for reading price location, directional bias, and breakout behaviour across multiple symbols.
@@ -43,10 +41,10 @@ It tracks whether price is trading inside, above, or below the first 15-minute s
 
 The goal is simple:
 
-🟢 Help traders find active opening-range breaks faster.
-🟢 Help traders compare several symbols from one chart.
-🟢 Help traders avoid wasting time on inactive markets.
-🟢 Help traders stay focused on structured Session Range conditions.
+• Help traders find active opening-range breaks faster
+• Help traders compare several symbols from one chart
+• Help traders avoid wasting time on inactive markets
+• Help traders stay focused on structured Session Range conditions
 
 Opening Range / ORB Logic
 
@@ -73,25 +71,22 @@ Shows the selected market or pair being monitored.
 Bias
 Shows the current directional read.
 
-🟢 Long = bullish conditions
-🔴 Short = bearish conditions
-🟡 Wait = mixed or unclear conditions
+Long = bullish conditions
+Short = bearish conditions
+Wait = mixed or unclear conditions
 
 Range
 Shows where price is trading compared to the first 15-minute session range.
 
-▲ Above = price is above the opening range
-▼ Below = price is below the opening range
+Above = price is above the opening range
+Below = price is below the opening range
 Inside = price is still inside the opening range
 
 Break
 Shows whether price is breaking the opening range.
 
-✅ Up = upside range break with bullish alignment
-✅ Down = downside range break with bearish alignment
-❌ Up / ❌ Down = break direction is not aligned
-⚠ Up / ⚠ Down = caution, conditions are mixed
-— = no active range break
+Up = upside range break with bullish alignment
+Down = downside range break with bearish alignment
 
 How to Use It
 
@@ -121,122 +116,124 @@ Always use proper risk management and confirm the full chart setup before enteri
     status: 'Active',
     color: 'emerald'
   },
+//   {
+//     image_path : "/indicator_2.png",
+//     id: 'veyran-ahl-screener',
+//     name: 'VeylanLabs AHL Screener',
+//     category: 'Screener',
+//     shortDescription: 'Multi-symbol session scanner built around the Asia High / Low trading framework. Helps intraday traders identify which markets to watch during London and New York sessions.',
+//     fullDescription: `VeylanLabs AHL Screener is a multi-symbol session scanner built around the Asia High / Low trading framework. The purpose of the script is to help intraday traders quickly identify which markets are worth opening during the London and New York trading sessions.
+
+// This screener is not a random signal table. It is a market-selection tool that combines Asian session range structure, multi-timeframe bias, break conditions, and session-aware filtering into one compact panel.
+
+// Core Concept
+
+// Many intraday traders use the Asian session high and low as key reference levels. After the Asian range is complete, price often reacts around those levels during London and New York. Some markets stay inside the range, some break cleanly, some sweep one side and return, and some move during poor liquidity where no trade should be taken.
+
+// The screener is designed to answer one practical question:
+
+// Which chart deserves attention right now?
+
+// Instead of manually checking every symbol, the trader can use the screener to filter a watchlist and focus on the cleanest markets first.
+
+// How the Screener Works
+
+// The screener checks selected symbols and reads each market through a fixed Asia High / Low structure. It tracks whether the Asian range is still forming, completed, inside, broken, swept, or inactive.
+
+// For each symbol, the table displays:
+
+// Symbol
+// Directional bias
+// Asia range status
+// Break condition
+// Current read
+
+// The goal is to show whether a market is waiting, preparing, active, breaking, reacting, or in a no-trade state.
+
+// Asia Range Logic
+
+// During the Asian session, the screener allows the range to form. It does not display breakout setups while the range is still building.
+
+// After the range is complete, the screener compares current 15M price action against the completed Asia High and Asia Low. This allows the table to show whether price is trading inside the range, above the range, below the range, or reacting near the boundaries.
+
+// This helps traders avoid treating an incomplete Asia range as a valid trade structure.
+
+// Session-Aware Behavior
+
+// The screener changes behavior depending on the market session.
+
+// During Asia, the screener focuses on range formation and shows a wait condition.
+
+// Before London, the screener can show preparation status after the range is complete.
+
+// During London and New York, the screener becomes active and looks for symbols reacting to the completed Asia range.
+
+// After New York closes, the screener moves into quiet-zone behavior. This is used to avoid low-liquidity conditions where Asia High / Low setups are no longer active.
+
+// This session filter is important because the same Asia range condition should not be treated the same during active market hours and low-liquidity periods.
+
+// Bias Model
+
+// The screener does not read an Asia break in isolation. It also checks directional context across multiple timeframes.
+
+// The bias model uses higher-timeframe and intraday structure to decide whether a market is leaning long, short, mixed, or not ready. The model is based on trend alignment, price position, directional movement, and strength conditions.
+
+// This helps prevent the screener from treating every break above Asia High or below Asia Low as equal.
+
+// For example, a break above Asia High is not treated the same when higher timeframes are bullish, mixed, or bearish.
+
+// Main Columns
+
+// Symbol
+// Shows the selected market being scanned.
+
+// Bias
+// Shows whether the market context is leaning long, short, mixed, or pulling against the higher-timeframe direction.
+
+// Asia
+// Shows the current Asia range condition. Examples include Forming, Ready, Inside, Above, Below, Sweep H, Sweep L, Quiet, or No Range.
+
+// Break
+// Shows whether the market has an active Asia High / Low break condition. Long-side breaks are shown with L, short-side breaks are shown with S, and caution conditions can be shown when price is outside the range but the full context is not clean.
+
+// Read
+// Gives the trader a practical action-style overview. Examples include Wait, Prep, Inside, Watch, Open Chart, 5M Entry, Caution, and No Trade.
+
+// The Read column is designed to help the trader decide whether the symbol deserves deeper chart analysis.
+
+// Break Modes
+
+// The screener includes three break modes:
+
+// All
+// Shows all confirmed Asia High / Low break conditions.
+
+// Smart
+// Filters out breaks that directly conflict with stronger higher-timeframe context. This is designed to reduce lower-quality reads.
+
+// Strict
+// Only highlights breaks that align with the higher-timeframe direction. This is the most selective mode.
+
+// These modes allow traders to choose how aggressive or conservative they want the screener to be.`,
+//     features: [
+//       'Asia High/Low range scanning',
+//       'Session-aware filtering',
+//       'Multi-timeframe bias model',
+//       'Three break modes (All/Smart/Strict)',
+//       '15M range-position reading',
+//       'Action-style read column'
+//     ],
+//     icon: BarChart3,
+//     badge: 'Invite-only',
+//     status: 'Active',
+//     color: 'blue'
+//   },
   {
-    id: 'veyran-ahl-screener',
-    name: 'VeylanLabs AHL Screener',
-    category: 'Screener',
-    description: 'Multi-symbol session scanner built around the Asia High / Low trading framework. Helps intraday traders identify which markets to watch during London and New York sessions.',
-    fullDescription: `VeylanLabs AHL Screener is a multi-symbol session scanner built around the Asia High / Low trading framework. The purpose of the script is to help intraday traders quickly identify which markets are worth opening during the London and New York trading sessions.
-
-This screener is not a random signal table. It is a market-selection tool that combines Asian session range structure, multi-timeframe bias, break conditions, and session-aware filtering into one compact panel.
-
-Core Concept
-
-Many intraday traders use the Asian session high and low as key reference levels. After the Asian range is complete, price often reacts around those levels during London and New York. Some markets stay inside the range, some break cleanly, some sweep one side and return, and some move during poor liquidity where no trade should be taken.
-
-The screener is designed to answer one practical question:
-
-Which chart deserves attention right now?
-
-Instead of manually checking every symbol, the trader can use the screener to filter a watchlist and focus on the cleanest markets first.
-
-How the Screener Works
-
-The screener checks selected symbols and reads each market through a fixed Asia High / Low structure. It tracks whether the Asian range is still forming, completed, inside, broken, swept, or inactive.
-
-For each symbol, the table displays:
-
-Symbol
-Directional bias
-Asia range status
-Break condition
-Current read
-
-The goal is to show whether a market is waiting, preparing, active, breaking, reacting, or in a no-trade state.
-
-Asia Range Logic
-
-During the Asian session, the screener allows the range to form. It does not display breakout setups while the range is still building.
-
-After the range is complete, the screener compares current 15M price action against the completed Asia High and Asia Low. This allows the table to show whether price is trading inside the range, above the range, below the range, or reacting near the boundaries.
-
-This helps traders avoid treating an incomplete Asia range as a valid trade structure.
-
-Session-Aware Behavior
-
-The screener changes behavior depending on the market session.
-
-During Asia, the screener focuses on range formation and shows a wait condition.
-
-Before London, the screener can show preparation status after the range is complete.
-
-During London and New York, the screener becomes active and looks for symbols reacting to the completed Asia range.
-
-After New York closes, the screener moves into quiet-zone behavior. This is used to avoid low-liquidity conditions where Asia High / Low setups are no longer active.
-
-This session filter is important because the same Asia range condition should not be treated the same during active market hours and low-liquidity periods.
-
-Bias Model
-
-The screener does not read an Asia break in isolation. It also checks directional context across multiple timeframes.
-
-The bias model uses higher-timeframe and intraday structure to decide whether a market is leaning long, short, mixed, or not ready. The model is based on trend alignment, price position, directional movement, and strength conditions.
-
-This helps prevent the screener from treating every break above Asia High or below Asia Low as equal.
-
-For example, a break above Asia High is not treated the same when higher timeframes are bullish, mixed, or bearish.
-
-Main Columns
-
-Symbol
-Shows the selected market being scanned.
-
-Bias
-Shows whether the market context is leaning long, short, mixed, or pulling against the higher-timeframe direction.
-
-Asia
-Shows the current Asia range condition. Examples include Forming, Ready, Inside, Above, Below, Sweep H, Sweep L, Quiet, or No Range.
-
-Break
-Shows whether the market has an active Asia High / Low break condition. Long-side breaks are shown with L, short-side breaks are shown with S, and caution conditions can be shown when price is outside the range but the full context is not clean.
-
-Read
-Gives the trader a practical action-style overview. Examples include Wait, Prep, Inside, Watch, Open Chart, 5M Entry, Caution, and No Trade.
-
-The Read column is designed to help the trader decide whether the symbol deserves deeper chart analysis.
-
-Break Modes
-
-The screener includes three break modes:
-
-All
-Shows all confirmed Asia High / Low break conditions.
-
-Smart
-Filters out breaks that directly conflict with stronger higher-timeframe context. This is designed to reduce lower-quality reads.
-
-Strict
-Only highlights breaks that align with the higher-timeframe direction. This is the most selective mode.
-
-These modes allow traders to choose how aggressive or conservative they want the screener to be.`,
-    features: [
-      'Asia High/Low range scanning',
-      'Session-aware filtering',
-      'Multi-timeframe bias model',
-      'Three break modes (All/Smart/Strict)',
-      '15M range-position reading',
-      'Action-style read column'
-    ],
-    icon: BarChart3,
-    badge: 'Invite-only',
-    status: 'Active',
-    color: 'blue'
-  },
-  {
+    image_path : "/indicator_3.png",
     id: 'aether-asia-high-low',
     name: 'VeylanLabs Aether Asia High Low',
     category: 'Strategy',
-    description: 'Session-based market-structure indicator built around the Asian session high and low. Combines session mapping, range context, multi-timeframe trend reading, and real-time guidance.',
+    shortDescription: 'Session-based market-structure indicator built around the Asian session high and low. Combines session mapping, range context, and multi-timeframe trend reading.',
     fullDescription: `VeylanLabs Aether Asia H/L is a session-based market-structure indicator built around the Asian session high and low. The purpose of the script is to help intraday traders read the completed Asian range, understand where price is trading in relation to that range, and use London and New York session movement with more structure.
 
 This indicator is not a simple session box and it is not a random buy/sell signal tool. It combines session mapping, range context, multi-timeframe trend reading, momentum/power conditions, previous-day levels, breakout/rejection logic, and a real-time guidance panel into one chart framework.
@@ -340,10 +337,11 @@ These modes allow traders to choose how selective they want the indicator to be.
     color: 'purple'
   },
   {
+    image_path : "/indicator_4.png",
     id: 'aether-session-range',
     name: 'VeylanLabs Aether Session Range',
     category: 'Indicator',
-    description: 'Guided session range indicator built for traders who want more structure, patience, and clarity around Tokyo, London, and New York market opens.',
+    shortDescription: 'Guided session range indicator built for traders who want more structure, patience, and clarity around Tokyo, London, and New York market opens.',
     fullDescription: `VeylanLabs Aether Session Range is a guided session range indicator built for traders who want more structure, patience, and clarity around the Tokyo, London, and New York market opens.
 
 Aether is not a random AI buy/sell bot. It is a real trading strategy programmed into session structure, price movement, and real-time chart guidance.
@@ -440,13 +438,13 @@ Clean / Caution / Risk Markers
 
 Aether uses simple visual markers to help classify breakout conditions:
 
-✅ Clean breakout
+Clean breakout
 The breakout is supported and has better structure.
 
-⚠️ Caution
+Caution
 The breakout may need more confirmation, better acceptance, or a cleaner retest.
 
-❌ Risk / wrong-side breakout
+Risk / wrong-side breakout
 The breakout is lower quality or against the active conditions.
 
 These markers are not meant to replace trader judgment. They are designed to help traders quickly understand breakout quality.
@@ -626,13 +624,6 @@ export default function IndicatorsPage() {
     amber: 'border-amber-500/30 bg-amber-500/10 text-amber-400'
   };
 
-  const glowMap: Record<string, string> = {
-    emerald: 'shadow-[0_0_30px_rgba(16,185,129,0.15)]',
-    blue: 'shadow-[0_0_30px_rgba(59,130,246,0.15)]',
-    purple: 'shadow-[0_0_30px_rgba(168,85,247,0.15)]',
-    amber: 'shadow-[0_0_30px_rgba(245,158,11,0.15)]'
-  };
-
   return (
     <div className="vl">
       {/* Background */}
@@ -649,7 +640,7 @@ export default function IndicatorsPage() {
           </Link>
           <div className="nav-links">
             <Link href="/#features">Features</Link>
-             <Link href="/indicators" >Indicators</Link>
+            <Link href="/indicators">Indicators</Link>
             <Link href="/#pricing">Pricing</Link>
             <Link href="/#faq">FAQ</Link>
           </div>
@@ -677,10 +668,10 @@ export default function IndicatorsPage() {
         <div className="mk animate-fade-in-up">
           {/* Header */}
           <div className="sec-head center mb-16">
-            <Link href="/" className="inline-flex items-center gap-2 text-text-3 hover:text-[var(--neon)] transition-colors mb-6 text-sm font-medium">
+            {/* <Link href="/" className="inline-flex items-center gap-2 text-text-3 hover:text-[var(--neon)] transition-colors mb-6 text-sm font-medium">
               <ArrowLeft className="w-4 h-4" />
               Back to Home
-            </Link>
+            </Link> */}
             <span className="eyebrow">Indicators & Strategies</span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold uppercase tracking-tight mt-2">
               VeylanLabs <span className="text-[var(--neon)]">Toolkit</span>
@@ -690,60 +681,95 @@ export default function IndicatorsPage() {
             </p>
           </div>
 
-          {/* Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          {/* List View */}
+          <div className="max-w-5xl mx-auto space-y-8">
             {INDICATORS.map((indicator, index) => {
               const Icon = indicator.icon;
+              const isImageLeft = index % 2 === 0;
+              
               return (
                 <motion.div
                   key={indicator.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className={`glass-premium rounded-2xl border border-border/50 p-6 hover:border-[var(--neon)] transition-all duration-500 cursor-pointer group relative ${glowMap[indicator.color]}`}
+                  className={`glass-premium rounded-2xl border border-border/50 p-6 hover:border-[var(--neon)] transition-all duration-500 cursor-pointer group relative overflow-hidden`}
                   onClick={() => setSelectedIndicator(indicator)}
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-[var(--neon)]/0 via-[var(--neon)]/0 to-[var(--neon)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
                   
-                  <div className="flex items-start justify-between mb-4">
-                    <div className={`p-3 rounded-xl border ${colorMap[indicator.color]} backdrop-blur-sm`}>
-                      <Icon className="w-6 h-6" />
+                  <div className={`flex flex-col md:flex-row ${isImageLeft ? 'md:flex-row' : 'md:flex-row-reverse'} gap-6 items-start`}>
+                    {/* Image */}
+                    <div className="md:w-2/5 flex-shrink-0">
+                      <div className="relative rounded-xl overflow-hidden border border-border/30 bg-[var(--surface-2)] aspect-[16/10]">
+                        <Image
+                          src={indicator.image_path}
+                          alt={indicator.name}
+                          fill
+                          className="object-cover"
+                          onError={(e) => {
+                            // Fallback if image doesn't exist
+                            const target = e.target as HTMLImageElement;
+                            target.style.display = 'none';
+                          }}
+                        />
+                        {/* Fallback gradient if image fails */}
+                        {/* <div className="absolute inset-0 bg-gradient-to-br from-[var(--surface-2)] to-[var(--surface-3)] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                          <span className="text-text-3 text-sm font-mono">Chart Preview</span>
+                        </div> */}
+                      </div>
                     </div>
-                    <span className="text-[10px] font-mono font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-border/50 bg-[var(--surface-2)] text-text-3">
-                      {indicator.badge}
-                    </span>
-                  </div>
-                  
-                  <h3 className="text-xl font-bold text-text mb-2 group-hover:text-[var(--neon)] transition-colors">
-                    {indicator.name}
-                  </h3>
-                  
-                  <p className="text-text-2 text-sm leading-relaxed mb-4">
-                    {indicator.description}
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {indicator.features.slice(0, 3).map((feature, i) => (
-                      <span key={i} className="text-[10px] font-mono font-medium px-2 py-1 rounded-full bg-[var(--surface-2)] border border-border/30 text-text-3">
-                        {feature}
-                      </span>
-                    ))}
-                    {indicator.features.length > 3 && (
-                      <span className="text-[10px] font-mono font-medium px-2 py-1 rounded-full bg-[var(--surface-2)] border border-border/30 text-text-3">
-                        +{indicator.features.length - 3} more
-                      </span>
-                    )}
-                  </div>
-                  
-                  <div className="flex items-center justify-between pt-4 border-t border-border/30">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                      <span className="text-xs font-mono text-text-3">{indicator.status}</span>
+
+                    {/* Content */}
+                    <div className="md:w-3/5 flex flex-col h-full">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex items-center gap-3">
+                          <div className={`p-2 rounded-xl border ${colorMap[indicator.color]} backdrop-blur-sm`}>
+                            <Icon className="w-5 h-5" />
+                          </div>
+                          <div>
+                            <h3 className="text-lg font-bold text-text group-hover:text-[var(--neon)] transition-colors">
+                              {indicator.name}
+                            </h3>
+                            <div className="flex items-center gap-2 mt-0.5">
+                              <span className="text-xs font-mono text-text-3">{indicator.category}</span>
+                              <span className="w-1 h-1 rounded-full bg-text-3" />
+                              <span className="text-[10px] font-mono font-bold uppercase tracking-widest px-2 py-0.5 rounded-full border border-border/50 bg-[var(--surface-2)] text-text-3">
+                                {indicator.badge}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <p className="text-text-2 text-sm leading-relaxed mb-4 flex-grow">
+                        {indicator.shortDescription}
+                      </p>
+
+                      <div className="flex flex-wrap gap-1.5 mb-4">
+                        {indicator.features.slice(0, 3).map((feature, i) => (
+                          <span key={i} className="text-[10px] font-mono font-medium px-2 py-1 rounded-full bg-[var(--surface-2)] border border-border/30 text-text-3">
+                            {feature}
+                          </span>
+                        ))}
+                        {indicator.features.length > 3 && (
+                          <span className="text-[10px] font-mono font-medium px-2 py-1 rounded-full bg-[var(--surface-2)] border border-border/30 text-text-3">
+                            +{indicator.features.length - 3} more
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="flex items-center justify-between pt-4 border-t border-border/30 mt-auto">
+                        <div className="flex items-center gap-2">
+                          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                          <span className="text-xs font-mono text-text-3">{indicator.status}</span>
+                        </div>
+                        <button className="text-sm font-bold text-[var(--neon)] flex items-center gap-1 group-hover:gap-2 transition-all">
+                          View Details
+                          <ChevronRight className="w-4 h-4" />
+                        </button>
+                      </div>
                     </div>
-                    <button className="text-sm font-bold text-[var(--neon)] flex items-center gap-1 group-hover:gap-2 transition-all">
-                      View Details
-                      <ChevronRight className="w-4 h-4" />
-                    </button>
                   </div>
                 </motion.div>
               );

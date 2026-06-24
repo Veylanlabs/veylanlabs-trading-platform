@@ -207,64 +207,68 @@ const TESTIMONIALS = [
 // Trading video modules configuration with expanded content
 const TRADING_MODULES = [
   {
-    id: "structure",
-    title: "Market Structure",
-    badge: "Foundation",
-    description: "Master the art of reading market structure — the foundation of all successful trading strategies.",
+    id: "VeylanLabs SR Screener",
+    imagePath: "/indicator_1.png",
+    title: "VeylanLabs SR Screener",
+    badge: "Scanner",
+    description: "Scan multiple symbols instantly using the first 15-minute session range. Identify active breakouts and directional bias across Tokyo, London, and New York.",
     details: [
-      "Identify higher highs and lower lows with precision",
-      "Understand trend shifts before they happen",
-      "Spot accumulation and distribution patterns",
-      "Learn to distinguish between retracements and reversals",
-      "Build a framework for any market condition"
+      "Monitor dozens of symbols from one compact dashboard",
+      "Track price position — Inside, Above, or Below the opening range",
+      "Spot active breakout conditions with directional alignment",
+      "Filter out inactive markets and focus on clean setups",
+      "Compare multiple symbols without opening every chart manually"
     ],
     videoPath: "/video_1.mp4",
-    cta: "Explore Market Structure Indicators →"
+    cta: "Explore SR Screener"
   },
+  // {
+  //   id: "VeylanLabs AHL Screener",
+  //    imagePath: "/indicator_2.png",
+  //   title: "VeylanLabs AHL Screener",
+  //   badge: "Scanner",
+  //   description: "Multi-symbol session scanner built around the Asia High / Low framework. Quickly identify which markets deserve attention during London and New York.",
+  //   details: [
+  //     "Scan symbols against the completed Asian session range",
+  //     "Track bias, Asia range status, break conditions, and action-ready reads",
+  //     "Filter out low-quality breaks with Smart and Strict modes",
+  //     "Session-aware behavior — only active during London and New York",
+  //     "Use the Read column to decide: Wait, Prep, Inside, Watch, Open Chart, or No Trade"
+  //   ],
+  //   videoPath: "/video_2.mp4",
+  //   cta: "Explore AHL Screener"
+  // },
   {
-    id: "liquidity",
-    title: "Liquidity Sweeps",
-    badge: "Advanced",
-    description: "Learn to identify where institutional money is hiding and how to trade liquidity grabs with confidence.",
+    id: "VeylanLabs Aether SR",
+    imagePath: "/indicator_3.png",
+    title: "VeylanLabs Aether SR",
+    badge: "Guidance",
+    description: "Guided session range indicator for Tokyo, London, and New York opens. Know when the range is forming, when a breakout is clean, and when caution is needed.",
     details: [
-      "Spot liquidity pools and stop hunts in real-time",
-      "Understand the psychology behind liquidity sweeps",
-      "Trade breakouts with institutional confirmation",
-      "Identify false breaks and genuine momentum shifts",
-      "Master the art of trading with smart money"
-    ],
-    videoPath: "/video_2.mp4",
-    cta: "Explore Liquidity Indicators →"
-  },
-  {
-    id: "supply_demand",
-    title: "Supply & Demand",
-    badge: "Core",
-    description: "Understand the fundamental forces driving price action through supply and demand zone analysis.",
-    details: [
-      "Identify high-probability supply and demand zones",
-      "Learn to distinguish between strong and weak zones",
-      "Master zone entries with precise risk management",
-      "Understand order flow and imbalance dynamics",
-      "Combine zones with structure for optimal entries"
+      "Automatically map session ranges for Tokyo, London, and New York",
+      "Read breakout quality — Clean, Caution, or Risk",
+      "Use 15M for confirmation, 5M for entry refinement",
+      "Get plain-language guidance through the Aether Mentor Panel",
+      "Avoid chasing large candles and late-session entries"
     ],
     videoPath: "/video_3.mp4",
-    cta: "Explore Supply & Demand Tools →"
+    cta: "Explore Aether SR"
   },
   {
-    id: "session_trading",
-    title: "Session Trading",
-    badge: "Practical",
-    description: "Learn how to trade different market sessions effectively using session-specific strategies and tools.",
+    id: "VeylanLabs Aether AHL",
+    imagePath: "/indicator_4.png",
+    title: "VeylanLabs Aether AHL",
+    badge: "Strategy",
+    description: "Session-based market-structure indicator built around the Asian session high and low. Read sweeps, rejections, reclaims, and continuation with clarity.",
     details: [
-      "Understand London, New York, and Asia session dynamics",
-      "Identify session-specific opportunities and risks",
-      "Learn optimal entry times for each session",
-      "Master session overlap strategies",
-      "Build a session-based trading routine"
+      "Track Asia High, Asia Low, and Asia 50% midpoint levels",
+      "Read multi-timeframe trend and power conditions",
+      "Use Smart/Strict modes to filter breakout quality",
+      "Session-aware guidance — active from Asia formation through quiet-zone protection",
+      "Combine with Previous Day High/Low for additional context"
     ],
     videoPath: "/video_4.mp4",
-    cta: "Explore Session Trading Tools →"
+    cta: "Explore Aether AHL"
   }
 ];
 
@@ -435,7 +439,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
           <Logo />
           <div className="nav-links">
             <a href="#features" className={activeSection === "features" ? "active" : ""}>Features</a>
-             <Link href="/indicators" > <a href="" className={activeSection === "indicators" ? "active" : ""}>Indicators</a></Link>
+             <Link href="/indicators" className={activeSection === "indicators" ? "active" : ""} >Indicators</Link>
             <a href="#pricing" className={activeSection === "pricing" ? "active" : ""}>Pricing</a>
             <a href="#faq" className={activeSection === "faq" ? "active" : ""}>FAQ</a>
           </div>
@@ -642,8 +646,8 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
           <div className="mk">
             <div className="sec-head center">
               <span className="eyebrow">The Difference</span>
-              <h2>An arrow tells you nothing.</h2>
-              <p>Most indicators fire a signal and leave. We put the entire read on your chart — in plain language.</p>
+              <h2>An arrow tells you nothing. Aether gives you the full session story.</h2>
+              <p>Most indicators fire a signal and leave. Aether puts the entire read on your chart, in plain language.</p>
             </div>
             
             <div className="ba">
@@ -653,9 +657,17 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
                     <span className="badge-comparison badge-old-way">The Old Way</span>
                     <span>SIGNAL ONLY</span>
                   </div>
-                  <div className="ch" style={{ height: "220px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  {/* <div className="ch" style={{ height: "220px", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <Candles c={c} n={24} vol={20} seed={5} tr={0.5} w={460} h={180} />
                     <div className="lonebuy">BUY</div>
+                  </div> */}
+                         <div className="ch" style={{ padding: 0, height: "220px", overflow: "hidden" }}>
+                    <img 
+                      src={resolvedTheme === "light" ? "/without_indicators.png" : "/without_indicators.png"} 
+                      alt="VeylanLabs Full Chart Context" 
+                      className="indicator-card-img" 
+                      style={{ marginTop: 0, borderRadius: 0, border: "none", width: "100%", height: "100%", objectFit: "cover", objectPosition: "left 52%" }} 
+                    />
                   </div>
                   <div className="f">One arrow. No context, no session, no invalidation — you're guessing why it fired and holding when it fails.</div>
                 </div>
@@ -668,7 +680,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
                   </div>
                   <div className="ch" style={{ padding: 0, height: "220px", overflow: "hidden" }}>
                     <img 
-                      src={resolvedTheme === "light" ? "/chart-vway-light.png" : "/chart-vway-dark.png"} 
+                      src={resolvedTheme === "light" ? "/with_indicators.png" : "/with_indicators.png"} 
                       alt="VeylanLabs Full Chart Context" 
                       className="indicator-card-img" 
                       style={{ marginTop: 0, borderRadius: 0, border: "none", width: "100%", height: "100%", objectFit: "cover", objectPosition: "left 52%" }} 
@@ -690,7 +702,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
           <div className="mk animate-fade-in-up">
             <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
               <div className="w-full lg:w-1/2 flex flex-col items-start text-left">
-                <span className="eyebrow mb-4">THE INDICATORS</span>
+                {/* <span className="eyebrow mb-4">THE INDICATORS</span> */}
                 <h2 className="text-4xl md:text-5xl font-display font-bold uppercase tracking-tight mb-6">
                   Next generation <span className="text-[var(--neon)]">trading toolkit</span>
                 </h2>
@@ -699,10 +711,14 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
                 </p>
                 <ul className="flex flex-col gap-4 mb-10 w-full max-w-md">
                   {[
-                    "SFX Advanced Support & Resistance",
-                    "Supply & Demand Imbalance Zones",
-                    "Dynamic Liquidity Pools",
-                    "Trend Structure Break Alerts"
+                    "Multi-symbol session scanning",
+                    "Session-aware range intelligence",
+                    "Asian range reference framework",
+                    "Real-time market-state guidance",
+                    "Multi-timeframe trend & power context",
+                    "Breakout quality filtering",
+                    "Entry refinement workflow",
+                    "Quiet-zone awareness"
                   ].map((feature, idx) => (
                     <li key={idx} className="flex items-center gap-3">
                       <div className="w-6 h-6 rounded-full bg-[var(--glow)] border border-[var(--accent)] flex items-center justify-center flex-shrink-0">
@@ -719,7 +735,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
                     <div className="w-5 h-5 rounded-full border-2 border-[var(--neon)] flex items-center justify-center">
                       <span className="text-[10px] font-bold text-[var(--neon)]">+</span>
                     </div>
-                    <span className="text-[var(--neon)] font-medium">Show More Indicators</span>
+                    <span className="text-[var(--neon)] font-medium">Explore Indicators</span>
                   </div>
                   <ChevronRight className="w-4 h-4 text-[var(--neon)] group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -728,60 +744,55 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
               </div>
 
               {/* Dark UI Graphic Replica */}
-              <div className="w-full lg:w-1/2 relative mt-10 lg:mt-0">
-                <div className="absolute inset-0 bg-mesh opacity-30 pointer-events-none" />
-                <div className="glass-premium rounded-2xl border border-border bg-[#0a0a0a]/90 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden relative z-10">
-                  <div className="bg-[#111] border-b border-border/30 px-4 py-3 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                      <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                      <div className="w-3 h-3 rounded-full bg-green-500/80" />
-                    </div>
-                    <div className="text-xs font-mono text-text-3 font-semibold tracking-widest">VEYLANLABS SETTINGS</div>
-                    <div className="w-16" />
+             <div className="w-full lg:w-1/2 relative mt-10 lg:mt-0">
+              <div className="absolute inset-0 bg-mesh opacity-30 pointer-events-none" />
+              <div className="glass-premium rounded-2xl border border-border bg-[#0a0a0a]/90 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden relative z-10">
+                <div className="bg-[#111] border-b border-border/30 px-4 py-3 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                    <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                    <div className="w-3 h-3 rounded-full bg-green-500/80" />
                   </div>
-                  <div className="p-6 md:p-8">
-                    <div className="mb-8 flex items-center justify-between bg-[#1a1a1a] p-4 rounded-xl border border-border/20">
-                      <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-lg bg-[var(--glow)] flex items-center justify-center border border-[var(--accent)]/50">
-                          <Activity className="w-5 h-5 text-[var(--neon)]" />
-                        </div>
-                        <span className="font-semibold text-text text-base">VeylanLabs Master Suite</span>
-                      </div>
-                      <div className="w-12 h-6 bg-[var(--neon)]/20 rounded-full flex items-center p-1 border border-[var(--neon)]/30">
-                        <div className="w-4 h-4 bg-[var(--neon)] rounded-full translate-x-6 shadow-[0_0_8px_var(--neon)]" />
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-5">
-                      <div className="text-xs font-mono font-bold text-text-3 uppercase tracking-wider mb-3">Display Settings</div>
-                      {[
-                        { name: "Show Liquidity Grabs", active: true },
-                        { name: "Market Structure Shifts", active: true },
-                        { name: "Order Block Zones", active: false },
-                        { name: "Fair Value Gaps", active: true }
-                      ].map((setting, idx) => (
-                        <div key={idx} className="flex items-center justify-between px-2 py-1">
-                          <span className="text-sm font-medium text-text-2">{setting.name}</span>
-                          <div className={`w-9 h-5 rounded-full flex items-center p-0.5 transition-colors ${setting.active ? 'bg-[var(--accent)]' : 'bg-surface-3'}`}>
-                            <div className={`w-4 h-4 rounded-full bg-white transition-transform ${setting.active ? 'translate-x-4 shadow-sm' : ''}`} />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="mt-8 pt-5 border-t border-border/20">
-                      <div className="flex justify-end gap-3">
-                        <button className="px-5 py-2.5 text-sm font-bold rounded-lg bg-surface-2 text-text-2 hover:bg-surface-3 transition-colors">Cancel</button>
-                        <button className="px-5 py-2.5 text-sm font-bold rounded-lg bg-[var(--accent)] text-[var(--accent-ink)] shadow-[0_0_10px_var(--ring)] hover:bg-[var(--accent-2)] transition-colors">Apply changes</button>
-                      </div>
-                    </div>
-                  </div>
+                  {/* <div className="text-xs font-mono text-text-3 font-semibold tracking-widest"></div> */}
+                  <div className="w-16" />
                 </div>
-                {/* Floating elements for aesthetic */}
-                <div className="absolute -right-6 -bottom-6 w-40 h-40 bg-[var(--ring)] blur-3xl rounded-full pointer-events-none z-0" />
-                <div className="absolute -left-6 -top-6 w-40 h-40 bg-[var(--ring)] blur-3xl rounded-full pointer-events-none z-0" />
+
+                <div className="p-4 md:p-6">
+                  {/* Video */}
+                  <div className="relative aspect-video bg-black/90 rounded-xl overflow-hidden border border-border/20">
+                    <video
+                      src="/video_3.mp4"
+                      // controls
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="w-full h-full object-contain"
+                    >
+                      <source src="/video_1.mp4" type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+
+                  {/* Optional: keep a compact settings row below the video */}
+                  {/* <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+                    <div className="flex items-center gap-4">
+                      <span className="text-xs font-mono text-text-3 font-bold tracking-wider">DISPLAY:</span>
+                      <span className="text-xs text-text-2">Liquidity Grabs</span>
+                      <span className="text-xs text-text-2">Structure Shifts</span>
+                      <span className="text-xs text-text-3 line-through">Order Blocks</span>
+                      <span className="text-xs text-text-2">FVGs</span>
+                    </div>
+                    <button className="px-4 py-1.5 text-xs font-bold rounded-lg bg-[var(--accent)] text-[var(--accent-ink)] shadow-[0_0_8px_var(--ring)] hover:bg-[var(--accent-2)] transition-colors">
+                      Apply
+                    </button>
+                  </div> */}
+                </div>
               </div>
+
+              <div className="absolute -right-6 -bottom-6 w-40 h-40 bg-[var(--ring)] blur-3xl rounded-full pointer-events-none z-0" />
+              <div className="absolute -left-6 -top-6 w-40 h-40 bg-[var(--ring)] blur-3xl rounded-full pointer-events-none z-0" />
+            </div>
             </div>
           </div>
         </div>
@@ -792,7 +803,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
             <div className="sec-head center mb-12">
               <span className="eyebrow">Trading Modules</span>
               <h2 className="text-4xl md:text-5xl font-display font-bold uppercase tracking-tight mt-2">
-                VeylanLabs <span className="text-[var(--neon)]">Indicators</span>
+                VeylanLabs <span className="text-[var(--neon)]">Indicators And Screener</span>
               </h2>
               <p className="text-[var(--text-2)] text-lg max-w-2xl mx-auto mt-4">
                 Click any module to explore our comprehensive indicator suite for that trading concept.
@@ -802,38 +813,26 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
             {/* Module Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
               {TRADING_MODULES.map((module, index) => (
-                <div
+             <div
                   key={module.id}
                   onClick={() => handleModuleClick(module.id)}
                   className="group relative rounded-2xl overflow-hidden cursor-pointer border border-border/50 hover:border-[var(--neon)] transition-all duration-500 hover:shadow-[0_0_40px_rgba(16,185,129,0.15)] bg-[var(--surface)]"
                 >
-                  {/* Video Background - Smaller and contained */}
+                  {/* Image Background - Smaller and contained */}
                   <div className="relative h-48 overflow-hidden">
-                    <video
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
+                    <img
+                      src={module.imagePath}
+                      alt={module.title}
                       className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    >
-                      <source src={module.videoPath} type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
+                    />
                     
                     {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg)] via-[var(--bg)]/70 to-transparent" />
-                    
-                    {/* Play Button Overlay */}
-                    {/* <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-16 h-16 rounded-full bg-[var(--neon)]/20 backdrop-blur-sm flex items-center justify-center border border-[var(--neon)]/30 group-hover:bg-[var(--neon)]/40 group-hover:scale-110 transition-all duration-300 shadow-[0_0_30px_rgba(16,185,129,0.2)]">
-                        <Play className="w-8 h-8 text-[var(--neon)] group-hover:text-white transition-colors duration-300" fill="currentColor" />
-                      </div>
-                    </div> */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg)] via-[var(--bg)]/5 to-transparent" />
                     
                     {/* Badge */}
-                    <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-[var(--neon)]/20 backdrop-blur-sm border border-[var(--neon)]/30 text-[var(--neon)] text-xs font-bold font-mono tracking-wider">
+                    {/* <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-[var(--neon)]/20 backdrop-blur-sm border border-[var(--neon)]/30 text-[var(--neon)] text-xs font-bold font-mono tracking-wider">
                       {module.badge}
-                    </div>
+                    </div> */}
                   </div>
                   
                   {/* Content */}
@@ -857,7 +856,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
                     </ul>
                     
                     {/* CTA */}
-                    <div className="flex items-center gap-2 text-[var(--neon)] font-medium text-sm group-hover:gap-3 transition-all duration-300">
+                    <div className="flex justify-end items-center gap-2 text-[var(--neon)] font-medium text-sm group-hover:gap-3 transition-all duration-300">
                       <span>{module.cta}</span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                     </div>

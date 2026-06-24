@@ -649,7 +649,7 @@ export default function IndicatorsPage() {
           </Link>
           <div className="nav-links">
             <Link href="/#features">Features</Link>
-             <Link href="/indicators" > <a href="">Indicators</a></Link>
+             <Link href="/indicators" >Indicators</Link>
             <Link href="/#pricing">Pricing</Link>
             <Link href="/#faq">FAQ</Link>
           </div>

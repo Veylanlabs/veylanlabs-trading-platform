@@ -19,10 +19,9 @@ import {
 import { Logo } from '@/components/logo';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { FaTwitter, FaYoutube, FaDiscord, FaInstagram, FaTelegramPlane } from 'react-icons/fa';
-import { useUser, UserButton } from '@clerk/nextjs';
+
 
 export default function AetherBoardPage() {
-  const { isSignedIn } = useUser();
 
   return (
     <div className="vl">
@@ -44,20 +43,7 @@ export default function AetherBoardPage() {
           </div>
           <div className="nav-right" style={{ gap: '16px' }}>
             <ThemeToggle />
-            {isSignedIn ? (
-              <>
-                <Link href="/dashboard" className="btn btn-soft btn-sm hidden sm:inline-flex" style={{ padding: '6px 14px', height: 36 }}>
-                  Dashboard
-                </Link>
-                <div className="flex items-center" style={{ height: 36 }}>
-                  <UserButton />
-                </div>
-              </>
-            ) : (
-              <Link href="/login" className="btn btn-soft btn-sm hidden sm:inline-flex" style={{ padding: '6px 14px', height: 36 }}>
-                Log in
-              </Link>
-            )}
+
           </div>
         </div>
       </div>

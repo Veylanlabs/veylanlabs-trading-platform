@@ -18,7 +18,7 @@ import {
 import { Logo } from '@/components/logo';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { FaTwitter, FaYoutube, FaDiscord, FaInstagram, FaTelegramPlane } from 'react-icons/fa';
-import { useUser, UserButton } from '@clerk/nextjs';
+
 
 // Indicator data
 const INDICATORS = [
@@ -615,7 +615,7 @@ Use the panel as a guide. Let the session range form. Wait for confirmation. Use
 ];
 
 export default function IndicatorsPage() {
-  const { isSignedIn } = useUser();
+
   const [selectedIndicator, setSelectedIndicator] = useState<typeof INDICATORS[0] | null>(null);
 
   const colorMap: Record<string, string> = {
@@ -639,26 +639,13 @@ export default function IndicatorsPage() {
           <Logo />
           <div className="nav-links">
             <Link href="/#features">Features</Link>
-            <Link href="/indicators">Indicators</Link>
+            <Link href="/indicators" style={{ color: 'var(--neon)', fontWeight: 'bold' }}>Indicators</Link>
             <Link href="/#pricing">Pricing</Link>
             <Link href="/#faq">FAQ</Link>
           </div>
           <div className="nav-right" style={{ gap: '16px' }}>
             <ThemeToggle />
-            {isSignedIn ? (
-              <>
-                <Link href="/dashboard" className="btn btn-soft btn-sm hidden sm:inline-flex" style={{ padding: '6px 14px', height: 36 }}>
-                  Dashboard
-                </Link>
-                <div className="flex items-center" style={{ height: 36 }}>
-                  <UserButton />
-                </div>
-              </>
-            ) : (
-              <Link href="/login" className="btn btn-soft btn-sm hidden sm:inline-flex" style={{ padding: '6px 14px', height: 36 }}>
-                Log in
-              </Link>
-            )}
+
           </div>
         </div>
       </div>
@@ -775,20 +762,46 @@ export default function IndicatorsPage() {
             })}
           </div>
 
-          {/* CTA */}
-          <div className="text-center mt-16">
-            <div className="glass-premium rounded-2xl border border-border/50 p-8 max-w-3xl mx-auto bg-[var(--surface-2)]">
-              <h3 className="text-2xl font-bold text-text mb-2">
-                Ready to trade with these tools?
-              </h3>
-              <p className="text-text-2 mb-6">
-                Get access to the complete VeylanLabs indicator suite and start trading with structure.
-              </p>
-              <Link href="/#pricing">
-                <button className="btn btn-primary hover-pulse-glow px-8 py-3">
-                  Get Access Now
-                </button>
-              </Link>
+          {/* Premium CTA Section */}
+          <div className="mt-24 mb-32 relative">
+            <div className="absolute inset-0 bg-[var(--neon)] opacity-[0.03] blur-3xl rounded-[3rem]" />
+            <div className="relative rounded-3xl overflow-hidden p-10 md:p-16 text-center border border-border/50 flex flex-col items-center justify-center bg-[var(--surface)] shadow-[0_0_50px_rgba(16,185,129,0.1)] transition-all duration-700 hover:border-[var(--neon)] group">
+              
+              {/* Background gradient/textures */}
+              <div className="absolute inset-0 bg-mesh opacity-20 group-hover:opacity-40 transition-opacity duration-700" />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--bg)]/50 to-[var(--bg)] opacity-80" />
+
+              <div className="relative z-10 max-w-3xl flex flex-col items-center">
+                <div className="mb-6 inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--neon)]/50 bg-[var(--neon)]/10 text-[var(--neon)] text-xs font-mono font-bold tracking-widest">
+                  <span className="w-2 h-2 rounded-full bg-[var(--neon)] shadow-[0_0_8px_var(--neon)] animate-pulse" />
+                  FULL SUITE ACCESS
+                </div>
+
+                <h2 className="text-4xl md:text-5xl font-display font-extrabold tracking-tight mb-5 leading-tight uppercase">
+                  Ready to trade with <br className="hidden md:block" />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon)] to-emerald-400">these tools?</span>
+                </h2>
+
+                <p className="text-[var(--text-2)] text-base md:text-lg mb-10 max-w-xl leading-relaxed">
+                  Join VeylanLabs today to unlock the complete indicator suite, real-time alerts, and start trading with professional-grade structure.
+                </p>
+
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full sm:w-auto">
+                  <Link href="/#pricing" className="w-full sm:w-auto group/btn">
+                    <button className="relative overflow-hidden w-full sm:w-auto flex items-center justify-center gap-3 px-10 py-4 bg-gradient-to-r from-[var(--neon)] to-emerald-500 rounded-xl text-[var(--bg)] text-sm font-extrabold uppercase tracking-widest transition-all duration-300 group-hover/btn:-translate-y-1 group-hover/btn:shadow-[0_10px_40px_rgba(16,185,129,0.5)]">
+                      <div className="absolute inset-0 w-[200%] h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-[150%] group-hover/btn:translate-x-[50%] transition-transform duration-1000 ease-out" />
+                      Get Access Now
+                      <ChevronRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" strokeWidth={3} />
+                    </button>
+                  </Link>
+                </div>
+
+                <div className="flex items-center justify-center gap-6 mt-8 text-[11px] text-[var(--text-3)] font-mono font-bold tracking-widest uppercase">
+                  <span className="flex items-center gap-2 text-[var(--neon)]"><Check className="w-3 h-3" /> Instant Access</span>
+                  <span className="w-1 h-1 rounded-full bg-[var(--border)]" />
+                  <span className="flex items-center gap-2"><Check className="w-3 h-3 text-[var(--text-3)]" /> All Indicators Included</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

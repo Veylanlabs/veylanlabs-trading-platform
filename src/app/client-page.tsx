@@ -38,7 +38,7 @@ import { FaTwitter, FaYoutube, FaDiscord, FaInstagram, FaTelegramPlane } from 'r
 import { useTheme } from "next-themes";
 import { QuantLoader } from "@/components/quant-loader";
 import { TradingViewWidget } from "@/components/tradingview-widget";
-import { useUser, UserButton } from '@clerk/nextjs';
+
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 
@@ -287,7 +287,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
   const [activeModule, setActiveModule] = useState(0);
 
   const { theme, systemTheme } = useTheme();
-  const { isSignedIn } = useUser();
+
   const [mounted, setMounted] = useState(false);
   const [selectedSymbolIdx, setSelectedSymbolIdx] = useState(0);
 
@@ -441,14 +441,11 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
 
   const m = [displayPrice, displaySub, displaySuffix];
 
-  // Helper to map cycle to Stripe Price IDs from dynamic prices or fallback to env vars
-  const getPriceId = (period: string) => {
-    if (dynamicPrices && dynamicPrices[period] && dynamicPrices[period].id) {
-      return dynamicPrices[period].id;
-    }
-    if (period === "m") return process.env.NEXT_PUBLIC_STRIPE_PRICE_MEMBER_MONTHLY || "";
-    if (period === "q") return process.env.NEXT_PUBLIC_STRIPE_PRICE_MEMBER_QUARTERLY || "";
-    return process.env.NEXT_PUBLIC_STRIPE_PRICE_MEMBER_ANNUAL || "";
+  const getCheckoutUrl = (period: string) => {
+    if (period === "m") return "https://whop.com/checkout/plan_ar5DWNRZYLReh";
+    if (period === "q") return "https://whop.com/checkout/plan_skYgJxyDJ8f94";
+    if (period === "y") return "https://whop.com/checkout/plan_QpDKBzJqWxpCJ";
+    return "https://whop.com/veylanlabs/veylanlabs-58/";
   };
 
   const handleModuleClick = (moduleId: string) => {
@@ -470,16 +467,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
             </div>
             <div className="nav-right" style={{ gap: "16px" }}>
               <ThemeToggle />
-              {isSignedIn ? (
-                <>
-                  <Link href="/dashboard" className="btn btn-soft btn-sm hidden sm:inline-flex" style={{ padding: "6px 14px", height: 36 }}>Dashboard</Link>
-                  <div className="flex items-center" style={{ height: 36 }}>
-                    <UserButton />
-                  </div>
-                </>
-              ) : (
-                <Link href="/login" className="btn btn-soft btn-sm hidden sm:inline-flex" style={{ padding: "6px 14px", height: 36 }}>Log in</Link>
-              )}
+
               <button
                 className="md:hidden text-foreground p-2 focus:outline-none hover:bg-surface-2 rounded-lg"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -496,16 +484,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
               <a href="#features" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "features" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>Features</a>
               <a href="#pricing" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "pricing" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>Pricing</a>
               <a href="#faq" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "faq" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>FAQ</a>
-              {isSignedIn ? (
-                <>
-                  <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)} className="btn btn-soft btn-block justify-center py-3">Dashboard</Link>
-                  <div className="flex justify-center py-2">
-                    <UserButton />
-                  </div>
-                </>
-              ) : (
-                <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="btn btn-soft btn-block justify-center py-3">Log in</Link>
-              )}
+
             </div>
           )}
         </div>
@@ -1026,7 +1005,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
              <div
                   key={module.id}
                   onClick={() => handleModuleClick(module.id)}
-                  className="group relative rounded-2xl overflow-hidden cursor-pointer border border-border/50 hover:border-[var(--neon)] transition-all duration-500 hover:shadow-[0_0_40px_rgba(16,185,129,0.15)] bg-[var(--surface)]"
+                  className={`group relative flex flex-col rounded-2xl overflow-hidden cursor-pointer border border-border/50 hover:border-[var(--neon)] transition-all duration-500 hover:shadow-[0_0_40px_rgba(16,185,129,0.15)] bg-[var(--surface)] ${index === 2 ? 'md:col-span-2' : ''}`}
                 >
                   {/* Image Background - Smaller and contained */}
                   <div className="relative h-48 overflow-hidden">
@@ -1046,7 +1025,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
                   </div>
                   
                   {/* Content */}
-                  <div className="p-6">
+                  <div className="p-6 flex flex-col flex-grow">
                     <h3 className="text-xl font-bold text-text mb-2 group-hover:text-[var(--neon)] transition-colors duration-300">
                       {module.title}
                     </h3>
@@ -1066,7 +1045,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
                     </ul>
                     
                     {/* CTA */}
-                    <div className="flex justify-end items-center gap-2 text-[var(--neon)] font-medium text-sm group-hover:gap-3 transition-all duration-300">
+                    <div className="mt-auto flex justify-end items-center gap-2 text-[var(--neon)] font-medium text-sm group-hover:gap-3 transition-all duration-300">
                       <span>{module.cta}</span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                     </div>
@@ -1259,7 +1238,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
                   <ul>
                     {["Full indicator suite", "Private Telegram community", "Full academy & tutorials", "Context alerts", "Live daily session breakdowns", "The Assistant at launch"].map((x, i) => <li key={i}><Check />{x}</li>)}
                   </ul>
-                  <PricingButton priceId={getPriceId(cycle)} className="btn btn-primary btn-block mt-4 hover-pulse-glow" style={{ padding: "12px" }}>
+                  <PricingButton checkoutUrl={getCheckoutUrl(cycle)} className="btn btn-primary btn-block mt-4 hover-pulse-glow" style={{ padding: "12px" }}>
                     Get Access Now
                   </PricingButton>
                 </div>
@@ -1461,7 +1440,6 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
               <h5>Product</h5>
               <Link href="#features">Indicators</Link>
               <Link href="#pricing">Pricing</Link>
-              <Link href="/login">Log in</Link>
             </div>
             <div>
               <h5>Learn</h5>

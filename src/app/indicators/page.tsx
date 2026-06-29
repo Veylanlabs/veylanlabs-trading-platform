@@ -815,7 +815,7 @@ export default function IndicatorsPage() {
           </div>
           <div>
             <h5>Product</h5>
-            <Link href="/indicators">Indicators</Link>
+            {/* <Link href="/indicators">Indicators</Link> */}
             <Link href="/#pricing">Pricing</Link>
             {/* <Link href="/login">Log in</Link> */}
           </div>

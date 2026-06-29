@@ -41,9 +41,31 @@ import { TradingViewWidget } from "@/components/tradingview-widget";
 
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
+interface Plan {
+  id: string;
+  billing_period: number;
+  renewal_price: number;
+  purchase_url: string;
+  currency: string;
+  product: {
+    id: string;
+    title: string;
+  };
+  company: {
+    id: string;
+    title: string;
+  };
+}
 
-
-
+interface PlansResponse {
+  data: Plan[];
+  page_info: {
+    start_cursor: string;
+    end_cursor: string;
+    has_next_page: boolean;
+    has_previous_page: boolean;
+  };
+}
 
 // --- Interactive 3D Tilt Component ---
 const TiltCard = ({ children, className }: { children: React.ReactNode, className?: string }) => {
@@ -115,7 +137,6 @@ const CountUp = ({ end, duration = 2000, suffix = "", prefix = "", decimals = 0 
       if (!startTime) startTime = timestamp;
       const progress = timestamp - startTime;
       const percent = Math.min(progress / duration, 1);
-      // easeOutExpo for a premium snapping effect that slows down
       const easePercent = percent === 1 ? 1 : 1 - Math.pow(2, -10 * percent);
 
       setCount(end * easePercent);
@@ -139,8 +160,6 @@ const FAQ = [
   ["Is this financial advice?", "No. VeylanLabs provides educational tools, analysis and a community. Every decision and every risk is yours."],
   ["Can I cancel anytime?", "Yes — subscriptions with no lock-in. You keep access through the end of your billing period."],
 ];
-
-
 
 const SYMBOLS = [
   {
@@ -226,22 +245,6 @@ const TRADING_MODULES = [
     videoPath: "/video_1.mp4",
     cta: "Explore SR Screener"
   },
-  // {
-  //   id: "VeylanLabs AHL Screener",
-  //    imagePath: "/indicator_2.png",
-  //   title: "VeylanLabs AHL Screener",
-  //   badge: "Scanner",
-  //   description: "Multi-symbol session scanner built around the Asia High / Low framework. Quickly identify which markets deserve attention during London and New York.",
-  //   details: [
-  //     "Scan symbols against the completed Asian session range",
-  //     "Track bias, Asia range status, break conditions, and action-ready reads",
-  //     "Filter out low-quality breaks with Smart and Strict modes",
-  //     "Session-aware behavior — only active during London and New York",
-  //     "Use the Read column to decide: Wait, Prep, Inside, Watch, Open Chart, or No Trade"
-  //   ],
-  //   videoPath: "/video_2.mp4",
-  //   cta: "Explore AHL Screener"
-  // },
   {
     id: "VeylanLabs Aether SR",
     imagePath: "/indicator_3.png",
@@ -277,10 +280,13 @@ const TRADING_MODULES = [
 ];
 
 export default function LandingPageClient({ initialPrices }: { initialPrices: any }) {
+  const [plans, setPlans] = useState<Plan[]>([]);
+  const [loadingPlans, setLoadingPlans] = useState(true);
+  const [plansError, setPlansError] = useState<string | null>(null);
   const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
-  const [cycle, setCycle] = useState("m");
+  const [cycle, setCycle] = useState<"m" | "q" | "y">("m");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeScreener, setActiveScreener] = useState("sfx");
@@ -300,6 +306,137 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const [videoVisible, setVideoVisible] = useState(true);
 
+  // Fetch plans from API
+  useEffect(() => {
+    const fetchPlans = async () => {
+      try {
+        setLoadingPlans(true);
+        // const response = await fetch('/api/plans');
+         const response = await fetch(
+            `https://api.whop.com/api/v1/plans?account_id=${process.env.NEXT_PUBLIC_WHOP_ACCOUNT_ID}`,
+            {
+              headers: {
+                'Authorization': `Bearer ${process.env.NEXT_PUBLIC_WHOP_API_KEY}`,
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+        if (!response.ok) {
+          throw new Error('Failed to fetch plans');
+        }
+        
+        const data: PlansResponse = await response.json();
+        setPlans(data.data);
+        setPlansError(null);
+      } catch (err) {
+        console.error('Error fetching plans:', err);
+        setPlansError('Failed to load pricing plans');
+      } finally {
+        setLoadingPlans(false);
+      }
+    };
+
+    fetchPlans();
+  }, []);
+
+  // Get plan by billing period
+  const getPlanByPeriod = (days: number): Plan | undefined => {
+    return plans.find(p => p.billing_period === days);
+  };
+
+  // Get checkout URL for selected cycle
+  const getCheckoutUrl = (period: string): string => {
+    const periodMap = {
+      'm': 30,
+      'q': 90,
+      'y': 365
+    };
+    
+    const plan = getPlanByPeriod(periodMap[period as keyof typeof periodMap]);
+    return plan?.purchase_url || '#';
+  };
+
+  // Format price
+  const formatPrice = (price: number, currency: string = 'USD') => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: currency.toUpperCase(),
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(price);
+  };
+
+  // Get pricing display data
+  const getPricingData = () => {
+    const periodMap = {
+      'm': 30,
+      'q': 90,
+      'y': 365
+    };
+    
+    const plan = getPlanByPeriod(periodMap[cycle]);
+    
+    if (!plan) {
+      return {
+        displayPrice: '$--',
+        displaySuffix: '/mo',
+        displaySub: null,
+        monthlyPrice: 0,
+        totalPrice: 0,
+        savingsPercent: 0
+      };
+    }
+
+    const monthlyPrice = plan.renewal_price / (plan.billing_period / 30);
+    const totalPrice = plan.renewal_price;
+    const originalPrice = monthlyPrice * (plan.billing_period / 30);
+    const savingsPercent = Math.round((1 - totalPrice / originalPrice) * 100);
+
+    let displayPrice = formatPrice(monthlyPrice, plan.currency);
+    let displaySuffix = '';
+    let displaySub = null;
+
+    if (cycle === 'm') {
+      displaySuffix = '/mo';
+      displaySub = 'Billed monthly';
+    } else if (cycle === 'q') {
+      displaySuffix = '/mo';
+      displaySub = (
+        <>
+         {!!(formatPrice(originalPrice) !== formatPrice(totalPrice)) &&  <span className="line-through text-muted-foreground mr-1 opacity-70">
+            {formatPrice(originalPrice, plan.currency)}
+          </span>}
+          {formatPrice(totalPrice, plan.currency)} billed quarterly{' '}
+          {!!savingsPercent && <span className="text-[var(--neon)] ml-1 font-bold">({savingsPercent}% off)</span>}
+        </>
+      );
+    } else if (cycle === 'y') {
+      
+      displaySuffix = '/mo';
+      displaySub = (
+        <>
+         {!!(formatPrice(originalPrice) !== formatPrice(totalPrice)) && <span className="line-through text-muted-foreground mr-1 opacity-70">
+            { formatPrice(originalPrice, plan.currency)}
+          </span>}
+          {formatPrice(totalPrice, plan.currency)} billed yearly{' '}
+         {!!savingsPercent &&  <span className="text-[var(--neon)] ml-1 font-bold">({savingsPercent}% off)</span>}
+        </>
+      );
+    }
+
+    return {
+      displayPrice,
+      displaySuffix,
+      displaySub,
+      monthlyPrice,
+      totalPrice,
+      savingsPercent
+    };
+  };
+
+  const pricingData = getPricingData();
+  const m = [pricingData.displayPrice, pricingData.displaySub, pricingData.displaySuffix];
+
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.playbackRate = 0.5;
@@ -311,7 +448,6 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
     const duration = video.duration;
     if (!duration) return;
 
-    // Start fading out 1.2 seconds before the end
     if (videoVisible && video.currentTime >= duration - 1.2) {
       setVideoVisible(false);
     }
@@ -346,7 +482,6 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
 
   useEffect(() => {
     setMounted(true);
-    // Rotating word effect for hero
     const wordInterval = setInterval(() => {
       setHeroWordIdx((prev) => (prev + 1) % heroWords.length);
     }, 2500);
@@ -359,8 +494,6 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
 
   const activeSymbol = SYMBOLS[selectedSymbolIdx];
 
-  // The prototype handles colors dynamically based on theme. 
-  // We'll use CSS variables provided by Next-themes / globals.css for these.
   const c = {
     up: "var(--up)",
     dn: "var(--red)",
@@ -393,60 +526,6 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
       sections.forEach((s) => observer.unobserve(s));
     };
   }, []);
-
-  let displayPrice: React.ReactNode = "";
-  let displaySuffix = "";
-  let displaySub: React.ReactNode = null;
-
-  const getNum = (str: string) => parseInt(str.replace(/[^0-9]/g, "")) || 0;
-
-  const monthlyAmountStr = dynamicPrices?.m?.amount || "$49";
-  const monthlyNum = getNum(monthlyAmountStr);
-
-  if (cycle === "m") {
-    displayPrice = monthlyAmountStr;
-    displaySuffix = "/mo";
-    displaySub = "Billed monthly";
-  } else if (cycle === "q") {
-    const qAmountStr = dynamicPrices?.q?.amount || "$129";
-    const qNum = getNum(qAmountStr);
-    const originalQ = monthlyNum * 3;
-
-    displayPrice = `$${Math.round(qNum / 3)}`;
-    displaySuffix = "/mo";
-    const percentQ = Math.round((1 - qNum / originalQ) * 100);
-
-    displaySub = (
-      <>
-        <span className="line-through text-muted-foreground mr-1 opacity-70">${originalQ}</span>
-        {qAmountStr} billed quarterly <span className="text-[var(--neon)] ml-1 font-bold">({percentQ}% off)</span>
-      </>
-    );
-  } else if (cycle === "y") {
-    const yAmountStr = dynamicPrices?.y?.amount || "$499";
-    const yNum = getNum(yAmountStr);
-    const originalY = monthlyNum * 12;
-
-    displayPrice = `$${Math.round(yNum / 12)}`;
-    displaySuffix = "/mo";
-    const percentY = Math.round((1 - yNum / originalY) * 100);
-
-    displaySub = (
-      <>
-        <span className="line-through text-muted-foreground mr-1 opacity-70">${originalY}</span>
-        {yAmountStr} billed yearly <span className="text-[var(--neon)] ml-1 font-bold">({percentY}% off)</span>
-      </>
-    );
-  }
-
-  const m = [displayPrice, displaySub, displaySuffix];
-
-  const getCheckoutUrl = (period: string) => {
-    if (period === "m") return "https://whop.com/checkout/plan_ar5DWNRZYLReh";
-    if (period === "q") return "https://whop.com/checkout/plan_skYgJxyDJ8f94";
-    if (period === "y") return "https://whop.com/checkout/plan_QpDKBzJqWxpCJ";
-    return "https://whop.com/veylanlabs/veylanlabs-58/";
-  };
 
   const handleModuleClick = (moduleId: string) => {
     router.push('/indicators');
@@ -484,7 +563,6 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
               <a href="#features" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "features" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>Features</a>
               <a href="#pricing" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "pricing" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>Pricing</a>
               <a href="#faq" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "faq" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>FAQ</a>
-
             </div>
           )}
         </div>
@@ -547,7 +625,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
                 position: "relative",
                 zIndex: 1,
                 width: "100%",
-                maxWidth: "1200px", // Keeps content readable
+                maxWidth: "1200px",
                 padding: "40px 20px",
                 margin: "0 auto",
                 textAlign: "center"
@@ -637,7 +715,6 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
               </div>
             </div>
           </div>
-
 
 
         <div className="sec" id="features">
@@ -1224,9 +1301,20 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
               </h2>
               <p className="text-[var(--text-2)] text-lg">One ecosystem — indicators, academy, and a live community. Cancel anytime.</p>
               <div className="bill" style={{ marginTop: 34 }}>
-                {[["m", "Monthly"], ["q", "Quarterly"], ["y", "Yearly"]].map(b => (
-                  <button key={b[0]} className={`cursor-pointer ${cycle === b[0] ? "active" : ""}`} onClick={() => setCycle(b[0])}>{b[1]}</button>
-                ))}
+                {[["m", "Monthly"], ["q", "Quarterly"], ["y", "Yearly"]].map(b => {
+                  const periodMap = { m: 30, q: 90, y: 365 };
+                  const hasPlan = plans.some(p => p.billing_period === periodMap[b[0] as keyof typeof periodMap]);
+                  return (
+                    <button 
+                      key={b[0]} 
+                      className={`cursor-pointer ${cycle === b[0] ? "active" : ""} ${!hasPlan ? "opacity-50 cursor-not-allowed" : ""}`} 
+                      onClick={() => hasPlan && setCycle(b[0] as "m" | "q" | "y")}
+                      disabled={!hasPlan}
+                    >
+                      {b[1]}
+                    </button>
+                  );
+                })}
               </div>
             </div>
             <div className="mk" style={{ position: "relative", zIndex: 1 }}>

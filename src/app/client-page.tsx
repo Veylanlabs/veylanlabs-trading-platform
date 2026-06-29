@@ -373,13 +373,14 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
       'q': 90,
       'y': 365
     };
-    
+    const monthlyPlan = getPlanByPeriod(periodMap["m"])  
+    const originalMonthlyPrice  = monthlyPlan?.renewal_price || 49
     const plan = getPlanByPeriod(periodMap[cycle]);
     
     if (!plan) {
       return {
-        displayPrice: '$--',
-        displaySuffix: '/mo',
+        displayPrice: 'loading...',
+        displaySuffix: '',
         displaySub: null,
         monthlyPrice: 0,
         totalPrice: 0,
@@ -389,7 +390,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
 
     const monthlyPrice = plan.renewal_price / (plan.billing_period / 30);
     const totalPrice = plan.renewal_price;
-    const originalPrice = monthlyPrice * (plan.billing_period / 30);
+    const originalPrice = originalMonthlyPrice * (plan.billing_period / 30);
     const savingsPercent = Math.round((1 - totalPrice / originalPrice) * 100);
 
     let displayPrice = formatPrice(monthlyPrice, plan.currency);
@@ -403,8 +404,8 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
       displaySuffix = '/mo';
       displaySub = (
         <>
-         {!!(formatPrice(originalPrice) !== formatPrice(totalPrice)) &&  <span className="line-through text-muted-foreground mr-1 opacity-70">
-            {formatPrice(originalPrice, plan.currency)}
+         {!!(formatPrice(originalMonthlyPrice * 3) !== formatPrice(totalPrice)) &&  <span className="line-through text-muted-foreground mr-1 opacity-70">
+            {formatPrice(originalMonthlyPrice * 3, plan.currency)}
           </span>}
           {formatPrice(totalPrice, plan.currency)} billed quarterly{' '}
           {!!savingsPercent && <span className="text-[var(--neon)] ml-1 font-bold">({savingsPercent}% off)</span>}
@@ -415,8 +416,8 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
       displaySuffix = '/mo';
       displaySub = (
         <>
-         {!!(formatPrice(originalPrice) !== formatPrice(totalPrice)) && <span className="line-through text-muted-foreground mr-1 opacity-70">
-            { formatPrice(originalPrice, plan.currency)}
+         {!!(formatPrice(originalMonthlyPrice * 12) !== formatPrice(totalPrice)) && <span className="line-through text-muted-foreground mr-1 opacity-70">
+            { formatPrice(originalMonthlyPrice * 12, plan.currency)}
           </span>}
           {formatPrice(totalPrice, plan.currency)} billed yearly{' '}
          {!!savingsPercent &&  <span className="text-[var(--neon)] ml-1 font-bold">({savingsPercent}% off)</span>}
@@ -457,7 +458,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
     const video = videoRef.current;
     if (video) {
       video.currentTime = 0;
-      video.playbackRate = 0.5;
+      video.playbackRate = .7;
       video.play().catch(err => console.log("Video playback error:", err));
       setVideoVisible(true);
     }
@@ -606,7 +607,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
                     playsInline
                     preload="auto"
                     className="absolute inset-0 w-full h-full object-cover"
-                    src="/test.mp4"
+                    src="/output_slow.mp4"
                     onTimeUpdate={handleTimeUpdate}
                     onEnded={handleEnded}
                   />
@@ -1526,20 +1527,21 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
             </div>
             <div>
               <h5>Product</h5>
-              <Link href="#features">Indicators</Link>
-              <Link href="#pricing">Pricing</Link>
+              <Link href="/indicators">Indicators</Link>
+              <Link href="/#pricing">Pricing</Link>
             </div>
             <div>
               <h5>Learn</h5>
               <Link href="#features">Features</Link>
               <Link href="#faq">FAQ</Link>
-              <Link href="#">Academy</Link>
+              {/* <Link href="#">Academy</Link> */}
             </div>
             <div>
               <h5>Company</h5>
-              <Link href="#">About</Link>
-              <Link href="#">Contact</Link>
-              <Link href="#">Terms & Privacy</Link>
+              {/* <Link href="#">About</Link> */}
+              {/* <Link href="#">Contact</Link> */}
+              <Link href="/terms">Terms</Link>
+              <Link href="/privacy">Privacy</Link>
             </div>
           </div>
 

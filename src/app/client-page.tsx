@@ -34,7 +34,7 @@ import {
   Play,
   ArrowRight
 } from 'lucide-react';
-import { FaTwitter, FaYoutube, FaDiscord, FaInstagram, FaTelegramPlane } from 'react-icons/fa';
+import { FaYoutube, FaInstagram, FaFacebook } from 'react-icons/fa';
 import { useTheme } from "next-themes";
 import { QuantLoader } from "@/components/quant-loader";
 import { TradingViewWidget } from "@/components/tradingview-widget";
@@ -495,6 +495,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
           <div className="glow-ambient" style={{ top: "30%", right: "-10%", opacity: 0.2 }} />
           <div className="bg-grid" />
           <div className="bg-mesh" />
+          <div className="interactive-glow" />
 
           <div className="mk animate-fade-in-up" style={{
             margin: 0,
@@ -1137,7 +1138,6 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
             <div className="mk">
               <div className="sec-head center"><span className="eyebrow">How it works</span><h2>Set up in minutes.</h2></div>
               <div className="timeline-container">
-                <div className="timeline-line" />
                 {[
                   ["01", "Choose your plan", "Pick a membership and check out securely."],
                   ["02", "Connect accounts", "Add your TradingView and Telegram usernames."],
@@ -1463,20 +1463,14 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
             </div>
 
             <div className="flex items-center gap-6">
-              <Link href="#" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
-                <FaTwitter className="w-6 h-6" />
+              <Link href="https://www.facebook.com/profile.php?id=61590814831781" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
+                <FaFacebook className="w-6 h-6" />
               </Link>
-              <Link href="#" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
+              <Link href="https://www.youtube.com/@VeylanLabs" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
                 <FaYoutube className="w-6 h-6" />
               </Link>
-              <Link href="#" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
-                <FaDiscord className="w-6 h-6" />
-              </Link>
-              <Link href="#" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
+              <Link href="https://www.instagram.com/Veylanlabs/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
                 <FaInstagram className="w-6 h-6" />
-              </Link>
-              <Link href="#" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
-                <FaTelegramPlane className="w-6 h-6" />
               </Link>
             </div>
           </div>

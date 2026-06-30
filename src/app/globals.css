@@ -383,6 +383,20 @@ html:not(.dark) .vl .input { background: var(--surface-2); }
   opacity: 0.3;
 }
 
+.interactive-glow {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(600px circle at calc(var(--mouse-x, 0) * 1px) calc(var(--mouse-y, 0) * 1px), var(--ring), transparent 40%);
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.dark .interactive-glow {
+  opacity: 0.6;
+}
+
 .dark .bg-grid {
   opacity: 0.15;
 }

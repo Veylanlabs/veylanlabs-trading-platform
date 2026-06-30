@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ArrowLeft, 
   ChevronRight, 
@@ -13,11 +13,13 @@ import {
   TrendingUp,
   Check,
   X,
-  Zap
+  Zap,
+  Code2
 } from 'lucide-react';
 import { Logo } from '@/components/logo';
 import { ThemeToggle } from '@/components/theme-toggle';
-import { FaTwitter, FaYoutube, FaDiscord, FaInstagram, FaTelegramPlane } from 'react-icons/fa';
+import { TiltCard } from '@/components/tilt-card';
+import { FaTwitter, FaYoutube, FaDiscord, FaInstagram, FaTelegramPlane, FaFacebook } from 'react-icons/fa';
 
 
 // Indicator data
@@ -619,307 +621,333 @@ export default function IndicatorsPage() {
   const [selectedIndicator, setSelectedIndicator] = useState<typeof INDICATORS[0] | null>(null);
 
   const colorMap: Record<string, string> = {
-    emerald: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400',
-    blue: 'border-blue-500/30 bg-blue-500/10 text-blue-400',
-    purple: 'border-purple-500/30 bg-purple-500/10 text-purple-400',
-    amber: 'border-amber-500/30 bg-amber-500/10 text-amber-400'
+    emerald: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.3)]',
+    blue: 'border-blue-500/30 bg-blue-500/10 text-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.3)]',
+    purple: 'border-purple-500/30 bg-purple-500/10 text-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.3)]',
+    amber: 'border-amber-500/30 bg-amber-500/10 text-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.3)]'
   };
 
   return (
-    <div className="vl">
-      {/* Background */}
-      <div className="fixed inset-0 z-[-2] pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg)] via-[var(--bg)]/80 to-[var(--bg)]" />
+    <div className="vl min-h-screen bg-[var(--bg)] text-text selection:bg-[var(--neon)]/30">
+      {/* Dynamic Backgrounds */}
+      <div className="fixed inset-0 z-[-2] pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg)] via-[var(--bg)]/90 to-[var(--bg)]" />
         <div className="absolute inset-0 bg-mesh opacity-20" />
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[var(--neon)]/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[var(--neon)]/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/3 pointer-events-none" />
       </div>
 
       {/* Navigation */}
-      <div className="topnav scrolled">
-        <div className="nav-in">
+      <div className="topnav scrolled border-b border-white/5 backdrop-blur-xl bg-[var(--bg)]/80">
+        <div className="nav-in max-w-7xl mx-auto px-6">
           <Logo />
-          <div className="nav-links">
-            <Link href="/#features">Features</Link>
-            <Link href="/indicators" style={{ color: 'var(--neon)' }}>Indicators</Link>
-            <Link href="/#pricing">Pricing</Link>
-            <Link href="/#faq">FAQ</Link>
+          <div className="nav-links hidden md:flex items-center gap-8">
+            <Link href="/#features" className="hover:text-white transition-colors">Features</Link>
+            <Link href="/indicators" className="active">Indicators</Link>
+            <Link href="/#pricing" className="hover:text-white transition-colors">Pricing</Link>
+            <Link href="/#faq" className="hover:text-white transition-colors">FAQ</Link>
           </div>
-          <div className="nav-right" style={{ gap: '16px' }}>
+          <div className="nav-right flex items-center gap-4">
             <ThemeToggle />
-
           </div>
         </div>
       </div>
 
-      <section style={{ position: 'relative', overflow: 'hidden', paddingTop: '80px' }}>
-        <div className="mk animate-fade-in-up">
-          {/* Header */}
-          <div className="sec-head center mb-16">
-            {/* <Link href="/" className="inline-flex items-center gap-2 text-text-3 hover:text-[var(--neon)] transition-colors mb-6 text-sm font-medium">
-              <ArrowLeft className="w-4 h-4" />
-              Back to Home
-            </Link> */}
-            <span className="eyebrow">Indicators & Strategies</span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold uppercase tracking-tight mt-2">
-              VeylanLabs <span className="text-[var(--neon)]">Toolkit</span>
+      <main className="relative pt-32 pb-24 overflow-hidden">
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
+          
+          {/* Enhanced Hero Section */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="text-center mb-24 relative"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[var(--neon)]/30 bg-[var(--neon)]/10 text-[var(--neon)] text-xs font-mono font-bold tracking-widest mb-8 backdrop-blur-md">
+              <span className="w-2 h-2 rounded-full bg-[var(--neon)] shadow-[0_0_8px_var(--neon)] animate-pulse" />
+              PROFESSIONAL SUITE
+            </div>
+            <h1 className="text-5xl md:text-7xl font-display font-extrabold uppercase tracking-tight leading-[1.1] mb-6">
+              VeylanLabs <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon)] to-emerald-400 drop-shadow-sm">Toolkit</span>
             </h1>
-            <p className="text-[var(--text-2)] text-lg max-w-2xl mx-auto mt-4">
-              Professional-grade indicators and screeners designed for structured, session-based trading.
+            <p className="text-text-2 text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed">
+              Institutional-grade indicators and screeners designed for structural, session-based precision trading.
             </p>
-          </div>
+          </motion.div>
 
-          {/* List View */}
-          <div className="max-w-5xl mx-auto space-y-8">
+          {/* Premium Grid Layout for Indicators */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {INDICATORS.map((indicator, index) => {
               const Icon = indicator.icon;
-              const isImageLeft = index % 2 === 0;
               
               return (
-                <motion.div
-                  key={indicator.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className={`glass-premium rounded-2xl border border-border/50 p-6 hover:border-[var(--neon)] transition-all duration-500 cursor-pointer group relative overflow-hidden`}
-                  onClick={() => setSelectedIndicator(indicator)}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-[var(--neon)]/0 via-[var(--neon)]/0 to-[var(--neon)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
-                  
-                  <div className={`flex flex-col md:flex-row ${isImageLeft ? 'md:flex-row' : 'md:flex-row-reverse'} gap-6 items-start`}>
-                    {/* Image */}
-                    <div className="md:w-2/5 flex-shrink-0">
-                      <div className="relative rounded-xl overflow-hidden border border-border/30 bg-[var(--surface-2)] aspect-[16/10]">
-                        <Image
-                          src={indicator.image_path}
-                          alt={indicator.name}
-                          fill
-                          className="object-cover"
-                          onError={(e) => {
-                            // Fallback if image doesn't exist
-                            const target = e.target as HTMLImageElement;
-                            target.style.display = 'none';
-                          }}
-                        />
-                        {/* Fallback gradient if image fails */}
-                        {/* <div className="absolute inset-0 bg-gradient-to-br from-[var(--surface-2)] to-[var(--surface-3)] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                          <span className="text-text-3 text-sm font-mono">Chart Preview</span>
-                        </div> */}
+                <TiltCard key={indicator.id} className="h-full">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.15 }}
+                    className="h-full group cursor-pointer relative rounded-2xl glass-premium border border-border/40 hover:border-[var(--neon)]/60 transition-all duration-500 overflow-hidden bg-[var(--surface)] hover:shadow-[0_20px_60px_-15px_rgba(16,185,129,0.15)] flex flex-col"
+                    onClick={() => setSelectedIndicator(indicator)}
+                  >
+                    {/* Hover Glow Background */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-[var(--neon)]/0 via-[var(--neon)]/0 to-[var(--neon)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                    
+                    {/* Image Header with Gradient Mask */}
+                    <div className="relative h-56 w-full overflow-hidden bg-[#050505]">
+                      <div className="absolute inset-0 bg-gradient-to-t from-[var(--surface)] via-transparent to-transparent z-10" />
+                      <Image
+                        src={indicator.image_path}
+                        alt={indicator.name}
+                        fill
+                        className="object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                        }}
+                      />
+                      {/* Top Badges */}
+                      <div className="absolute top-4 right-4 z-20 flex gap-2">
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-1 rounded-full border border-border/50 bg-black/60 backdrop-blur-md text-text-3">
+                          {indicator.category}
+                        </span>
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-1 rounded-full border border-[var(--neon)]/40 bg-[var(--neon)]/10 text-[var(--neon)] backdrop-blur-md">
+                          {indicator.badge}
+                        </span>
                       </div>
                     </div>
 
-                    {/* Content */}
-                    <div className="md:w-3/5 flex flex-col h-full">
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex items-center gap-3">
-                          <div className={`p-2 rounded-xl border ${colorMap[indicator.color]} backdrop-blur-sm`}>
-                            <Icon className="w-5 h-5" />
-                          </div>
-                          <div>
-                            <h3 className="text-lg font-bold text-text group-hover:text-[var(--neon)] transition-colors">
-                              {indicator.name}
-                            </h3>
-                            <div className="flex items-center gap-2 mt-0.5">
-                              <span className="text-xs font-mono text-text-3">{indicator.category}</span>
-                              <span className="w-1 h-1 rounded-full bg-text-3" />
-                              <span className="text-[10px] font-mono font-bold uppercase tracking-widest px-2 py-0.5 rounded-full border border-border/50 bg-[var(--surface-2)] text-text-3">
-                                {indicator.badge}
-                              </span>
-                            </div>
-                          </div>
+                    {/* Card Content */}
+                    <div className="p-6 md:p-8 flex flex-col flex-grow relative z-20">
+                      <div className="flex items-center gap-4 mb-4 min-h-[64px]">
+                        <div className={`p-3 rounded-xl border ${colorMap[indicator.color]} backdrop-blur-sm group-hover:scale-110 transition-transform duration-300`}>
+                          <Icon className="w-6 h-6" />
                         </div>
+                        <h3 className="text-xl font-bold text-text group-hover:text-[var(--neon)] transition-colors leading-tight">
+                          {indicator.name}
+                        </h3>
                       </div>
 
-                      <p className="text-text-2 text-sm leading-relaxed mb-4 flex-grow">
+                      <p className="text-text-2 text-sm leading-relaxed mb-6 flex-grow">
                         {indicator.shortDescription}
                       </p>
 
-                      <div className="flex flex-wrap gap-1.5 mb-4">
-                        {indicator.features.slice(0, 3).map((feature, i) => (
-                          <span key={i} className="text-[10px] font-mono font-medium px-2 py-1 rounded-full bg-[var(--surface-2)] border border-border/30 text-text-3">
-                            {feature}
-                          </span>
-                        ))}
-                        {indicator.features.length > 3 && (
-                          <span className="text-[10px] font-mono font-medium px-2 py-1 rounded-full bg-[var(--surface-2)] border border-border/30 text-text-3">
-                            +{indicator.features.length - 3} more
-                          </span>
-                        )}
-                      </div>
-
-                      <div className="flex items-center justify-between pt-4 border-t border-border/30 mt-auto">
+                      <div className="flex items-center justify-between pt-5 border-t border-border/30 mt-auto">
                         <div className="flex items-center gap-2">
-                          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                          <span className="text-xs font-mono text-text-3">{indicator.status}</span>
+                          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
+                          <span className="text-xs font-mono font-medium text-text-3">{indicator.status}</span>
                         </div>
-                        <button className="text-sm font-bold text-[var(--neon)] flex items-center gap-1 group-hover:gap-2 transition-all">
+                        <span className="text-sm font-bold text-[var(--neon)] flex items-center gap-1 group-hover:gap-2 transition-all">
                           View Details
                           <ChevronRight className="w-4 h-4" />
-                        </button>
+                        </span>
                       </div>
                     </div>
-                  </div>
-                </motion.div>
+                  </motion.div>
+                </TiltCard>
               );
             })}
           </div>
 
-          {/* Premium CTA Section */}
-          <div className="mt-24 mb-32 relative">
-            <div className="absolute inset-0 bg-[var(--neon)] opacity-[0.03] blur-3xl rounded-[3rem]" />
-            <div className="relative rounded-3xl overflow-hidden p-10 md:p-16 text-center border border-border/50 flex flex-col items-center justify-center bg-[var(--surface)] shadow-[0_0_50px_rgba(16,185,129,0.1)] transition-all duration-700 hover:border-[var(--neon)] group">
+          {/* Enhanced CTA Section */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="mt-32 relative max-w-4xl mx-auto"
+          >
+            <div className="absolute inset-0 bg-[var(--neon)] opacity-[0.04] blur-[100px] rounded-[4rem]" />
+            <div className="relative rounded-[2.5rem] overflow-hidden p-12 md:p-20 text-center border border-[var(--neon)]/30 bg-[var(--surface)] shadow-[0_0_80px_rgba(16,185,129,0.15)] group">
               
-              {/* Background gradient/textures */}
-              <div className="absolute inset-0 bg-mesh opacity-20 group-hover:opacity-40 transition-opacity duration-700" />
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--bg)]/50 to-[var(--bg)] opacity-80" />
+              {/* Pulsing glow line at top */}
+              <div className="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-[var(--neon)] to-transparent opacity-50 group-hover:opacity-100 transition-opacity" />
+              
+              <div className="absolute inset-0 bg-mesh opacity-30 group-hover:opacity-50 transition-opacity duration-700" />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--bg)]/60 to-[var(--bg)] opacity-90" />
 
-              <div className="relative z-10 max-w-3xl flex flex-col items-center">
-                <div className="mb-6 inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--neon)]/50 bg-[var(--neon)]/10 text-[var(--neon)] text-xs font-mono font-bold tracking-widest">
+              <div className="relative z-10 flex flex-col items-center">
+                <div className="mb-8 inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[var(--neon)]/50 bg-[var(--neon)]/15 text-[var(--neon)] text-xs font-mono font-bold tracking-widest shadow-[0_0_15px_rgba(16,185,129,0.2)]">
                   <span className="w-2 h-2 rounded-full bg-[var(--neon)] shadow-[0_0_8px_var(--neon)] animate-pulse" />
-                  FULL SUITE ACCESS
+                  COMPLETE ACCESS
                 </div>
 
-                <h2 className="text-4xl md:text-5xl font-display font-extrabold tracking-tight mb-5 leading-tight uppercase">
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-extrabold tracking-tight mb-6 leading-tight uppercase">
                   Ready to trade with <br className="hidden md:block" />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon)] to-emerald-400">these tools?</span>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon)] to-emerald-400 drop-shadow-sm">these tools?</span>
                 </h2>
 
-                <p className="text-[var(--text-2)] text-base md:text-lg mb-10 max-w-xl leading-relaxed">
+                <p className="text-text-2 text-lg md:text-xl mb-12 max-w-2xl leading-relaxed font-medium">
                   Join VeylanLabs today to unlock the complete indicator suite, real-time alerts, and start trading with professional-grade structure.
                 </p>
 
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full sm:w-auto">
-                  <Link href="/#pricing" className="w-full sm:w-auto group/btn">
-                    <button className="relative overflow-hidden w-full sm:w-auto flex items-center justify-center gap-3 px-10 py-4 bg-gradient-to-r from-[var(--neon)] to-emerald-500 rounded-xl text-[var(--bg)] text-sm font-extrabold uppercase tracking-widest transition-all duration-300 group-hover/btn:-translate-y-1 group-hover/btn:shadow-[0_10px_40px_rgba(16,185,129,0.5)]">
-                      <div className="absolute inset-0 w-[200%] h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-[150%] group-hover/btn:translate-x-[50%] transition-transform duration-1000 ease-out" />
-                      Get Access Now
-                      <ChevronRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" strokeWidth={3} />
-                    </button>
-                  </Link>
-                </div>
+                <Link href="/#pricing" className="group/btn relative inline-block">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-[var(--neon)] to-emerald-500 rounded-xl blur opacity-30 group-hover/btn:opacity-60 transition duration-500" />
+                  <button className="mt-10 relative flex items-center justify-center gap-3 px-12 py-5 bg-[var(--surface-2)] border border-[var(--neon)]/50 hover:bg-[var(--neon)] hover:border-[var(--neon)] rounded-xl text-text hover:text-black text-base font-extrabold uppercase tracking-widest transition-all duration-300 transform group-hover/btn:-translate-y-1">
+                    Get Access Now
+                    <ChevronRight className="w-5 h-5 transition-transform duration-300 group-hover/btn:translate-x-1" strokeWidth={3} />
+                  </button>
+                </Link>
 
-                <div className="flex items-center justify-center gap-6 mt-8 text-[11px] text-[var(--text-3)] font-mono font-bold tracking-widest uppercase">
-                  <span className="flex items-center gap-2 text-[var(--neon)]"><Check className="w-3 h-3" /> Instant Access</span>
-                  <span className="w-1 h-1 rounded-full bg-[var(--border)]" />
-                  <span className="flex items-center gap-2"><Check className="w-3 h-3 text-[var(--text-3)]" /> All Indicators Included</span>
+                <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 mt-10 text-xs text-[var(--text-3)] font-mono font-bold tracking-widest uppercase">
+                  <span className="flex items-center gap-2 text-[var(--neon)] drop-shadow-[0_0_5px_rgba(16,185,129,0.5)]"><Check className="w-4 h-4" /> Instant Access</span>
+                  <span className="hidden sm:block w-1 h-1 rounded-full bg-[var(--border)]" />
+                  <span className="flex items-center gap-2"><Check className="w-4 h-4" /> All Indicators</span>
+                  <span className="hidden sm:block w-1 h-1 rounded-full bg-[var(--border)]" />
+                  <span className="flex items-center gap-2"><Check className="w-4 h-4" /> Live Community</span>
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </main>
 
-      <footer className="footer">
-        <div className="foot">
-          <div className="fb">
+      <footer className="footer relative z-10 bg-[#050505]">
+        <div className="foot max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
+          <div className="fb md:col-span-2">
             <Logo />
-            <p>See the structure. Discipline, structure, execution — and a community that trades it live.</p>
+            <p className="mt-6 max-w-md text-text-3 leading-relaxed">See the structure. Discipline, structure, execution — and a community that trades it live.</p>
           </div>
           <div>
-            <h5>Product</h5>
-            {/* <Link href="/indicators">Indicators</Link> */}
-            <Link href="/#pricing">Pricing</Link>
-            {/* <Link href="/login">Log in</Link> */}
+            <h5 className="text-white font-bold mb-6 tracking-wide">Product</h5>
+            <div className="flex flex-col gap-4">
+              <Link href="/#pricing" className="text-text-3 hover:text-[var(--neon)] transition-colors">Pricing</Link>
+            </div>
           </div>
           <div>
-            <h5>Learn</h5>
-            <Link href="/#features">Features</Link>
-            <Link href="/#faq">FAQ</Link>
-            {/* <Link href="#">Academy</Link> */}
-          </div>
-          <div>
-            <h5>Company</h5>
-            {/* <Link href="#">About</Link> */}
-            {/* <Link href="#">Contact</Link> */}
-            <Link href="/terms">Terms</Link>
-            <Link href="/privacy">Privacy</Link>
+            <h5 className="text-white font-bold mb-6 tracking-wide">Company</h5>
+            <div className="flex flex-col gap-4">
+              <Link href="/terms" className="text-text-3 hover:text-[var(--neon)] transition-colors">Terms</Link>
+              <Link href="/privacy" className="text-text-3 hover:text-[var(--neon)] transition-colors">Privacy</Link>
+            </div>
           </div>
         </div>
 
-        <div className="foot-bot flex flex-col md:flex-row justify-between items-center gap-6 mt-16 pt-8 border-t border-white/10">
+        <div className="foot-bot max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-white/5">
           <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left text-sm text-text-3">
             <span>© 2026 VeylanLabs</span>
             <span className="hidden md:inline">·</span>
-            <span>Educational use only · Not financial advice · Trade at your own risk.</span>
+            <span>Educational use only · Not financial advice</span>
           </div>
 
           <div className="flex items-center gap-6">
-            <Link href="#" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
-              <FaTwitter className="w-6 h-6" />
+            <Link href="https://www.facebook.com/profile.php?id=61590814831781" target="_blank" className="text-text-3 hover:text-[var(--neon)] transition-all hover:scale-110">
+              <FaFacebook className="w-5 h-5" />
             </Link>
-            <Link href="#" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
-              <FaYoutube className="w-6 h-6" />
+            <Link href="https://www.youtube.com/@VeylanLabs" target="_blank" className="text-text-3 hover:text-[var(--neon)] transition-all hover:scale-110">
+              <FaYoutube className="w-5 h-5" />
             </Link>
-            <Link href="#" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
-              <FaDiscord className="w-6 h-6" />
-            </Link>
-            <Link href="#" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
-              <FaInstagram className="w-6 h-6" />
-            </Link>
-            <Link href="#" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
-              <FaTelegramPlane className="w-6 h-6" />
+            <Link href="https://www.instagram.com/Veylanlabs/" target="_blank" className="text-text-3 hover:text-[var(--neon)] transition-all hover:scale-110">
+              <FaInstagram className="w-5 h-5" />
             </Link>
           </div>
         </div>
       </footer>
 
-      {/* Detail Modal */}
-      {selectedIndicator && (
-        <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-300 overflow-y-auto" onClick={() => setSelectedIndicator(null)}>
-          <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto glass-premium rounded-2xl border border-border/50 bg-[var(--bg)] p-6 md:p-10" onClick={(e) => e.stopPropagation()}>
-            <button 
-              className="absolute top-4 right-4 text-text-3 hover:text-[var(--neon)] transition-colors p-2"
+      {/* Slide-over Detail Panel */}
+      <AnimatePresence>
+        {selectedIndicator && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-[90] bg-black/60 backdrop-blur-sm cursor-pointer"
               onClick={() => setSelectedIndicator(null)}
+            />
+            
+            {/* Panel */}
+            <motion.div
+              initial={{ x: '100%', opacity: 0.5 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: '100%', opacity: 0.5 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="fixed inset-y-0 right-0 z-[100] w-full md:w-[600px] bg-[#080808] border-l border-border/20 shadow-2xl flex flex-col h-full overflow-hidden"
             >
-              <X className="w-6 h-6" />
-            </button>
-
-            <div className="flex items-start gap-4 mb-6">
-              <div className={`p-3 rounded-xl border ${colorMap[selectedIndicator.color]} backdrop-blur-sm flex-shrink-0`}>
-                {React.createElement(selectedIndicator.icon, { className: "w-6 h-6" })}
+              {/* Panel Header */}
+              <div className="flex items-start justify-between p-6 md:p-8 border-b border-border/10 bg-[#050505]/80 backdrop-blur-xl relative z-10">
+                <div className="flex items-center gap-4">
+                  <div className={`p-3 rounded-xl border ${colorMap[selectedIndicator.color]} backdrop-blur-sm shadow-lg`}>
+                    {React.createElement(selectedIndicator.icon, { className: "w-6 h-6" })}
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-white leading-tight">{selectedIndicator.name}</h2>
+                    <div className="flex items-center gap-2 mt-1.5">
+                      <span className="text-xs font-mono font-medium text-[var(--neon)]">{selectedIndicator.category}</span>
+                      <span className="w-1 h-1 rounded-full bg-text-3" />
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-text-3">{selectedIndicator.badge}</span>
+                    </div>
+                  </div>
+                </div>
+                <button 
+                  className="p-2 rounded-full hover:bg-white/5 text-text-3 hover:text-white transition-colors"
+                  onClick={() => setSelectedIndicator(null)}
+                >
+                  <X className="w-6 h-6" />
+                </button>
               </div>
-              <div>
-                <h2 className="text-2xl md:text-3xl font-bold text-text">{selectedIndicator.name}</h2>
-                <div className="flex items-center gap-3 mt-1">
-                  <span className="text-xs font-mono text-text-3">{selectedIndicator.category}</span>
-                  <span className="w-1 h-1 rounded-full bg-text-3" />
-                  <span className="text-xs font-mono text-text-3">{selectedIndicator.badge}</span>
+
+              {/* Panel Body */}
+              <div className="flex-1 overflow-y-auto p-6 md:p-8 custom-scrollbar">
+                
+                {/* Image Preview inside panel */}
+                <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-border/20 mb-8 bg-[#030303]">
+                  <Image
+                    src={selectedIndicator.image_path}
+                    alt={selectedIndicator.name}
+                    fill
+                    className="object-cover opacity-90"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#080808] to-transparent opacity-80" />
+                </div>
+
+                {/* Key Features Inline List */}
+                <div className="mb-10">
+                  <h4 className="text-sm font-mono font-bold uppercase tracking-widest text-[var(--neon)] mb-5 flex items-center gap-2">
+                    <Activity className="w-4 h-4" /> Core Capabilities
+                  </h4>
+                  <div className="flex flex-col gap-3">
+                    {selectedIndicator.features.map((feature, i) => (
+                      <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                        <div className="mt-0.5 w-4 h-4 rounded-full bg-[var(--neon)]/20 flex items-center justify-center flex-shrink-0">
+                          <Check className="w-2.5 h-2.5 text-[var(--neon)]" />
+                        </div>
+                        <span className="text-text-2 text-sm font-medium">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Full Description */}
+                <div>
+                  <h4 className="text-sm font-mono font-bold uppercase tracking-widest text-[var(--neon)] mb-4 flex items-center gap-2">
+                    <Code2 className="w-4 h-4" /> Deep Dive
+                  </h4>
+                  <div className="prose prose-invert prose-sm max-w-none prose-p:leading-relaxed prose-p:text-text-3 prose-strong:text-white prose-strong:font-bold">
+                    <div className="whitespace-pre-wrap">
+                      {selectedIndicator.fullDescription}
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="prose prose-invert max-w-none">
-              <div className="whitespace-pre-wrap text-text-2 text-sm leading-relaxed">
-                {selectedIndicator.fullDescription}
+              {/* Panel Footer */}
+              <div className="p-6 md:p-8 border-t border-border/10 bg-[#050505] flex gap-4">
+                <Link href="/#pricing" className="flex-1">
+                  <button className="w-full relative overflow-hidden group flex items-center justify-center gap-2 py-4 bg-[var(--neon)] hover:bg-emerald-400 text-black font-extrabold uppercase tracking-widest rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)]">
+                    Unlock Access
+                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </Link>
               </div>
-            </div>
-
-            <div className="mt-8 pt-6 border-t border-border/30">
-              <h4 className="font-bold text-text mb-4">Key Features</h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                {selectedIndicator.features.map((feature, i) => (
-                  <div key={i} className="flex items-center gap-2 text-text-2 text-sm">
-                    <Check className="w-4 h-4 text-[var(--neon)] flex-shrink-0" />
-                    {feature}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-6 flex flex-wrap gap-4">
-              <Link href="/#pricing" className="flex-1">
-                <button className="btn btn-primary w-full py-3">
-                  Get Access to This Indicator
-                </button>
-              </Link>
-              <button 
-                className="btn btn-ghost px-6 py-3"
-                onClick={() => setSelectedIndicator(null)}
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

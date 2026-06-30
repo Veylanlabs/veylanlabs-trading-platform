@@ -32,14 +32,16 @@ import {
   ShieldCheck,
   Globe,
   Play,
-  ArrowRight
+  ArrowRight,
+  ArrowUp
 } from 'lucide-react';
 import { FaYoutube, FaInstagram, FaFacebook } from 'react-icons/fa';
 import { useTheme } from "next-themes";
 import { QuantLoader } from "@/components/quant-loader";
 import { TradingViewWidget } from "@/components/tradingview-widget";
 
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
+import { TiltCard } from '@/components/tilt-card';
 
 interface Plan {
   id: string;
@@ -67,49 +69,7 @@ interface PlansResponse {
   };
 }
 
-// --- Interactive 3D Tilt Component ---
-const TiltCard = ({ children, className }: { children: React.ReactNode, className?: string }) => {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
 
-  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
-  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
-
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["12deg", "-12deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-12deg", "12deg"]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-    x.set(xPct);
-    y.set(yPct);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
-  return (
-    <motion.div
-      className={className}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: "preserve-3d",
-      }}
-    >
-      <div style={{ transform: "translateZ(50px)" }}>{children}</div>
-    </motion.div>
-  );
-};
 
 // Reusable CountUp Component for the Stats Bar
 const CountUp = ({ end, duration = 2000, suffix = "", prefix = "", decimals = 0 }: { end: number, duration?: number, suffix?: string, prefix?: string, decimals?: number }) => {
@@ -285,6 +245,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
   const [plansError, setPlansError] = useState<string | null>(null);
   const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [cycle, setCycle] = useState<"m" | "q" | "y">("m");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -311,16 +272,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
     const fetchPlans = async () => {
       try {
         setLoadingPlans(true);
-        // const response = await fetch('/api/plans');
-         const response = await fetch(
-            `https://api.whop.com/api/v1/plans?account_id=${process.env.NEXT_PUBLIC_WHOP_ACCOUNT_ID}`,
-            {
-              headers: {
-                'Authorization': `Bearer ${process.env.NEXT_PUBLIC_WHOP_API_KEY}`,
-                'Content-Type': 'application/json',
-              },
-            }
-          );
+        const response = await fetch('/api/plans');
         if (!response.ok) {
           throw new Error('Failed to fetch plans');
         }
@@ -507,6 +459,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
   useEffect(() => {
     const f = () => {
       setScrolled(window.scrollY > 16);
+      setShowBackToTop(window.scrollY > 400);
       if (window.scrollY < 100) setActiveSection("");
     };
     window.addEventListener("scroll", f);
@@ -530,6 +483,10 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
 
   const handleModuleClick = (moduleId: string) => {
     router.push('/indicators');
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -1590,6 +1547,22 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
           </div>
         )}
       </div>
+
+      <AnimatePresence>
+        {showBackToTop && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 20 }}
+            onClick={scrollToTop}
+            className="fixed bottom-8 right-8 z-50 flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-[#0a0f14]/80 backdrop-blur-xl border border-[var(--neon)]/30 text-[var(--neon)] hover:bg-[var(--neon)] hover:text-black shadow-[0_0_15px_rgba(163,230,53,0.15)] hover:shadow-[0_0_30px_rgba(163,230,53,0.4)] transition-all duration-300 hidden md:flex group"
+            aria-label="Back to top"
+          >
+            <ArrowUp className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-0.5" strokeWidth={3} />
+            <span className="font-mono text-[11px] font-bold tracking-widest uppercase">Top</span>
+          </motion.button>
+        )}
+      </AnimatePresence>
     </>
   );
 }

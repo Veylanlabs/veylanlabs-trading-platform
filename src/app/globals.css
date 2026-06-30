@@ -1934,3 +1934,125 @@ html:not(.dark) .vl .input { background: var(--surface-2); }
 .vl-cta-band p { font-size: 14px; color: var(--text-2); }
 @media (max-width: 640px) { .vl-cta-band { flex-direction: column; text-align: center; padding: 24px 20px; } }
 
+.sec {
+  position: relative;
+  background: #07090a;
+  overflow: hidden;
+}
+
+/* moving grid texture */
+.sec::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background-image: radial-gradient(rgba(132, 255, 99, 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+  animation: gridDrift 18s linear infinite;
+  pointer-events: none;
+}
+
+/* slow pulsing green glow blobs */
+.sec::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(600px circle at 15% 25%, rgba(76, 217, 100, 0.15), transparent 60%),
+    radial-gradient(550px circle at 85% 75%, rgba(76, 217, 100, 0.12), transparent 60%);
+  animation: glowPulse 8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.sec .mk {
+  position: relative;
+  z-index: 1; /* keep content above the animated layers */
+}
+
+@keyframes gridDrift {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(28px, 28px); }
+}
+
+@keyframes glowPulse {
+  0%   { opacity: 0.5; transform: scale(1); }
+  100% { opacity: 0.9; transform: scale(1.06); }
+}
+
+/* optional: light traveling on the timeline line itself */
+.timeline-container {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.timeline-line {
+  position: absolute;
+  top: 56px; /* aligns roughly with the center of the number node */
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(132, 255, 99, 0.5),
+    rgba(132, 255, 99, 0.5),
+    transparent
+  );
+  z-index: 0;
+}
+
+.timeline-step {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 28px 20px;
+  text-align: center;
+}
+
+.timeline-node-wrapper {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid rgba(132, 255, 99, 0.4);
+  background: #0a0d0a;
+  font-weight: 600;
+  color: #9fe89f;
+}
+
+.timeline-step h4 {
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+
+.timeline-step p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.5;
+}
+
+/* responsive: drop to 2 columns on tablet, 1 on mobile */
+@media (max-width: 900px) {
+  .timeline-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .timeline-container {
+    grid-template-columns: 1fr;
+  }
+  .timeline-line {
+    display: none; /* doesn't make sense as a single horizontal line in 1-col layout */
+  }
+}

@@ -1,70 +1,32 @@
-import { NextRequest, NextResponse } from "next/server";
-import WhopAPI from "@whop/sdk";
+import { NextRequest } from "next/server";
+import { Whop } from "@whop/sdk";
+import { waitUntil } from "@vercel/functions";
+import type { Payment } from "@whop/sdk/resources.js";
 
-// Initialize the Whop SDK with your API Key
-const whop = new WhopAPI({
-  apiKey: process.env.WHOP_API_KEY || "", // You will need to add this to your .env file
+export const whopsdk = new Whop({
+   	apiKey: process.env.NEXT_PUBLIC_WHOP_API_KEY,
+   	webhookKey: btoa(process.env.NEXT_PUBLIC_WHOP_ACCOUNT_ID || ""),
 });
 
-export async function POST(request: NextRequest) {
-  try {
-    // 1. Get raw body as text for signature verification
-    const bodyText = await request.text();
-    
-    // 2. Extract the Webhook Secret from environment variables
-    const webhookSecret = process.env.WHOP_WEBHOOK_SECRET;
-    
-    if (!webhookSecret) {
-      console.error("Missing WHOP_WEBHOOK_SECRET in environment variables");
-      return NextResponse.json({ error: "Configuration error" }, { status: 500 });
-    }
 
-    // 3. Extract the Whop signature header
-    const signature = request.headers.get("x-whop-signature");
-    
-    if (!signature) {
-      return NextResponse.json({ error: "Missing signature" }, { status: 400 });
-    }
+export async function POST(request: NextRequest): Promise<Response> {
+   	// Validate the webhook to ensure it's from Whop
+   	const requestBodyText = await request.text();
+   	const headers = Object.fromEntries(request.headers);
+   	const webhookData = whopsdk.webhooks.unwrap(requestBodyText, { headers });
 
-    // 4. Verify the webhook payload (The SDK automatically validates the signature)
-    // Note: ensure you are using the correct unwrap method depending on your SDK version
-    // Typically it verifies the signature against the raw body text
-    const event = await whop.webhooks.unwrap(bodyText, {
-      headers: {
-        "x-whop-signature": signature
-      },
-      key: webhookSecret
-    }) as any;
+   	// Handle the webhook event
+   	if (webhookData.type === "payment.succeeded") {
+  		waitUntil(handlePaymentSucceeded(webhookData.data));
+   	}
 
-    const action = event.action || event.type;
-
-    // 5. Handle the specific events from Whop
-    switch (action) {
-      case "membership_activated":
-        // Handle a new or renewed active membership
-        console.log("New valid membership!", event.data);
-        // You could grant additional custom access here
-        break;
-        
-      case "membership_deactivated":
-        // Handle a canceled or expired membership
-        console.log("Membership ended:", event.data);
-        // Revoke access here if necessary
-        break;
-
-      case "payment_succeeded":
-        console.log("Payment successful:", event.data);
-        break;
-
-      default:
-        console.log(`Unhandled Whop event type: ${action}`);
-    }
-
-    // 6. Return 200 OK to acknowledge receipt of the webhook to Whop
-    return NextResponse.json({ received: true }, { status: 200 });
-    
-  } catch (err: any) {
-    console.error("Webhook verification failed:", err.message);
-    return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
-  }
+   	// Make sure to return a 2xx status code quickly. Otherwise the webhook will be retried.
+   	return new Response("OK", { status: 200 });
 }
+
+async function handlePaymentSucceeded(invoice: Payment) {
+   	// This is a placeholder for a potentially long running operation
+   	// In a real scenario, you might need to fetch user data, update a database, etc.
+   	console.log("[PAYMENT SUCCEEDED]", invoice);
+}
+

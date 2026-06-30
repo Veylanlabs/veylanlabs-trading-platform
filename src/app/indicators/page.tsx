@@ -639,7 +639,7 @@ export default function IndicatorsPage() {
           <Logo />
           <div className="nav-links">
             <Link href="/#features">Features</Link>
-            <Link href="/indicators" style={{ color: 'var(--neon)', fontWeight: 'bold' }}>Indicators</Link>
+            <Link href="/indicators" style={{ color: 'var(--neon)' }}>Indicators</Link>
             <Link href="/#pricing">Pricing</Link>
             <Link href="/#faq">FAQ</Link>
           </div>
@@ -815,21 +815,22 @@ export default function IndicatorsPage() {
           </div>
           <div>
             <h5>Product</h5>
-            <Link href="#features">Indicators</Link>
-            <Link href="#pricing">Pricing</Link>
-            <Link href="/login">Log in</Link>
+            {/* <Link href="/indicators">Indicators</Link> */}
+            <Link href="/#pricing">Pricing</Link>
+            {/* <Link href="/login">Log in</Link> */}
           </div>
           <div>
             <h5>Learn</h5>
-            <Link href="#features">Features</Link>
-            <Link href="#faq">FAQ</Link>
-            <Link href="#">Academy</Link>
+            <Link href="/#features">Features</Link>
+            <Link href="/#faq">FAQ</Link>
+            {/* <Link href="#">Academy</Link> */}
           </div>
           <div>
             <h5>Company</h5>
-            <Link href="#">About</Link>
-            <Link href="#">Contact</Link>
-            <Link href="#">Terms & Privacy</Link>
+            {/* <Link href="#">About</Link> */}
+            {/* <Link href="#">Contact</Link> */}
+            <Link href="/terms">Terms</Link>
+            <Link href="/privacy">Privacy</Link>
           </div>
         </div>
 

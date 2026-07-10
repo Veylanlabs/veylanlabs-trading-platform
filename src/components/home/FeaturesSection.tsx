@@ -24,7 +24,7 @@ export function FeaturesSection() {
               </div>
               <div className="ch" style={{ padding: 0, height: "220px", overflow: "hidden" }}>
                 <img 
-                  src="/without_indicators.png" 
+                  src="/image3_old_way.png" 
                   alt="Without Context" 
                   className="indicator-card-img" 
                   style={{ marginTop: 0, borderRadius: 0, border: "none", width: "100%", height: "100%", objectFit: "cover", objectPosition: "left 52%" }} 
@@ -42,7 +42,7 @@ export function FeaturesSection() {
               </div>
               <div className="ch" style={{ padding: 0, height: "220px", overflow: "hidden" }}>
                 <img 
-                  src="/with_indicators.png" 
+                  src="/image3.png" 
                   alt="VeylanLabs Full Chart Context" 
                   className="indicator-card-img" 
                   style={{ marginTop: 0, borderRadius: 0, border: "none", width: "100%", height: "100%", objectFit: "cover", objectPosition: "left 52%" }} 

@@ -18,10 +18,6 @@ export const FAQ = [
     "Our tools work on any market supported by TradingView — including Forex, Crypto, Indices, Futures, and Stocks. While built around intraday session trading, the methodology scales perfectly across any timeframe from the 1-minute to the daily chart."
   ],
   [
-    "Do I need to know how to code?", 
-    "Not at all. Everything runs directly inside TradingView through your membership. There is no Pine Script to write, no complex software to install, and no APIs to configure."
-  ],
-  [
     "Can I cancel anytime?", 
     "Yes. We offer transparent subscriptions with no lock-in contracts. You can cancel your membership at any time, and you will retain full access to all tools and the community until the end of your current billing period."
   ],

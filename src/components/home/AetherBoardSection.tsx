@@ -33,9 +33,9 @@ export function AetherBoardSection() {
             {/* Aether Image Container */}
             <div className="flex-1 w-full bg-[var(--surface)] border border-border/50 rounded-xl overflow-hidden relative group">
               <div className="absolute inset-0 bg-gradient-to-tr from-[var(--neon)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-              <img 
-                src="/aether.png" 
-                alt="Aether Bot Interface" 
+              <img
+                src="/atherbot.png"
+                alt="Aether Bot Interface"
                 className="w-full h-auto object-cover block"
                 style={{ borderBottom: '1px solid var(--border)' }}
               />

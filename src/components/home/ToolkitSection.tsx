@@ -18,7 +18,7 @@ export function ToolkitSection() {
               TAKE BACK CONTROL
             </div>
             
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold uppercase tracking-tighter mb-6 leading-[1.1]">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tight mb-6 leading-tight">
               <span className="text-white drop-shadow-md">Trade with </span>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon)] to-emerald-400 drop-shadow-[0_0_15px_var(--neon-dim)]">Absolute Clarity</span>
             </h2>
@@ -31,25 +31,32 @@ export function ToolkitSection() {
               Join an elite community of independent traders. We engineer the institutional-grade tools, you execute with precision.
             </p>
 
-            <ul className="flex flex-col gap-6 mb-12 w-full max-w-md">
+            <ul className="flex flex-col gap-5 mb-12 w-full max-w-md">
               {[
                 "High-Probability Entry & Exit Signals",
                 "Real-Time Institutional Market Context",
                 "Complete A-to-Z Educational Ecosystem",
               ].map((feature, idx) => (
-                <li key={idx} className="flex items-center gap-5 group">
-                  <div className="w-8 h-8 rounded-full bg-[var(--neon)]/10 border border-[var(--neon)]/40 flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(163,230,53,0.2)] group-hover:bg-[var(--neon)] group-hover:scale-110 transition-all duration-300">
+                <li key={idx} className="flex items-center gap-4 group">
+                  <div className="w-7 h-7 rounded-full bg-[var(--neon)]/10 border border-[var(--neon)]/30 flex items-center justify-center flex-shrink-0 shadow-[0_0_10px_rgba(163,230,53,0.2)] group-hover:bg-[var(--neon)] group-hover:scale-110 transition-all duration-300">
                     <Check className="w-4 h-4 text-[var(--neon)] group-hover:text-black transition-colors" />
                   </div>
-                  <span className="text-white/90 font-medium text-lg tracking-wide group-hover:text-white transition-colors">{feature}</span>
+                  <span className="text-white/90 font-medium text-[17px] tracking-wide group-hover:text-[var(--neon)] transition-colors">{feature}</span>
                 </li>
               ))}
             </ul>
 
-            <Link href="/indicators" className="inline-block">
-              <div className="px-8 py-4 rounded-full bg-[var(--neon)]/10 border border-[var(--neon)]/30 text-[var(--neon)] font-bold uppercase tracking-widest hover:bg-[var(--neon)] hover:text-black transition-all duration-300 shadow-[0_0_20px_rgba(163,230,53,0.15)] hover:shadow-[0_0_40px_rgba(163,230,53,0.4)] flex items-center gap-3 group cursor-pointer">
-                <span>Explore Indicators</span>
-                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <Link href="/indicators" className="block mt-2">
+              <div className="screener-tab hover:border-[var(--neon)] transition-all duration-300 group cursor-pointer shadow-[0_4px_15px_rgba(0,0,0,0.4)]">
+                <div className="flex items-center justify-between w-full">
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full border-2 border-[var(--neon)] flex items-center justify-center group-hover:bg-[var(--neon)]/10 transition-colors">
+                      <span className="text-[12px] font-bold text-[var(--neon)]">+</span>
+                    </div>
+                    <span className="text-[var(--neon)] font-medium uppercase tracking-widest text-sm">Explore Indicators</span>
+                  </div>
+                  <ChevronRight className="w-5 h-5 text-[var(--neon)] group-hover:translate-x-1 transition-transform" />
+                </div>
               </div>
             </Link>
           </div>
@@ -59,29 +66,23 @@ export function ToolkitSection() {
              <div className="absolute -right-12 -top-12 w-96 h-96 bg-[var(--neon)]/5 blur-[100px] rounded-full pointer-events-none z-0" />
              
              {/* Card 1 */}
-             <div className="glass-premium p-10 rounded-[2rem] border-2 border-[var(--border)] hover:border-[var(--neon)]/50 transition-all duration-500 shadow-2xl hover:shadow-[0_0_50px_rgba(163,230,53,0.15)] group relative overflow-hidden z-10 hover:-translate-y-2 cursor-default">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--neon)]/5 blur-[80px] -z-10 rounded-full group-hover:bg-[var(--neon)]/20 transition-all duration-700" />
-                <div className="w-14 h-14 rounded-2xl bg-black/50 border border-[var(--neon)]/30 flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(163,230,53,0.15)] group-hover:scale-110 group-hover:bg-[var(--neon)]/20 transition-all duration-300">
-                  <Activity className="w-7 h-7 text-[var(--neon)]" />
-                </div>
-                <h3 className="text-3xl lg:text-4xl font-bold font-display uppercase tracking-tight text-white mb-5 drop-shadow-sm group-hover:text-[var(--neon)] transition-colors duration-300">
+             <div className="glass-premium p-8 rounded-3xl border border-[var(--border)] hover:border-[var(--neon)]/50 transition-all duration-500 shadow-2xl hover:shadow-[0_0_40px_rgba(163,230,53,0.1)] group relative overflow-hidden z-10">
+                <div className="absolute top-0 right-0 w-40 h-40 bg-[var(--neon)]/5 blur-3xl -z-10 rounded-full group-hover:bg-[var(--neon)]/15 transition-all duration-500" />
+                <h3 className="text-3xl font-display uppercase tracking-tight text-white mb-4 drop-shadow-sm group-hover:text-[var(--neon)] transition-colors duration-300">
                   The Session Range
                 </h3>
-                <p className="text-[var(--text-2)] text-lg leading-relaxed font-medium">
+                <p className="text-[var(--text-2)] text-lg leading-relaxed">
                   Automatically map Tokyo, London, and New York opening ranges. Instantly validate clean breakouts and avoid devastating fake-outs.
                 </p>
              </div>
 
              {/* Card 2 */}
-             <div className="glass-premium p-10 rounded-[2rem] border-2 border-[var(--border)] hover:border-[var(--neon)]/50 transition-all duration-500 shadow-2xl hover:shadow-[0_0_50px_rgba(163,230,53,0.15)] group relative overflow-hidden z-10 hover:-translate-y-2 cursor-default">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--neon)]/5 blur-[80px] -z-10 rounded-full group-hover:bg-[var(--neon)]/20 transition-all duration-700" />
-                <div className="w-14 h-14 rounded-2xl bg-black/50 border border-[var(--neon)]/30 flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(163,230,53,0.15)] group-hover:scale-110 group-hover:bg-[var(--neon)]/20 transition-all duration-300">
-                  <Crosshair className="w-7 h-7 text-[var(--neon)]" />
-                </div>
-                <h3 className="text-3xl lg:text-4xl font-bold font-display uppercase tracking-tight text-white mb-5 drop-shadow-sm group-hover:text-[var(--neon)] transition-colors duration-300">
+             <div className="glass-premium p-8 rounded-3xl border border-[var(--border)] hover:border-[var(--neon)]/50 transition-all duration-500 shadow-2xl hover:shadow-[0_0_40px_rgba(163,230,53,0.1)] group relative overflow-hidden z-10">
+                <div className="absolute top-0 right-0 w-40 h-40 bg-[var(--neon)]/5 blur-3xl -z-10 rounded-full group-hover:bg-[var(--neon)]/15 transition-all duration-500" />
+                <h3 className="text-3xl font-display uppercase tracking-tight text-white mb-4 drop-shadow-sm group-hover:text-[var(--neon)] transition-colors duration-300">
                   The Asia High Low
                 </h3>
-                <p className="text-[var(--text-2)] text-lg leading-relaxed font-medium">
+                <p className="text-[var(--text-2)] text-lg leading-relaxed">
                   Our premier market structure framework. Read liquidity sweeps, spot market rejections, and ride trend continuations anchored to the Asian session boundaries.
                 </p>
              </div>

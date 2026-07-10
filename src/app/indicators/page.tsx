@@ -644,6 +644,7 @@ export default function IndicatorsPage() {
           <div className="nav-links hidden md:flex items-center gap-8">
             <Link href="/#features" className="hover:text-white transition-colors">Features</Link>
             <Link href="/indicators" className="active">Indicators</Link>
+            <Link href="/#testimonials" className="hover:text-white transition-colors">Testimonials</Link>
             <Link href="/#pricing" className="hover:text-white transition-colors">Pricing</Link>
             <Link href="/#faq" className="hover:text-white transition-colors">FAQ</Link>
           </div>

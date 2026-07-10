@@ -32,7 +32,7 @@ export function HeroSection() {
       }}>
         {/* Background Video */}
         <div className="absolute inset-0 z-[0] pointer-events-none overflow-hidden bg-black">
-          <SeamlessVideoLoop src="/video_highres.mp4" />
+          <SeamlessVideoLoop src="/test_2.mp4" />
 
           {/* Dark overlays to hide video artifacts and ensure text readability */}
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--bg)]/30 to-[var(--bg)]" />

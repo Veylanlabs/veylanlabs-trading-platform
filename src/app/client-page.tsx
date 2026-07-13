@@ -54,9 +54,8 @@ import { SeamlessVideoLoop } from '@/components/seamless-video-loop';
 
 import { HeroSection } from '@/components/home/HeroSection';
 import { FeaturesSection } from '@/components/home/FeaturesSection';
-import { CherryPickedSetupsSection } from "@/components/home/CherryPickedSetupsSection";
 import { ToolkitSection } from "@/components/home/ToolkitSection";
-import { TradingModulesSection } from '@/components/home/TradingModulesSection';
+import { CommunitySection } from "@/components/home/CommunitySection";
 import { AetherBoardSection } from '@/components/home/AetherBoardSection';
 import { HowItWorksSection } from '@/components/home/HowItWorksSection';
 import { ComparisonSection } from '@/components/home/ComparisonSection';
@@ -223,10 +222,9 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
 
           <FeaturesSection />
 
-          <CherryPickedSetupsSection />
-
           <ToolkitSection />
-          <TradingModulesSection />
+          
+          <CommunitySection />
 
           <AetherBoardSection />
 

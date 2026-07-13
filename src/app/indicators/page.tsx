@@ -349,6 +349,7 @@ export default function IndicatorsPage() {
         <div className="max-w-6xl mx-auto px-6 relative z-10">
 
           {/* Enhanced Hero Section */}
+          {/* Enhanced Hero Section */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -362,17 +363,16 @@ export default function IndicatorsPage() {
             <h1 className="text-5xl md:text-7xl font-display font-extrabold uppercase tracking-tight leading-[1.1] mb-6">
               VeylanLabs <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon)] to-emerald-400 drop-shadow-sm">Toolkit</span>
             </h1>
-            <div className="text-center">
-              <p className="text-text-2 text-center text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed">
+
+            {/* Subtitle with controlled line breaks */}
+            <div className="max-w-3xl mx-auto">
+              <p className="text-text-2 text-center text-lg md:text-xl font-medium leading-relaxed">
                 Institutional-grade indicators and screeners
-                <br className="hidden md:block" />
-                designed for structural, session-based precision
-                <br className="hidden md:block" />
-                trading.
+                <br className="hidden sm:block" />
+                designed for structural, session-based precision trading.
               </p>
             </div>
           </motion.div>
-
           {/* Premium Grid Layout for Indicators */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {INDICATORS.map((indicator, index) => {

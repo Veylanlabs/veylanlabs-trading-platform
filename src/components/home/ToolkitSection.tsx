@@ -112,12 +112,17 @@ export function ToolkitSection() {
               ))}
             </div>
             
-            <Link href="/pricing" className="inline-block">
-              <button className="btn btn-primary btn-lg shadow-[0_0_20px_rgba(163,230,53,0.3)] hover:shadow-[0_0_40px_rgba(163,230,53,0.5)] uppercase tracking-widest text-sm font-bold flex items-center gap-3">
-                <span>Get Instant Access</span>
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </Link>
+            <button 
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+                window.history.pushState(null, '', '#pricing');
+              }}
+              className="btn btn-primary btn-lg shadow-[0_0_20px_rgba(163,230,53,0.3)] hover:shadow-[0_0_40px_rgba(163,230,53,0.5)] uppercase tracking-widest text-sm font-bold flex items-center gap-3 inline-block"
+            >
+              <span>Get Instant Access</span>
+              <ChevronRight className="w-5 h-5" />
+            </button>
           </div>
 
           {/* Video Right */}

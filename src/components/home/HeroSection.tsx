@@ -78,7 +78,7 @@ export function HeroSection() {
             lineHeight: 1.6,
             textShadow: "0 2px 10px rgba(0,0,0,0.9)"
           }}>
-            VeylanLabs reads the session for you in real-time — structure, liquidity sweeps, and high-probability entries — so you can trade with institutional precision.
+            VeylanLabs is built around a real human trading method, programmed directly into TradingView to help traders find cleaner setups, better timing, and more disciplined execution.
           </p>
 
           <div className="hero-cta flex flex-col sm:flex-row items-center justify-center gap-4">

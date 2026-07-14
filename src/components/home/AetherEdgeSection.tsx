@@ -124,13 +124,13 @@ export function AetherEdgeSection() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.3 }}
-                    className="flex flex-col md:flex-row items-start md:items-center gap-4 text-emerald-300/80"
+                    className="flex flex-col md:flex-row items-start md:items-center gap-4 text-[var(--neon)]"
                   >
                     <div className="w-12 h-12 rounded-xl bg-[var(--neon)]/10 border border-[var(--neon)]/20 flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(163,230,53,0.15)]">
                       <CheckCircle2 className="w-6 h-6 text-[var(--neon)]" />
                     </div>
-                    <p className="text-base md:text-lg font-medium leading-relaxed">
-                      <strong className="text-[var(--neon)] font-bold uppercase tracking-widest text-sm mr-2 block md:inline-block mb-1 md:mb-0">Full Context:</strong> 
+                    <p className="text-base md:text-lg font-medium leading-relaxed text-[var(--neon)]">
+                      <strong className="font-bold uppercase tracking-widest text-sm mr-2 block md:inline-block mb-1 md:mb-0">Full Context:</strong> 
                       What the session is doing, where liquidity sits, the structure shift, your entry — and the level that says you're wrong.
                     </p>
                   </motion.div>

@@ -14,7 +14,7 @@ export function FeaturesSection() {
           <h2 className="text-4xl md:text-5xl font-display font-bold uppercase tracking-tight mt-2 drop-shadow-md">See the Market in High Definition</h2>
           <p className="text-[var(--text-2)] text-lg max-w-2xl mx-auto mt-4">Stop guessing. See exactly where liquidity rests, when the sessions shift, and where your invalidation lies.</p>
         </div>
-        
+
         <div className="ba">
           <TiltCard>
             <div className="card card-old-way glass-premium animate-fade-in-up delay-100">
@@ -23,17 +23,17 @@ export function FeaturesSection() {
                 <span>SIGNAL ONLY</span>
               </div>
               <div className="ch" style={{ padding: 0, height: "220px", overflow: "hidden" }}>
-                <img 
-                  src="/image3_old_way.png" 
-                  alt="Without Context" 
-                  className="indicator-card-img" 
-                  style={{ marginTop: 0, borderRadius: 0, border: "none", width: "100%", height: "100%", objectFit: "cover", objectPosition: "left 52%" }} 
+                <img
+                  src="/image3_old_way.png"
+                  alt="Without Context"
+                  className="indicator-card-img"
+                  style={{ marginTop: 0, borderRadius: 0, border: "none", width: "100%", height: "100%", objectFit: "cover", objectPosition: "left 52%" }}
                 />
               </div>
               <div className="f">One arrow. No context, no session, no invalidation — you're guessing why it fired and holding when it fails.</div>
             </div>
           </TiltCard>
-          
+
           <TiltCard>
             <div className="card card-new-way glass-premium moving-border animate-fade-in-up delay-200">
               <div className="h">
@@ -41,14 +41,14 @@ export function FeaturesSection() {
                 <span>FULL CONTEXT</span>
               </div>
               <div className="ch" style={{ padding: 0, height: "220px", overflow: "hidden" }}>
-                <img 
-                  src="/image3.png" 
-                  alt="VeylanLabs Full Chart Context" 
-                  className="indicator-card-img" 
-                  style={{ marginTop: 0, borderRadius: 0, border: "none", width: "100%", height: "100%", objectFit: "cover", objectPosition: "left 52%" }} 
+                <img
+                  src="/image3.png"
+                  alt="VeylanLabs Full Chart Context"
+                  className="indicator-card-img"
+                  style={{ marginTop: 0, borderRadius: 0, border: "none", width: "100%", height: "100%", objectFit: "cover", objectPosition: "left 52%" }}
                 />
               </div>
-              <div className="f">What the session is doing, where liquidity sits, the structure shift, your entry — and the level that says you're wrong.</div>
+              <div className="f text-white font-semibold">What the session is doing, where liquidity sits, the structure shift, your entry — and the level that says you're wrong.</div>
             </div>
           </TiltCard>
         </div>

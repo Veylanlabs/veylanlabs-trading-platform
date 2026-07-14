@@ -31,15 +31,12 @@ export interface PlansResponse {
 
 export function PricingSection() {
   const [plans, setPlans] = useState<Plan[]>([]);
-  const [loadingPlans, setLoadingPlans] = useState(true);
-  const [plansError, setPlansError] = useState<string | null>(null);
   const [cycle, setCycle] = useState<"m" | "q" | "y">("y");
 
   // Fetch plans from API
   useEffect(() => {
     const fetchPlans = async () => {
       try {
-        setLoadingPlans(true);
         const response = await fetch('/api/plans');
         if (!response.ok) {
           throw new Error('Failed to fetch plans');
@@ -47,12 +44,8 @@ export function PricingSection() {
         
         const data: PlansResponse = await response.json();
         setPlans(data.data);
-        setPlansError(null);
       } catch (err) {
         console.error('Error fetching plans:', err);
-        setPlansError('Failed to load pricing plans');
-      } finally {
-        setLoadingPlans(false);
       }
     };
 
@@ -113,7 +106,7 @@ export function PricingSection() {
     const originalPrice = originalMonthlyPrice * (plan.billing_period / 30);
     const savingsPercent = Math.round((1 - totalPrice / originalPrice) * 100);
 
-    let displayPrice = formatPrice(monthlyPrice, plan.currency);
+    const displayPrice = formatPrice(monthlyPrice, plan.currency);
     let displaySuffix = '';
     let displaySub = null;
 

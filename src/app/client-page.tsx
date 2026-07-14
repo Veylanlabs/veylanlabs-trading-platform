@@ -2,58 +2,24 @@
 
 import React, { useState, useEffect } from "react";
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { ThemeToggle } from '@/components/theme-toggle';
-import { PricingButton } from '@/components/pricing-button';
-import { Candles } from '@/components/charts';
-import { Ico, Check } from '@/components/icons';
 import { Logo } from '@/components/logo';
-import { FAQ, SYMBOLS, TESTIMONIALS, TRADING_MODULES } from '@/data/home';
 import {
-  Activity,
-  Zap,
   ChevronRight,
   ChevronLeft,
-  Search,
-  ShieldAlert,
-  BarChart3,
   Quote,
   Menu,
   X,
-  Users,
-  Clock,
   Star,
   User,
-  Magnet,
-  Compass,
-  MessageSquare,
-  BellRing,
-  Code2,
-  TrendingUp,
-  ShieldCheck,
-  Globe,
-  Play,
-  ArrowRight,
   ArrowUp
 } from 'lucide-react';
 import { FaYoutube, FaInstagram, FaFacebook, FaTelegramPlane } from 'react-icons/fa';
 import { useTheme } from "next-themes";
-import { QuantLoader } from "@/components/quant-loader";
-import { TradingViewWidget } from "@/components/tradingview-widget";
-
-import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
-import { TiltCard } from '@/components/tilt-card';
-
-
-
-
-import { CountUp } from '@/components/count-up';
-import { SeamlessVideoLoop } from '@/components/seamless-video-loop';
-
-
+import { motion, AnimatePresence } from 'framer-motion';
 
 import { HeroSection } from '@/components/home/HeroSection';
-import { FeaturesSection } from '@/components/home/FeaturesSection';
+import { MethodologySection } from '@/components/home/MethodologySection';
 import { ToolkitSection } from "@/components/home/ToolkitSection";
 import { CommunitySection } from "@/components/home/CommunitySection";
 import { AetherBoardSection } from '@/components/home/AetherBoardSection';
@@ -69,36 +35,17 @@ import { CTASection } from '@/components/home/CTASection';
 import { StickyCTA } from '@/components/home/StickyCTA';
 
 export default function LandingPageClient({ initialPrices }: { initialPrices: any }) {
-  const [loadingPlans, setLoadingPlans] = useState(true);
-  const [plansError, setPlansError] = useState<string | null>(null);
-  const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [showStickyCTA, setShowStickyCTA] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeScreener, setActiveScreener] = useState("sfx");
-  const [activeModule, setActiveModule] = useState(0);
 
   const { theme, systemTheme } = useTheme();
 
   const [mounted, setMounted] = useState(false);
-  const [selectedSymbolIdx, setSelectedSymbolIdx] = useState(0);
 
-
-
-  const [dynamicPrices, setDynamicPrices] = useState<any>(initialPrices);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-
-  const videoRef = React.useRef<HTMLVideoElement>(null);
-
-
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.5;
-    }
-  }, []);
 
 
 
@@ -123,20 +70,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
     setMounted(true);
   }, []);
 
-  const resolvedTheme = mounted
-    ? (theme === "system" ? systemTheme : theme)
-    : "dark";
 
-  const activeSymbol = SYMBOLS[selectedSymbolIdx];
-
-  const c = {
-    up: "var(--up)",
-    dn: "var(--red)",
-    accent: "var(--accent)",
-    grid: "var(--border)",
-    bar: "var(--surface-3)",
-    t3: "var(--text-3)"
-  };
 
   useEffect(() => {
     const f = () => {
@@ -164,9 +98,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
     };
   }, []);
 
-  const handleModuleClick = (moduleId: string) => {
-    router.push('/indicators');
-  };
+
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -220,6 +152,8 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
           <HeroSection />
 
           <StatsSection />
+          
+          <MethodologySection />
 
           <AetherEdgeSection />
 

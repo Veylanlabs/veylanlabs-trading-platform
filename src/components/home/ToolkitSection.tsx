@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { ChevronRight, Activity, Crosshair, Check, Maximize2, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 

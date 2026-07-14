@@ -66,18 +66,36 @@ export function AetherEdgeSection() {
 
         {/* Image Display */}
         <div className="relative max-w-5xl mx-auto">
-          <div className="relative w-full rounded-2xl overflow-hidden glass-premium border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] bg-[#050505]">
+          {/* Dynamic Outer Glow */}
+          <div className={`absolute -inset-1 rounded-2xl blur-2xl opacity-20 transition-colors duration-700 ${activeTab === 'new' ? 'bg-[var(--neon)]' : 'bg-red-500'}`} />
+          
+          <div className="relative w-full rounded-2xl overflow-hidden border border-white/10 bg-[#050505] shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
             
+            {/* Premium Window Frame */}
+            <div className="h-10 w-full bg-[#0a0a0a] border-b border-white/5 flex items-center px-4 gap-2 relative z-20">
+              <div className="flex gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-white/10"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-white/10"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-white/10"></div>
+              </div>
+              <div className="absolute left-1/2 -translate-x-1/2 text-[10px] text-white/30 font-bold tracking-[0.2em] uppercase">
+                {activeTab === 'old' ? 'STANDARD CHART' : 'VEYLANLABS AETHER'}
+              </div>
+            </div>
+
             {/* Chart Image */}
-            <div className="relative w-full bg-[#050505] aspect-[1280/673] overflow-hidden rounded-t-xl">
+            <div className="relative w-full bg-[#050505] aspect-[1280/673] overflow-hidden">
+              {/* Subtle Inner Shadow only */}
+              <div className="absolute inset-0 shadow-[inset_0_0_100px_rgba(0,0,0,0.3)] z-10 pointer-events-none transition-opacity duration-500" />
+              
               <AnimatePresence mode="wait">
                 {activeTab === 'old' ? (
                   <motion.div
                     key="old"
-                    initial={{ opacity: 0, scale: 0.99 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                    initial={{ opacity: 0, filter: 'blur(4px)', scale: 1.02 }}
+                    animate={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
+                    exit={{ opacity: 0, filter: 'blur(4px)' }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
                     className="absolute inset-0"
                   >
                     <img src={beforeImageSrc} alt="The Old Way" className="w-full h-full object-cover opacity-80" />
@@ -85,10 +103,10 @@ export function AetherEdgeSection() {
                 ) : (
                   <motion.div
                     key="new"
-                    initial={{ opacity: 0, scale: 0.99 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                    initial={{ opacity: 0, filter: 'blur(4px)', scale: 1.02 }}
+                    animate={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
+                    exit={{ opacity: 0, filter: 'blur(4px)' }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
                     className="absolute inset-0"
                   >
                     <img src={afterImageSrc} alt="The VeylanLabs Way" className="w-full h-full object-cover" />
@@ -98,44 +116,49 @@ export function AetherEdgeSection() {
             </div>
 
             {/* Context Text Panel */}
-            <div className="p-6 md:p-8 bg-[#0a0a0a] border-t border-white/5 relative z-10">
-              <AnimatePresence mode="wait">
-                {activeTab === 'old' ? (
-                  <motion.div
-                    key="text-old"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.3 }}
-                    className="flex flex-col md:flex-row items-start md:items-center gap-4 text-red-300/80"
-                  >
-                    <div className="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(239,68,68,0.15)]">
-                      <XCircle className="w-6 h-6 text-red-400" />
-                    </div>
-                    <p className="text-base md:text-lg font-medium leading-relaxed">
-                      <strong className="text-red-400 font-bold uppercase tracking-widest text-sm mr-2 block md:inline-block mb-1 md:mb-0">Signal Only:</strong> 
-                      One arrow. No context, no session, no invalidation — you're guessing why it fired and holding when it fails.
-                    </p>
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="text-new"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.3 }}
-                    className="flex flex-col md:flex-row items-start md:items-center gap-4 text-[var(--neon)]"
-                  >
-                    <div className="w-12 h-12 rounded-xl bg-[var(--neon)]/10 border border-[var(--neon)]/20 flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(163,230,53,0.15)]">
-                      <CheckCircle2 className="w-6 h-6 text-[var(--neon)]" />
-                    </div>
-                    <p className="text-base md:text-lg font-medium leading-relaxed text-[var(--neon)]">
-                      <strong className="font-bold uppercase tracking-widest text-sm mr-2 block md:inline-block mb-1 md:mb-0">Full Context:</strong> 
-                      What the session is doing, where liquidity sits, the structure shift, your entry — and the level that says you're wrong.
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+            <div className="p-6 md:p-8 bg-[#0a0a0a] border-t border-white/5 relative z-20">
+                {/* Subtle card glow based on tab */}
+                <div className={`absolute top-0 left-0 w-1 h-full transition-colors duration-500 ${activeTab === 'new' ? 'bg-[var(--neon)]' : 'bg-red-500'}`} />
+                
+                <AnimatePresence mode="wait">
+                  {activeTab === 'old' ? (
+                    <motion.div
+                      key="text-old"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.3 }}
+                      className="flex flex-col md:flex-row items-start md:items-center gap-5 text-red-300/80"
+                    >
+                      <div className="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(239,68,68,0.15)] relative">
+                        <XCircle className="w-6 h-6 text-red-400 relative z-10" />
+                        <div className="absolute inset-0 bg-red-500/20 blur-md rounded-xl" />
+                      </div>
+                      <p className="text-base md:text-lg font-medium leading-relaxed">
+                        <strong className="text-red-400 font-bold uppercase tracking-widest text-xs md:text-sm mr-2 block md:inline-block mb-1 md:mb-0">Signal Only:</strong> 
+                        One arrow. No context, no session, no invalidation — you're guessing why it fired and holding when it fails.
+                      </p>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="text-new"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.3 }}
+                      className="flex flex-col md:flex-row items-start md:items-center gap-5 text-[var(--neon)]"
+                    >
+                      <div className="w-12 h-12 rounded-xl bg-[var(--neon)]/10 border border-[var(--neon)]/20 flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(163,230,53,0.15)] relative">
+                        <CheckCircle2 className="w-6 h-6 text-[var(--neon)] relative z-10" />
+                        <div className="absolute inset-0 bg-[var(--neon)]/20 blur-md rounded-xl" />
+                      </div>
+                      <p className="text-base md:text-lg font-medium leading-relaxed text-white/90">
+                        <strong className="text-[var(--neon)] font-bold uppercase tracking-widest text-xs md:text-sm mr-2 block md:inline-block mb-1 md:mb-0 drop-shadow-[0_0_8px_rgba(163,230,53,0.5)]">Full Context:</strong> 
+                        What the session is doing, where liquidity sits, the structure shift, your entry — and the level that says you're wrong.
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
             </div>
             
           </div>

@@ -6,10 +6,10 @@ export function ComparisonSection() {
       <div className="mk animate-fade-in-up">
         <div className="sec-head center mb-12">
           <span className="eyebrow border border-[var(--neon)]/30 bg-[var(--neon)]/5">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-[var(--neon)] to-emerald-400 animate-gradient-x">Why VeylanLabs?</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 dark:from-emerald-400 via-[var(--neon)] to-emerald-600 dark:to-emerald-400 animate-gradient-x">Why VeylanLabs?</span>
           </span>
           <h2 className="text-4xl md:text-5xl font-display font-bold uppercase tracking-tight mt-3">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-[var(--neon)] to-emerald-400 animate-gradient-x inline-block">What we bring. What they miss.</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 dark:from-emerald-400 via-[var(--neon)] to-emerald-600 dark:to-emerald-400 animate-gradient-x inline-block">What we bring. What they miss.</span>
           </h2>
           <p className="text-[var(--text-2)] text-lg mt-4 max-w-xl mx-auto">Every detail in VeylanLabs was designed intentionally. Here's how we compare.</p>
         </div>

@@ -157,7 +157,7 @@ export function PricingSection() {
         <span className="eyebrow">Membership</span>
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold uppercase tracking-tight mt-2 mb-6">
           Pricing that respects<br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-[var(--neon)] to-emerald-400 animate-gradient-x inline-block">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 dark:from-emerald-400 via-[var(--neon)] to-emerald-600 dark:to-emerald-400 animate-gradient-x inline-block">
             serious traders.
           </span>
         </h2>
@@ -187,7 +187,7 @@ export function PricingSection() {
       <div className="mk" style={{ position: "relative", zIndex: 1 }}>
         <div className="plans" style={{ display: "flex", justifyContent: "center" }}>
           <div className="plan pop glass-premium popular-pulse-card delay-100" style={{ maxWidth: "420px", width: "100%" }}>
-            <div className="pn !text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-[var(--neon)] to-emerald-400 animate-gradient-x inline-block mb-1">VeylanLabs Membership</div>
+            <div className="pn !text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 dark:from-emerald-400 via-[var(--neon)] to-emerald-600 dark:to-emerald-400 animate-gradient-x inline-block mb-1">VeylanLabs Membership</div>
             <div className="pp">{m[0]}<span>{m[2] as string}</span></div>
             <div className="pb">{m[1]}</div>
             <ul>

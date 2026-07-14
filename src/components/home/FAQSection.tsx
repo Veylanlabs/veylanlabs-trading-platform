@@ -15,7 +15,7 @@ export function FAQSection() {
               <span className="text-[var(--neon)] font-mono text-xs md:text-sm tracking-[0.25em] font-bold uppercase"> QUESTIONS</span>
             </div>
             <h2 className="text-4xl md:text-5xl lg:text-[56px] font-display font-extrabold tracking-tight uppercase leading-[1.1]">
-              FREQUENTLY ASKED <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-[var(--neon)] to-emerald-400 animate-gradient-x inline-block">QUESTIONS</span>
+              FREQUENTLY ASKED <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 dark:from-emerald-400 via-[var(--neon)] to-emerald-600 dark:to-emerald-400 animate-gradient-x inline-block">QUESTIONS</span>
             </h2>
             <div className="w-16 h-[2px] bg-[var(--neon)] mt-8"></div>
           </div>

@@ -1,10 +1,16 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { ChevronRight, Activity, Crosshair, Check, Maximize2, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export function ToolkitSection() {
   const [activeImage, setActiveImage] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   return (
     <div className="sec relative overflow-hidden py-24" id="indicators">
       {/* Background Ambient Glows */}
@@ -18,9 +24,9 @@ export function ToolkitSection() {
           </div>
           
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold uppercase tracking-tight mb-6 leading-[1.1]">
-            <span className="text-white drop-shadow-md">Trade with </span>
+            <span className="text-slate-900 dark:text-white drop-shadow-md">Trade with </span>
             <br className="md:hidden" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon)] to-emerald-400 drop-shadow-[0_0_15px_var(--neon-dim)] pb-2 pr-2 inline-block">Absolute Clarity</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon)] to-emerald-600 dark:to-emerald-400 drop-shadow-[0_0_15px_var(--neon-dim)] pb-2 pr-2 inline-block">Absolute Clarity</span>
           </h2>
           <p className="text-[var(--text-2)] text-lg max-w-2xl mx-auto font-medium">
             Stop guessing. Our institutional-grade indicators give you the exact framework to execute trades confidently, live on your chart.
@@ -33,12 +39,12 @@ export function ToolkitSection() {
           <div className="w-full lg:w-1/2 relative">
             <div className="absolute -inset-10 bg-[var(--neon)]/10 blur-[100px] rounded-full pointer-events-none z-0" />
             <div className="rounded-2xl p-[2px] bg-gradient-to-b from-[var(--neon)]/40 via-[var(--border)]/20 to-transparent shadow-[0_0_80px_rgba(163,230,53,0.15)] w-full relative hover:-translate-y-2 transition-transform duration-700 hover:shadow-[0_0_120px_rgba(163,230,53,0.25)] group z-10">
-              <div className="bg-[#0f0f13] rounded-[20px] overflow-hidden relative z-10 border border-white/5">
-                <div className="h-6 md:h-8 w-full bg-[#1c1c22]/90 backdrop-blur border-b border-white/5 flex items-center px-4 gap-2">
+              <div className="bg-slate-50 dark:bg-[#0f0f13] rounded-[20px] overflow-hidden relative z-10 border border-black/5 dark:border-white/5">
+                <div className="h-6 md:h-8 w-full bg-slate-100/90 dark:bg-[#1c1c22]/90 backdrop-blur border-b border-black/5 dark:border-white/5 flex items-center px-4 gap-2">
                   <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
                   <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
                   <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
-                  <div className="absolute left-1/2 -translate-x-1/2 text-[9px] md:text-[10px] text-white/30 font-mono tracking-widest uppercase">
+                  <div className="absolute left-1/2 -translate-x-1/2 text-[9px] md:text-[10px] text-slate-500 dark:text-white/30 font-mono tracking-widest uppercase">
                     Session Range 2.0
                   </div>
                 </div>
@@ -63,7 +69,7 @@ export function ToolkitSection() {
               <div className="w-12 h-12 rounded-2xl bg-[var(--neon)]/10 border border-[var(--neon)]/30 flex items-center justify-center text-[var(--neon)] shadow-[0_0_15px_rgba(163,230,53,0.2)]">
                 <Activity className="w-6 h-6" />
               </div>
-              <h3 className="text-3xl lg:text-4xl font-display font-bold uppercase tracking-tight text-white">
+              <h3 className="text-3xl lg:text-4xl font-display font-bold uppercase tracking-tight text-slate-900 dark:text-white">
                 The Session Range
               </h3>
             </div>
@@ -78,11 +84,11 @@ export function ToolkitSection() {
                 "Filters out market noise",
                 "Clear continuation signals"
               ].map((text, i) => (
-                <div key={i} className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-[var(--neon)]/30 hover:bg-white/[0.04] transition-all duration-300 group">
+                <div key={i} className="flex items-center gap-4 p-4 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 dark:border-white/5 hover:border-[var(--neon)]/30 hover:bg-black/[0.04] dark:hover:bg-white/[0.04] transition-all duration-300 group">
                   <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--neon)]/10 flex items-center justify-center border border-[var(--neon)]/20 shadow-[0_0_10px_rgba(163,230,53,0.1)] group-hover:scale-110 transition-transform">
                     <Check className="w-4 h-4 text-[var(--neon)]" />
                   </div>
-                  <span className="text-white/90 font-medium">{text}</span>
+                  <span className="text-slate-800 dark:text-white/90 font-medium">{text}</span>
                 </div>
               ))}
             </div>
@@ -98,7 +104,7 @@ export function ToolkitSection() {
               <div className="w-12 h-12 rounded-2xl bg-[var(--neon)]/10 border border-[var(--neon)]/30 flex items-center justify-center text-[var(--neon)] shadow-[0_0_15px_rgba(163,230,53,0.2)]">
                 <Crosshair className="w-6 h-6" />
               </div>
-              <h3 className="text-3xl lg:text-4xl font-display font-bold uppercase tracking-tight text-white">
+              <h3 className="text-3xl lg:text-4xl font-display font-bold uppercase tracking-tight text-slate-900 dark:text-white">
                 The Asia High Low
               </h3>
             </div>
@@ -113,11 +119,11 @@ export function ToolkitSection() {
                 "Identifies major liquidity sweeps",
                 "Precise stop-loss invalidation"
               ].map((text, i) => (
-                <div key={i} className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-[var(--neon)]/30 hover:bg-white/[0.04] transition-all duration-300 group">
+                <div key={i} className="flex items-center gap-4 p-4 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 dark:border-white/5 hover:border-[var(--neon)]/30 hover:bg-black/[0.04] dark:hover:bg-white/[0.04] transition-all duration-300 group">
                   <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--neon)]/10 flex items-center justify-center border border-[var(--neon)]/20 shadow-[0_0_10px_rgba(163,230,53,0.1)] group-hover:scale-110 transition-transform">
                     <Check className="w-4 h-4 text-[var(--neon)]" />
                   </div>
-                  <span className="text-white/90 font-medium">{text}</span>
+                  <span className="text-slate-800 dark:text-white/90 font-medium">{text}</span>
                 </div>
               ))}
             </div>
@@ -139,12 +145,12 @@ export function ToolkitSection() {
           <div className="w-full lg:w-1/2 relative">
             <div className="absolute -inset-10 bg-[var(--neon)]/10 blur-[100px] rounded-full pointer-events-none z-0" />
             <div className="rounded-2xl p-[2px] bg-gradient-to-b from-[var(--neon)]/40 via-[var(--border)]/20 to-transparent shadow-[0_0_80px_rgba(163,230,53,0.15)] w-full relative hover:-translate-y-2 transition-transform duration-700 hover:shadow-[0_0_120px_rgba(163,230,53,0.25)] group z-10">
-              <div className="bg-[#0f0f13] rounded-[20px] overflow-hidden relative z-10 border border-white/5">
-                <div className="h-6 md:h-8 w-full bg-[#1c1c22]/90 backdrop-blur border-b border-white/5 flex items-center px-4 gap-2">
+              <div className="bg-slate-50 dark:bg-[#0f0f13] rounded-[20px] overflow-hidden relative z-10 border border-black/5 dark:border-white/5">
+                <div className="h-6 md:h-8 w-full bg-slate-100/90 dark:bg-[#1c1c22]/90 backdrop-blur border-b border-black/5 dark:border-white/5 flex items-center px-4 gap-2">
                   <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
                   <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
                   <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
-                  <div className="absolute left-1/2 -translate-x-1/2 text-[9px] md:text-[10px] text-white/30 font-mono tracking-widest uppercase">
+                  <div className="absolute left-1/2 -translate-x-1/2 text-[9px] md:text-[10px] text-slate-500 dark:text-white/30 font-mono tracking-widest uppercase">
                     Asia High Low Tracker
                   </div>
                 </div>
@@ -167,34 +173,37 @@ export function ToolkitSection() {
       </div>
 
       {/* Image Lightbox Modal */}
-      <AnimatePresence>
-        {activeImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
-            onClick={() => setActiveImage(null)}
-          >
-            <button 
-              className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-50"
+      {mounted && typeof document !== 'undefined' && createPortal(
+        <AnimatePresence>
+          {activeImage && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
               onClick={() => setActiveImage(null)}
             >
-              <X className="w-6 h-6" />
-            </button>
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative max-w-[95vw] max-h-[95vh] rounded-xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10 bg-white"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <img src={activeImage} alt="Expanded View" className="w-full h-full object-contain max-h-[95vh]" />
+              <button 
+                className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-[110]"
+                onClick={() => setActiveImage(null)}
+              >
+                <X className="w-6 h-6" />
+              </button>
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                className="relative max-w-[95vw] max-h-[95vh] rounded-xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10 dark:border-white/10 bg-white"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <img src={activeImage} alt="Expanded View" className="w-full h-full object-contain max-h-[95vh]" />
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </div>
   );
 }

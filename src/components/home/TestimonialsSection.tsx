@@ -9,7 +9,7 @@ export function TestimonialsSection() {
         <div className="sec-head center mb-12 flex flex-col items-center">
           <span className="eyebrow inline-block">WALL OF LOVE</span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold uppercase tracking-tight mt-4">
-            Don't just take <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-[var(--neon)] to-emerald-400 animate-gradient-x drop-shadow-[0_0_15px_rgba(163,230,53,0.3)]">our word</span> for it.
+            Don't just take <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 dark:from-emerald-400 via-[var(--neon)] to-emerald-600 dark:to-emerald-400 animate-gradient-x drop-shadow-[0_0_15px_rgba(163,230,53,0.3)]">our word</span> for it.
           </h2>
         </div>
       </div>

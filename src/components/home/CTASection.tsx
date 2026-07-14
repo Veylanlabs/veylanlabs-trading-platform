@@ -20,7 +20,7 @@ export function CTASection() {
 
             <h2 className="text-4xl md:text-6xl font-display font-extrabold tracking-tight mb-4 leading-tight uppercase">
               Ready to elevate <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon)] to-emerald-400">your trading?</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon)] to-emerald-600 dark:to-emerald-400">your trading?</span>
             </h2>
 
             <p className="text-[var(--text-2)] text-base md:text-lg mb-8 max-w-xl leading-relaxed">

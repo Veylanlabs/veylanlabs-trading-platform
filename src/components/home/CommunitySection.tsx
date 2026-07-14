@@ -4,7 +4,7 @@ import { Users, MessageSquare, Zap, ChevronRight } from 'lucide-react';
 
 export function CommunitySection() {
   return (
-    <div className="sec relative overflow-hidden py-24 border-t border-white/5" id="community">
+    <div className="sec relative overflow-hidden py-24 border-t border-black/5 dark:border-white/5" id="community">
       {/* Background Ambient Glows */}
       <div className="neon-ambient w-[1000px] h-[1000px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.04]" />
 
@@ -16,9 +16,9 @@ export function CommunitySection() {
         </div>
 
         <h2 className="text-5xl md:text-6xl lg:text-7xl font-display font-bold uppercase tracking-tight mb-8 leading-tight">
-          <span className="text-white drop-shadow-md">Trade with the </span>
+          <span className="text-slate-900 dark:text-white drop-shadow-md">Trade with the </span>
           <br className="hidden md:block" />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon)] to-emerald-400 drop-shadow-[0_0_15px_var(--neon-dim)] pb-4 pt-2 inline-block">1% Community</span>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon)] to-emerald-600 dark:to-emerald-400 drop-shadow-[0_0_15px_var(--neon-dim)] pb-4 pt-2 inline-block">1% Community</span>
         </h2>
 
         <div className="text-[var(--text-2)] text-xl md:text-2xl max-w-4xl mx-auto font-medium mb-16 leading-relaxed flex flex-col gap-2 text-center">
@@ -27,21 +27,21 @@ export function CommunitySection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 text-left">
-          <div className="glass-premium p-8 rounded-2xl border border-white/5 hover:border-[var(--neon)]/30 transition-colors duration-300">
+          <div className="glass-premium p-8 rounded-2xl border border-black/5 dark:border-white/5 hover:border-[var(--neon)]/30 transition-colors duration-300">
             <MessageSquare className="w-8 h-8 text-[var(--neon)] mb-6" />
-            <h4 className="text-xl font-bold text-white mb-3 uppercase tracking-wide">Buy / Sell Signals</h4>
+            <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-3 uppercase tracking-wide">Buy / Sell Signals</h4>
             <p className="text-[var(--text-2)] font-medium">Real-time market commentary, session mapping, and precise setup callouts delivered straight to you.</p>
           </div>
 
-          <div className="glass-premium p-8 rounded-2xl border border-white/5 hover:border-[var(--neon)]/30 transition-colors duration-300">
+          <div className="glass-premium p-8 rounded-2xl border border-black/5 dark:border-white/5 hover:border-[var(--neon)]/30 transition-colors duration-300">
             <Zap className="w-8 h-8 text-[var(--neon)] mb-6" />
-            <h4 className="text-xl font-bold text-white mb-3 uppercase tracking-wide">Mentoring - Full Guidance</h4>
+            <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-3 uppercase tracking-wide">Mentoring - Full Guidance</h4>
             <p className="text-[var(--text-2)] font-medium">Access to the creators and veteran traders. Ask questions, get your charts reviewed, and fix your mistakes.</p>
           </div>
 
-          <div className="glass-premium p-8 rounded-2xl border border-white/5 hover:border-[var(--neon)]/30 transition-colors duration-300">
+          <div className="glass-premium p-8 rounded-2xl border border-black/5 dark:border-white/5 hover:border-[var(--neon)]/30 transition-colors duration-300">
             <Users className="w-8 h-8 text-[var(--neon)] mb-6" />
-            <h4 className="text-xl font-bold text-white mb-3 uppercase tracking-wide">A-to-Z Education</h4>
+            <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-3 uppercase tracking-wide">A-to-Z Education</h4>
             <p className="text-[var(--text-2)] font-medium">A massive library of video guides, recorded live sessions, and written documentation to master the system.</p>
           </div>
         </div>
@@ -57,7 +57,7 @@ export function CommunitySection() {
                 <span className="w-2 h-2 rounded-full bg-[var(--neon)] animate-pulse" />
                 Free Public Group
               </div>
-              <h3 className="text-3xl md:text-5xl font-display font-bold uppercase text-white mb-4 drop-shadow-sm">Join the VeylanLabs Telegram</h3>
+              <h3 className="text-3xl md:text-5xl font-display font-bold uppercase text-slate-900 dark:text-white mb-4 drop-shadow-sm">Join the VeylanLabs Telegram</h3>
               <p className="text-[var(--text-2)] text-lg mb-20 max-w-xl">
                 Get free weekly market updates, setup ideas, and see real results from our community before you commit.
               </p>

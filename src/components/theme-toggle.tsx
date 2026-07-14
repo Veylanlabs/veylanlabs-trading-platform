@@ -1,8 +1,19 @@
 "use client";
 
-
+import * as React from "react";
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 
 export function ThemeToggle() {
-  // Theme toggle is commented out as the project is locked to the dark/black theme.
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => setMounted(true), []);
+
+  if (!mounted) {
+    return null;
+  }
+
+  // Hidden for now before push
   return null;
 }

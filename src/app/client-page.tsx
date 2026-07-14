@@ -106,13 +106,13 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
 
   return (
     <>
-      <div className="vl overflow-x-hidden">
+      <div className="vl overflow-x-clip">
         {/* Global background moved to hero section */}
         <div className={`topnav ${scrolled ? "scrolled" : ""}`}>
           <div className="nav-in">
             <Logo />
             <div className="nav-links">
-              <a href="#features" className={activeSection === "features" ? "active" : ""}>Features</a>
+              <a href="#aether-edge" className={activeSection === "aether-edge" ? "active" : ""}>Features</a>
               <Link href="/indicators" className={activeSection === "indicators" ? "active" : ""}>Indicators</Link>
               <a href="#testimonials" className={activeSection === "testimonials" ? "active" : ""}>Testimonials</a>
               <a href="#pricing" className={activeSection === "pricing" ? "active" : ""}>Pricing</a>
@@ -134,7 +134,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
           {/* Mobile Menu Drawer */}
           {mobileMenuOpen && (
             <div className="md:hidden border-b border-border bg-[var(--bg)] px-6 py-6 flex flex-col gap-4">
-              <a href="#features" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "features" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>Features</a>
+              <a href="#aether-edge" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "aether-edge" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>Features</a>
               <a href="#pricing" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "pricing" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>Pricing</a>
               <a href="#faq" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "faq" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>FAQ</a>
             </div>
@@ -250,7 +250,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
             </div>
             <div>
               <h5>Learn</h5>
-              <Link href="#features">Features</Link>
+              <Link href="#aether-edge">Features</Link>
               <Link href="#faq">FAQ</Link>
               {/* <Link href="#">Academy</Link> */}
             </div>

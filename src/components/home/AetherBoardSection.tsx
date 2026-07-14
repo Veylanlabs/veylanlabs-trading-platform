@@ -30,11 +30,11 @@ export function AetherBoardSection() {
         <div className="relative w-full max-w-3xl mx-auto mb-24 group cursor-pointer" onClick={() => setActiveImage('/atherbot.png')}>
           <div className="absolute -inset-4 bg-gradient-to-b from-[var(--neon)]/20 to-transparent rounded-[2rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
           
-          <div className="relative rounded-lg overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] bg-black transition-all duration-700 hover:scale-[1.02] hover:shadow-[0_30px_60px_rgba(163,230,53,0.15)] ring-1 ring-white/5 flex items-center justify-center">
+          <div className="relative rounded-sm overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] bg-black transition-all duration-700 hover:scale-[1.02] hover:shadow-[0_30px_60px_rgba(163,230,53,0.15)] ring-1 ring-white/5 flex items-center justify-center">
             <img
               src="/atherbot.png"
               alt="Aether Bot Interface"
-              className="w-full h-auto object-contain block relative z-0"
+              className="w-full h-auto object-cover block relative z-0 scale-[1.04]"
             />
             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20">
               <div className="w-16 h-16 rounded-full bg-[var(--neon)]/20 text-[var(--neon)] flex items-center justify-center border border-[var(--neon)]/30 scale-50 group-hover:scale-100 transition-all duration-300 shadow-[0_0_30px_rgba(163,230,53,0.4)]">
@@ -103,10 +103,10 @@ export function AetherBoardSection() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative max-w-[95vw] max-h-[95vh] rounded-xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10 bg-black"
+              className="relative max-w-[95vw] max-h-[95vh] rounded-sm overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10 bg-black"
               onClick={(e) => e.stopPropagation()}
             >
-              <img src={activeImage} alt="Expanded View" className="w-full h-full object-contain max-h-[95vh]" />
+              <img src={activeImage} alt="Expanded View" className="w-full h-full object-cover block scale-[1.04] max-h-[95vh]" />
             </motion.div>
           </motion.div>
         )}

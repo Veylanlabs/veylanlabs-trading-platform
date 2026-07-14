@@ -536,7 +536,7 @@ export default function IndicatorsPage() {
               </div>
             </div>
             <div className="relative group flex items-center justify-center">
-              <Link href="https://t.me/Veylanlabs" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
+              <Link href="https://telegram.me/Veylanlabs" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
                 <FaTelegramPlane className="w-6 h-6" />
               </Link>
               <div className="absolute -top-11 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 bg-[#0a0a0a] text-[var(--neon)] text-[10px] font-mono tracking-widest uppercase px-3 py-1.5 rounded-md border border-[var(--neon)]/40 shadow-[0_0_15px_rgba(163,230,53,0.3)] pointer-events-none whitespace-nowrap z-50 font-bold">

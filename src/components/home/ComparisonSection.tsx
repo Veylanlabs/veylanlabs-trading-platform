@@ -37,7 +37,7 @@ export function ComparisonSection() {
                   { f: 'Asia H/L Framework', v: '✓ Dedicated Tool', t: '✗ None' },
                   { f: 'Pair Screener', v: '✓ Multi-Symbol', t: '✗ Not Included' },
                   { f: 'Named, Accountable Creators', v: '✓ Public Team', t: '✗ Anonymous' },
-                  { f: 'Community & Support', v: '✓ Active Discord', t: '✗ None' },
+                  { f: 'Community & Support', v: '✓ Active Telegram', t: '✗ None' },
                   { f: 'Platform', v: '✓ TradingView', t: 'Varies' },
                 ].map((row, i) => (
                   <tr key={i} className="body-row">

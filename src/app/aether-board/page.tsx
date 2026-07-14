@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import { Logo } from '@/components/logo';
 import { ThemeToggle } from '@/components/theme-toggle';
-import { FaTwitter, FaYoutube, FaDiscord, FaInstagram, FaTelegramPlane } from 'react-icons/fa';
+import { FaTwitter, FaYoutube, FaInstagram, FaTelegramPlane } from 'react-icons/fa';
 
 
 export default function AetherBoardPage() {
@@ -384,9 +384,6 @@ export default function AetherBoardPage() {
             </Link>
             <Link href="#" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
               <FaYoutube className="w-6 h-6" />
-            </Link>
-            <Link href="#" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
-              <FaDiscord className="w-6 h-6" />
             </Link>
             <Link href="#" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
               <FaInstagram className="w-6 h-6" />

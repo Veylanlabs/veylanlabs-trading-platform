@@ -111,7 +111,7 @@ export default function TermsConditions() {
               features for informational purposes only. Our services include:
             </p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-text-3">
-              {['TradingView indicators and tools', 'Educational content and tutorials', 'Community access (Discord/Telegram)', 'Live session breakdowns and analysis', 'Real-time market data and alerts'].map((item, i) => (
+              {['TradingView indicators and tools', 'Educational content and tutorials', 'Community access (Telegram)', 'Live session breakdowns and analysis', 'Real-time market data and alerts'].map((item, i) => (
                 <li key={i} className="flex items-center gap-3">
                   <div className="w-1.5 h-1.5 rounded-full bg-[var(--neon)] shadow-[0_0_5px_var(--neon)]" />
                   {item}

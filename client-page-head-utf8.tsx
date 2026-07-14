@@ -276,7 +276,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
         if (!response.ok) {
           throw new Error('Failed to fetch plans');
         }
-        
+
         const data: PlansResponse = await response.json();
         setPlans(data.data);
         setPlansError(null);
@@ -303,7 +303,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
       'q': 90,
       'y': 365
     };
-    
+
     const plan = getPlanByPeriod(periodMap[period as keyof typeof periodMap]);
     return plan?.purchase_url || '#';
   };
@@ -325,10 +325,10 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
       'q': 90,
       'y': 365
     };
-    const monthlyPlan = getPlanByPeriod(periodMap["m"])  
-    const originalMonthlyPrice  = monthlyPlan?.renewal_price || 49
+    const monthlyPlan = getPlanByPeriod(periodMap["m"])
+    const originalMonthlyPrice = monthlyPlan?.renewal_price || 49
     const plan = getPlanByPeriod(periodMap[cycle]);
-    
+
     if (!plan) {
       return {
         displayPrice: 'loading...',
@@ -356,7 +356,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
       displaySuffix = '/mo';
       displaySub = (
         <>
-         {!!(formatPrice(originalMonthlyPrice * 3) !== formatPrice(totalPrice)) &&  <span className="line-through text-muted-foreground mr-1 opacity-70">
+          {!!(formatPrice(originalMonthlyPrice * 3) !== formatPrice(totalPrice)) && <span className="line-through text-muted-foreground mr-1 opacity-70">
             {formatPrice(originalMonthlyPrice * 3, plan.currency)}
           </span>}
           {formatPrice(totalPrice, plan.currency)} billed quarterly{' '}
@@ -364,15 +364,15 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
         </>
       );
     } else if (cycle === 'y') {
-      
+
       displaySuffix = '/mo';
       displaySub = (
         <>
-         {!!(formatPrice(originalMonthlyPrice * 12) !== formatPrice(totalPrice)) && <span className="line-through text-muted-foreground mr-1 opacity-70">
-            { formatPrice(originalMonthlyPrice * 12, plan.currency)}
+          {!!(formatPrice(originalMonthlyPrice * 12) !== formatPrice(totalPrice)) && <span className="line-through text-muted-foreground mr-1 opacity-70">
+            {formatPrice(originalMonthlyPrice * 12, plan.currency)}
           </span>}
           {formatPrice(totalPrice, plan.currency)} billed yearly{' '}
-         {!!savingsPercent &&  <span className="text-[var(--neon)] ml-1 font-bold">({savingsPercent}% off)</span>}
+          {!!savingsPercent && <span className="text-[var(--neon)] ml-1 font-bold">({savingsPercent}% off)</span>}
         </>
       );
     }
@@ -552,10 +552,9 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
             }}>
               {/* Background Video */}
               <div className="absolute inset-0 z-[0] pointer-events-none overflow-hidden bg-black">
-                <div 
-                  className={`absolute inset-0 w-full h-full transition-opacity duration-[1000ms] ease-in-out ${
-                    videoVisible ? 'opacity-100' : 'opacity-0'
-                  }`}
+                <div
+                  className={`absolute inset-0 w-full h-full transition-opacity duration-[1000ms] ease-in-out ${videoVisible ? 'opacity-100' : 'opacity-0'
+                    }`}
                   style={{ willChange: "opacity" }}
                 >
                   <video
@@ -676,55 +675,55 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
           </div>
 
 
-        <div className="sec" id="features">
-          <div className="mk">
-            <div className="sec-head center">
-              <span className="eyebrow">The Difference</span>
-              <h2>An arrow tells you nothing. Aether gives you the full session story.</h2>
-              <p>Most indicators fire a signal and leave. Aether puts the entire read on your chart, in plain language.</p>
-            </div>
-            
-            <div className="ba">
-              <TiltCard>
-                <div className="card card-old-way glass-premium animate-fade-in-up delay-100">
-                  <div className="h">
-                    <span className="badge-comparison badge-old-way">The Old Way</span>
-                    <span>SIGNAL ONLY</span>
-                  </div>
-                  {/* <div className="ch" style={{ height: "220px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div className="sec" id="features">
+            <div className="mk">
+              <div className="sec-head center">
+                <span className="eyebrow">The Difference</span>
+                <h2>An arrow tells you nothing. Aether gives you the full session story.</h2>
+                <p>Most indicators fire a signal and leave. Aether puts the entire read on your chart, in plain language.</p>
+              </div>
+
+              <div className="ba">
+                <TiltCard>
+                  <div className="card card-old-way glass-premium animate-fade-in-up delay-100">
+                    <div className="h">
+                      <span className="badge-comparison badge-old-way">The Old Way</span>
+                      <span>SIGNAL ONLY</span>
+                    </div>
+                    {/* <div className="ch" style={{ height: "220px", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <Candles c={c} n={24} vol={20} seed={5} tr={0.5} w={460} h={180} />
                     <div className="lonebuy">BUY</div>
                   </div> */}
-                         <div className="ch" style={{ padding: 0, height: "220px", overflow: "hidden" }}>
-                    <img 
-                      src={resolvedTheme === "light" ? "/without_indicators.png" : "/without_indicators.png"} 
-                      alt="VeylanLabs Full Chart Context" 
-                      className="indicator-card-img" 
-                      style={{ marginTop: 0, borderRadius: 0, border: "none", width: "100%", height: "100%", objectFit: "cover", objectPosition: "left 52%" }} 
-                    />
+                    <div className="ch" style={{ padding: 0, height: "220px", overflow: "hidden" }}>
+                      <img
+                        src={resolvedTheme === "light" ? "/without_indicators.png" : "/without_indicators.png"}
+                        alt="VeylanLabs Full Chart Context"
+                        className="indicator-card-img"
+                        style={{ marginTop: 0, borderRadius: 0, border: "none", width: "100%", height: "100%", objectFit: "cover", objectPosition: "left 52%" }}
+                      />
+                    </div>
+                    <div className="f">One arrow. No context, no session, no invalidation ΓÇö you're guessing why it fired and holding when it fails.</div>
                   </div>
-                  <div className="f">One arrow. No context, no session, no invalidation ΓÇö you're guessing why it fired and holding when it fails.</div>
-                </div>
-              </TiltCard>
-              <TiltCard>
-                <div className="card card-new-way glass-premium moving-border animate-fade-in-up delay-200">
-                  <div className="h">
-                    <span className="badge-comparison badge-new-way">The VeylanLabs Way</span>
-                    <span>FULL CONTEXT</span>
+                </TiltCard>
+                <TiltCard>
+                  <div className="card card-new-way glass-premium moving-border animate-fade-in-up delay-200">
+                    <div className="h">
+                      <span className="badge-comparison badge-new-way">The VeylanLabs Way</span>
+                      <span>FULL CONTEXT</span>
+                    </div>
+                    <div className="ch" style={{ padding: 0, height: "220px", overflow: "hidden" }}>
+                      <img
+                        src={resolvedTheme === "light" ? "/with_indicators.png" : "/with_indicators.png"}
+                        alt="VeylanLabs Full Chart Context"
+                        className="indicator-card-img"
+                        style={{ marginTop: 0, borderRadius: 0, border: "none", width: "100%", height: "100%", objectFit: "cover", objectPosition: "left 52%" }}
+                      />
+                    </div>
+                    <div className="f">What the session is doing, where liquidity sits, the structure shift, your entry ΓÇö and the level that says you're wrong.</div>
                   </div>
-                  <div className="ch" style={{ padding: 0, height: "220px", overflow: "hidden" }}>
-                    <img 
-                      src={resolvedTheme === "light" ? "/with_indicators.png" : "/with_indicators.png"} 
-                      alt="VeylanLabs Full Chart Context" 
-                      className="indicator-card-img" 
-                      style={{ marginTop: 0, borderRadius: 0, border: "none", width: "100%", height: "100%", objectFit: "cover", objectPosition: "left 52%" }} 
-                    />
-                  </div>
-                  <div className="f">What the session is doing, where liquidity sits, the structure shift, your entry ΓÇö and the level that says you're wrong.</div>
-                </div>
-              </TiltCard>
-            </div>
-            
+                </TiltCard>
+              </div>
+
 
               {/* Tools Built For Structure. Liquidity. Precision. ΓÇö Image 3 Layout */}
               {/* <div className="vl-tools-section">
@@ -923,84 +922,84 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
           </div>
 
 
-        <div className="sec">
-          <div className="mk animate-fade-in-up">
-            <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-              <div className="w-full lg:w-1/2 flex flex-col items-start text-left">
-                {/* <span className="eyebrow mb-4">THE INDICATORS</span> */}
-                <h2 className="text-4xl md:text-5xl font-display font-bold uppercase tracking-tight mb-6">
-                  Next generation <span className="text-[var(--neon)]">trading toolkit</span>
-                </h2>
-                <p className="text-[var(--text-2)] text-lg mb-8 leading-relaxed max-w-xl">
-                  Trade with confidence using our comprehensive suite of advanced indicators. Built for modern markets to help you spot institutional footprints.
-                </p>
-                <ul className="flex flex-col gap-4 mb-10 w-full max-w-md">
-                  {[
-                    "Multi-symbol session scanning",
-                    "Session-aware range intelligence",
-                    "Asian range reference framework",
-                    "Real-time market-state guidance",
-                    "Multi-timeframe trend & power context",
-                    "Breakout quality filtering",
-                    "Entry refinement workflow",
-                    "Quiet-zone awareness"
-                  ].map((feature, idx) => (
-                    <li key={idx} className="flex items-center gap-3">
-                      <div className="w-6 h-6 rounded-full bg-[var(--glow)] border border-[var(--accent)] flex items-center justify-center flex-shrink-0">
-                        <Check className="w-3.5 h-3.5 text-[var(--neon)]" />
+          <div className="sec">
+            <div className="mk animate-fade-in-up">
+              <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                <div className="w-full lg:w-1/2 flex flex-col items-start text-left">
+                  {/* <span className="eyebrow mb-4">THE INDICATORS</span> */}
+                  <h2 className="text-4xl md:text-5xl font-display font-bold uppercase tracking-tight mb-6">
+                    Next generation <span className="text-[var(--neon)]">trading toolkit</span>
+                  </h2>
+                  <p className="text-[var(--text-2)] text-lg mb-8 leading-relaxed max-w-xl">
+                    Trade with confidence using our comprehensive suite of advanced indicators. Built for modern markets to help you spot institutional footprints.
+                  </p>
+                  <ul className="flex flex-col gap-4 mb-10 w-full max-w-md">
+                    {[
+                      "Multi-symbol session scanning",
+                      "Session-aware range intelligence",
+                      "Asian range reference framework",
+                      "Real-time market-state guidance",
+                      "Multi-timeframe trend & power context",
+                      "Breakout quality filtering",
+                      "Entry refinement workflow",
+                      "Quiet-zone awareness"
+                    ].map((feature, idx) => (
+                      <li key={idx} className="flex items-center gap-3">
+                        <div className="w-6 h-6 rounded-full bg-[var(--glow)] border border-[var(--accent)] flex items-center justify-center flex-shrink-0">
+                          <Check className="w-3.5 h-3.5 text-[var(--neon)]" />
+                        </div>
+                        <span className="text-text font-medium">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link href="/indicators" className="block mt-4">
+                    <div className="screener-tab hover:border-[var(--neon)] transition-all duration-300 group cursor-pointer">
+                      <div className="flex items-center justify-between w-full">
+                        <div className="flex items-center gap-3">
+                          <div className="w-5 h-5 rounded-full border-2 border-[var(--neon)] flex items-center justify-center">
+                            <span className="text-[10px] font-bold text-[var(--neon)]">+</span>
+                          </div>
+                          <span className="text-[var(--neon)] font-medium">Explore Indicators</span>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-[var(--neon)] group-hover:translate-x-1 transition-transform" />
                       </div>
-                      <span className="text-text font-medium">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-           <Link href="/indicators" className="block mt-4">
-            <div className="screener-tab hover:border-[var(--neon)] transition-all duration-300 group cursor-pointer">
-                <div className="flex items-center justify-between w-full">
-                  <div className="flex items-center gap-3">
-                    <div className="w-5 h-5 rounded-full border-2 border-[var(--neon)] flex items-center justify-center">
-                      <span className="text-[10px] font-bold text-[var(--neon)]">+</span>
                     </div>
-                    <span className="text-[var(--neon)] font-medium">Explore Indicators</span>
-                  </div>
-                  <ChevronRight className="w-4 h-4 text-[var(--neon)] group-hover:translate-x-1 transition-transform" />
-                </div>
-              </div>
-            </Link>
-              </div>
-
-              {/* Dark UI Graphic Replica */}
-             <div className="w-full lg:w-1/2 relative mt-10 lg:mt-0">
-              <div className="absolute inset-0 bg-mesh opacity-30 pointer-events-none" />
-              <div className="glass-premium rounded-2xl border border-border bg-[#0a0a0a]/90 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden relative z-10">
-                <div className="bg-[#111] border-b border-border/30 px-4 py-3 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                    <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                    <div className="w-3 h-3 rounded-full bg-green-500/80" />
-                  </div>
-                  {/* <div className="text-xs font-mono text-text-3 font-semibold tracking-widest"></div> */}
-                  <div className="w-16" />
+                  </Link>
                 </div>
 
-                <div className="p-4 md:p-6">
-                  {/* Video */}
-                  <div className="relative aspect-video bg-black/90 rounded-xl overflow-hidden border border-border/20">
-                    <video
-                      src="/video_3.mp4"
-                      // controls
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      className="w-full h-full object-contain"
-                    >
-                      <source src="/video_1.mp4" type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
-                  </div>
+                {/* Dark UI Graphic Replica */}
+                <div className="w-full lg:w-1/2 relative mt-10 lg:mt-0">
+                  <div className="absolute inset-0 bg-mesh opacity-30 pointer-events-none" />
+                  <div className="glass-premium rounded-2xl border border-border bg-[#0a0a0a]/90 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden relative z-10">
+                    <div className="bg-[#111] border-b border-border/30 px-4 py-3 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                        <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                        <div className="w-3 h-3 rounded-full bg-green-500/80" />
+                      </div>
+                      {/* <div className="text-xs font-mono text-text-3 font-semibold tracking-widest"></div> */}
+                      <div className="w-16" />
+                    </div>
 
-                  {/* Optional: keep a compact settings row below the video */}
-                  {/* <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+                    <div className="p-4 md:p-6">
+                      {/* Video */}
+                      <div className="relative aspect-video bg-black/90 rounded-xl overflow-hidden border border-border/20">
+                        <video
+                          src="/video_3.mp4"
+                          // controls
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          className="w-full h-full object-contain"
+                        >
+                          <source src="/video_1.mp4" type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </video>
+                      </div>
+
+                      {/* Optional: keep a compact settings row below the video */}
+                      {/* <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
                     <div className="flex items-center gap-4">
                       <span className="text-xs font-mono text-text-3 font-bold tracking-wider">DISPLAY:</span>
                       <span className="text-xs text-text-2">Liquidity Grabs</span>
@@ -1012,85 +1011,85 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
                       Apply
                     </button>
                   </div> */}
-                </div>
-              </div>
-
-              <div className="absolute -right-6 -bottom-6 w-40 h-40 bg-[var(--ring)] blur-3xl rounded-full pointer-events-none z-0" />
-              <div className="absolute -left-6 -top-6 w-40 h-40 bg-[var(--ring)] blur-3xl rounded-full pointer-events-none z-0" />
-            </div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Trading Modules Section with Video Backgrounds and Expanded Content */}
-        <div className="sec">
-          <div className="mk animate-fade-in-up delay-100">
-            <div className="sec-head center mb-12">
-              <span className="eyebrow">Trading Modules</span>
-              <h2 className="text-4xl md:text-5xl font-display font-bold uppercase tracking-tight mt-2">
-                VeylanLabs <span className="text-[var(--neon)]">Indicators And Screener</span>
-              </h2>
-              <p className="text-[var(--text-2)] text-lg max-w-2xl mx-auto mt-4">
-                Click any module to explore our comprehensive indicator suite for that trading concept.
-              </p>
-            </div>
-            
-            {/* Module Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
-              {TRADING_MODULES.map((module, index) => (
-             <div
-                  key={module.id}
-                  onClick={() => handleModuleClick(module.id)}
-                  className={`group relative flex flex-col rounded-2xl overflow-hidden cursor-pointer border border-border/50 hover:border-[var(--neon)] transition-all duration-500 hover:shadow-[0_0_40px_rgba(16,185,129,0.15)] bg-[var(--surface)] ${index === 2 ? 'md:col-span-2' : ''}`}
-                >
-                  {/* Image Background - Smaller and contained */}
-                  <div className="relative h-48 overflow-hidden">
-                    <img
-                      src={module.imagePath}
-                      alt={module.title}
-                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                    
-                    {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg)] via-[var(--bg)]/5 to-transparent" />
-                    
-                    {/* Badge */}
-                    {/* <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-[var(--neon)]/20 backdrop-blur-sm border border-[var(--neon)]/30 text-[var(--neon)] text-xs font-bold font-mono tracking-wider">
-                      {module.badge}
-                    </div> */}
-                  </div>
-                  
-                  {/* Content */}
-                  <div className="p-6 flex flex-col flex-grow">
-                    <h3 className="text-xl font-bold text-text mb-2 group-hover:text-[var(--neon)] transition-colors duration-300">
-                      {module.title}
-                    </h3>
-                    
-                    <p className="text-text-2 text-sm mb-4 leading-relaxed">
-                      {module.description}
-                    </p>
-                    
-                    {/* Expanded Details List */}
-                    <ul className="space-y-2 mb-6">
-                      {module.details.map((detail, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-sm text-text-2">
-                          <Check className="w-4 h-4 text-[var(--neon)] flex-shrink-0 mt-0.5" />
-                          <span>{detail}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    
-                    {/* CTA */}
-                    <div className="mt-auto flex justify-end items-center gap-2 text-[var(--neon)] font-medium text-sm group-hover:gap-3 transition-all duration-300">
-                      <span>{module.cta}</span>
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                     </div>
                   </div>
+
+                  <div className="absolute -right-6 -bottom-6 w-40 h-40 bg-[var(--ring)] blur-3xl rounded-full pointer-events-none z-0" />
+                  <div className="absolute -left-6 -top-6 w-40 h-40 bg-[var(--ring)] blur-3xl rounded-full pointer-events-none z-0" />
                 </div>
-              ))}
+              </div>
             </div>
           </div>
-        </div>
+
+          {/* Trading Modules Section with Video Backgrounds and Expanded Content */}
+          <div className="sec">
+            <div className="mk animate-fade-in-up delay-100">
+              <div className="sec-head center mb-12">
+                <span className="eyebrow">Trading Modules</span>
+                <h2 className="text-4xl md:text-5xl font-display font-bold uppercase tracking-tight mt-2">
+                  VeylanLabs <span className="text-[var(--neon)]">Indicators And Screener</span>
+                </h2>
+                <p className="text-[var(--text-2)] text-lg max-w-2xl mx-auto mt-4">
+                  Click any module to explore our comprehensive indicator suite for that trading concept.
+                </p>
+              </div>
+
+              {/* Module Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+                {TRADING_MODULES.map((module, index) => (
+                  <div
+                    key={module.id}
+                    onClick={() => handleModuleClick(module.id)}
+                    className={`group relative flex flex-col rounded-2xl overflow-hidden cursor-pointer border border-border/50 hover:border-[var(--neon)] transition-all duration-500 hover:shadow-[0_0_40px_rgba(16,185,129,0.15)] bg-[var(--surface)] ${index === 2 ? 'md:col-span-2' : ''}`}
+                  >
+                    {/* Image Background - Smaller and contained */}
+                    <div className="relative h-48 overflow-hidden">
+                      <img
+                        src={module.imagePath}
+                        alt={module.title}
+                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+
+                      {/* Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg)] via-[var(--bg)]/5 to-transparent" />
+
+                      {/* Badge */}
+                      {/* <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-[var(--neon)]/20 backdrop-blur-sm border border-[var(--neon)]/30 text-[var(--neon)] text-xs font-bold font-mono tracking-wider">
+                      {module.badge}
+                    </div> */}
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-6 flex flex-col flex-grow">
+                      <h3 className="text-xl font-bold text-text mb-2 group-hover:text-[var(--neon)] transition-colors duration-300">
+                        {module.title}
+                      </h3>
+
+                      <p className="text-text-2 text-sm mb-4 leading-relaxed">
+                        {module.description}
+                      </p>
+
+                      {/* Expanded Details List */}
+                      <ul className="space-y-2 mb-6">
+                        {module.details.map((detail, idx) => (
+                          <li key={idx} className="flex items-start gap-2 text-sm text-text-2">
+                            <Check className="w-4 h-4 text-[var(--neon)] flex-shrink-0 mt-0.5" />
+                            <span>{detail}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      {/* CTA */}
+                      <div className="mt-auto flex justify-end items-center gap-2 text-[var(--neon)] font-medium text-sm group-hover:gap-3 transition-all duration-300">
+                        <span>{module.cta}</span>
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
 
           {/* Aether Board Section */}
           <div className="sec" id="aether-board">
@@ -1119,9 +1118,9 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
                     {/* Aether Image Container */}
                     <div className="flex-1 w-full bg-[var(--surface)] border border-border/50 rounded-xl overflow-hidden shadow-2xl relative group">
                       <div className="absolute inset-0 bg-gradient-to-tr from-[var(--neon)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-                      <img 
-                        src="/aether.png" 
-                        alt="Aether Bot Interface" 
+                      <img
+                        src="/aether.png"
+                        alt="Aether Bot Interface"
                         className="w-full h-auto object-cover block"
                         style={{ borderBottom: '1px solid var(--border)' }}
                       />
@@ -1225,7 +1224,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
                         { f: 'Asia H/L Framework', v: 'Γ£ô Dedicated Tool', t: 'Γ£ù None' },
                         { f: 'Pair Screener', v: 'Γ£ô Multi-Symbol', t: 'Γ£ù Not Included' },
                         { f: 'Named, Accountable Creators', v: 'Γ£ô Public Team', t: 'Γ£ù Anonymous' },
-                        { f: 'Community & Support', v: 'Γ£ô Active Discord', t: 'Γ£ù None' },
+                        { f: 'Community & Support', v: 'Γ£ô Active Telegram', t: 'Γ£ù None' },
                         { f: 'Platform', v: 'Γ£ô TradingView', t: 'Varies' },
                       ].map((row, i) => (
                         <tr key={i} className="body-row">
@@ -1263,9 +1262,9 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
                   const periodMap = { m: 30, q: 90, y: 365 };
                   const hasPlan = plans.some(p => p.billing_period === periodMap[b[0] as keyof typeof periodMap]);
                   return (
-                    <button 
-                      key={b[0]} 
-                      className={`cursor-pointer ${cycle === b[0] ? "active" : ""} ${!hasPlan ? "opacity-50 cursor-not-allowed" : ""}`} 
+                    <button
+                      key={b[0]}
+                      className={`cursor-pointer ${cycle === b[0] ? "active" : ""} ${!hasPlan ? "opacity-50 cursor-not-allowed" : ""}`}
                       onClick={() => hasPlan && setCycle(b[0] as "m" | "q" | "y")}
                       disabled={!hasPlan}
                     >

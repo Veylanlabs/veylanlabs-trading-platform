@@ -36,7 +36,7 @@ import {
   ArrowRight,
   ArrowUp
 } from 'lucide-react';
-import { FaYoutube, FaInstagram, FaFacebook } from 'react-icons/fa';
+import { FaYoutube, FaInstagram, FaFacebook, FaTelegramPlane } from 'react-icons/fa';
 import { useTheme } from "next-themes";
 import { QuantLoader } from "@/components/quant-loader";
 import { TradingViewWidget } from "@/components/tradingview-widget";
@@ -58,6 +58,7 @@ import { ToolkitSection } from "@/components/home/ToolkitSection";
 import { CommunitySection } from "@/components/home/CommunitySection";
 import { AetherBoardSection } from '@/components/home/AetherBoardSection';
 import { HowItWorksSection } from '@/components/home/HowItWorksSection';
+import { AetherEdgeSection } from '@/components/home/AetherEdgeSection';
 import { ComparisonSection } from '@/components/home/ComparisonSection';
 import { TestimonialsSection } from '@/components/home/TestimonialsSection';
 
@@ -220,7 +221,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
 
           <StatsSection />
 
-          <FeaturesSection />
+          <AetherEdgeSection />
 
           <ToolkitSection />
           
@@ -342,6 +343,14 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
                 </Link>
                 <div className="absolute -top-11 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 bg-[#0a0a0a] text-[var(--neon)] text-[10px] font-mono tracking-widest uppercase px-3 py-1.5 rounded-md border border-[var(--neon)]/40 shadow-[0_0_15px_rgba(163,230,53,0.3)] pointer-events-none whitespace-nowrap z-50 font-bold">
                   Facebook
+                </div>
+              </div>
+              <div className="relative group flex items-center justify-center">
+                <Link href="https://t.me/Veylanlabs" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
+                  <FaTelegramPlane className="w-6 h-6" />
+                </Link>
+                <div className="absolute -top-11 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 bg-[#0a0a0a] text-[var(--neon)] text-[10px] font-mono tracking-widest uppercase px-3 py-1.5 rounded-md border border-[var(--neon)]/40 shadow-[0_0_15px_rgba(163,230,53,0.3)] pointer-events-none whitespace-nowrap z-50 font-bold">
+                  Telegram
                 </div>
               </div>
               <div className="relative group flex items-center justify-center">

@@ -1,7 +1,11 @@
-import React from 'react';
+"use client";
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { ChevronRight, Activity, Crosshair, Check } from 'lucide-react';
+import { ChevronRight, Activity, Crosshair, Check, Maximize2, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+
 export function ToolkitSection() {
+  const [activeImage, setActiveImage] = useState<string | null>(null);
   return (
     <div className="sec relative overflow-hidden py-24" id="indicators">
       {/* Background Ambient Glows */}
@@ -39,9 +43,16 @@ export function ToolkitSection() {
                     Session Range 2.0
                   </div>
                 </div>
-                <div className="relative aspect-video bg-black w-full overflow-hidden">
-                  <img src="/indicator_1.png" alt="Session Range Interface" className="w-full h-full object-cover block" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+                <div 
+                  className="relative aspect-video bg-white w-full overflow-hidden group cursor-pointer"
+                  onClick={() => setActiveImage('/indicator_1.png')}
+                >
+                  <img src="/indicator_1.png" alt="Session Range Interface" className="w-full h-full object-contain block p-2 transition-transform duration-500 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-[var(--neon)]/20 text-[var(--neon)] flex items-center justify-center border border-[var(--neon)]/30 scale-50 group-hover:scale-100 transition-all duration-300 shadow-[0_0_20px_rgba(163,230,53,0.3)]">
+                      <Maximize2 className="w-5 h-5" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -138,9 +149,16 @@ export function ToolkitSection() {
                     Asia High Low Tracker
                   </div>
                 </div>
-                <div className="relative aspect-video bg-black w-full overflow-hidden">
-                  <img src="/indicator_2.png" alt="Asia High Low Interface" className="w-full h-full object-cover block" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+                <div 
+                  className="relative aspect-video bg-white w-full overflow-hidden group cursor-pointer"
+                  onClick={() => setActiveImage('/indicator_2.png')}
+                >
+                  <img src="/indicator_2.png" alt="Asia High Low Interface" className="w-full h-full object-contain block p-2 transition-transform duration-500 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-[var(--neon)]/20 text-[var(--neon)] flex items-center justify-center border border-[var(--neon)]/30 scale-50 group-hover:scale-100 transition-all duration-300 shadow-[0_0_20px_rgba(163,230,53,0.3)]">
+                      <Maximize2 className="w-5 h-5" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -148,6 +166,36 @@ export function ToolkitSection() {
 
         </div>
       </div>
+
+      {/* Image Lightbox Modal */}
+      <AnimatePresence>
+        {activeImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
+            onClick={() => setActiveImage(null)}
+          >
+            <button 
+              className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-50"
+              onClick={() => setActiveImage(null)}
+            >
+              <X className="w-6 h-6" />
+            </button>
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative max-w-[95vw] max-h-[95vh] rounded-xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10 bg-white"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img src={activeImage} alt="Expanded View" className="w-full h-full object-contain max-h-[95vh]" />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

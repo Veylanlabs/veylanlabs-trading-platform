@@ -1,8 +1,11 @@
-import React from 'react';
+"use client";
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, Activity, Zap, Clock } from 'lucide-react';
+import { ArrowRight, Activity, Zap, Clock, Maximize2, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export function AetherBoardSection() {
+  const [activeImage, setActiveImage] = useState<string | null>(null);
   return (
     <div className="sec relative py-24 border-t border-white/5" id="aether-board">
       {/* Ambient Glows */}
@@ -24,16 +27,20 @@ export function AetherBoardSection() {
         </div>
 
         {/* Centerpiece Image Showcase */}
-        <div className="relative w-full max-w-3xl mx-auto mb-24 group">
+        <div className="relative w-full max-w-3xl mx-auto mb-24 group cursor-pointer" onClick={() => setActiveImage('/atherbot.png')}>
           <div className="absolute -inset-4 bg-gradient-to-b from-[var(--neon)]/20 to-transparent rounded-[2rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
           
-          <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] bg-[#0a0a0a] transition-all duration-700 hover:scale-[1.02] hover:shadow-[0_30px_60px_rgba(163,230,53,0.15)] ring-1 ring-white/5 flex items-center justify-center p-2">
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10 pointer-events-none" />
+          <div className="relative rounded-lg overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] bg-black transition-all duration-700 hover:scale-[1.02] hover:shadow-[0_30px_60px_rgba(163,230,53,0.15)] ring-1 ring-white/5 flex items-center justify-center">
             <img
               src="/atherbot.png"
               alt="Aether Bot Interface"
-              className="w-full h-auto object-cover block relative z-0 rounded-xl"
+              className="w-full h-auto object-contain block relative z-0"
             />
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20">
+              <div className="w-16 h-16 rounded-full bg-[var(--neon)]/20 text-[var(--neon)] flex items-center justify-center border border-[var(--neon)]/30 scale-50 group-hover:scale-100 transition-all duration-300 shadow-[0_0_30px_rgba(163,230,53,0.4)]">
+                <Maximize2 className="w-8 h-8" />
+              </div>
+            </div>
           </div>
         </div>
 
@@ -74,6 +81,36 @@ export function AetherBoardSection() {
         </div>
 
       </div>
+
+      {/* Image Lightbox Modal */}
+      <AnimatePresence>
+        {activeImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
+            onClick={() => setActiveImage(null)}
+          >
+            <button 
+              className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-50"
+              onClick={() => setActiveImage(null)}
+            >
+              <X className="w-6 h-6" />
+            </button>
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative max-w-[95vw] max-h-[95vh] rounded-xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10 bg-black"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img src={activeImage} alt="Expanded View" className="w-full h-full object-contain max-h-[95vh]" />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

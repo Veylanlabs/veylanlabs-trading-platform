@@ -1,11 +1,13 @@
 "use client";
 
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { Logo } from '@/components/logo';
 import { motion } from 'framer-motion';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Menu, X } from 'lucide-react';
 
 export default function TermsConditions() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -52,6 +54,40 @@ export default function TermsConditions() {
         />
       </div>
 
+      {/* Navigation */}
+      <div className="topnav scrolled border-b border-white/5 backdrop-blur-xl bg-[var(--bg)]/80 relative z-50">
+        <div className="nav-in max-w-7xl mx-auto px-6">
+          <Logo />
+          <div className="nav-links hidden md:flex items-center gap-8">
+            <Link href="/#features" className="hover:text-white transition-colors">Features</Link>
+            <Link href="/indicators" className="hover:text-white transition-colors">Indicators</Link>
+            <Link href="/#telegram" className="hover:text-white transition-colors">Telegram</Link>
+            <Link href="/#pricing" className="hover:text-white transition-colors">Pricing</Link>
+            <Link href="/#faq" className="hover:text-white transition-colors">FAQ</Link>
+          </div>
+          <div className="nav-right flex items-center gap-4">
+            <button
+              className="md:hidden text-foreground p-2 focus:outline-none hover:bg-[var(--surface-2)] rounded-lg"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle Menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Menu Drawer */}
+        {mobileMenuOpen && (
+          <div className="md:hidden border-b border-white/5 bg-[var(--bg)] px-6 py-6 flex flex-col gap-4">
+            <Link href="/#aether-edge" onClick={() => setMobileMenuOpen(false)} className="text-sm font-semibold py-2 border-b border-white/5 text-muted-foreground hover:text-white transition-colors">Features</Link>
+            <Link href="/indicators" onClick={() => setMobileMenuOpen(false)} className="text-sm font-semibold py-2 border-b border-white/5 text-muted-foreground hover:text-white transition-colors">Indicators</Link>
+            <Link href="/#telegram" onClick={() => setMobileMenuOpen(false)} className="text-sm font-semibold py-2 border-b border-white/5 text-muted-foreground hover:text-white transition-colors">Telegram</Link>
+            <Link href="/#pricing" onClick={() => setMobileMenuOpen(false)} className="text-sm font-semibold py-2 border-b border-white/5 text-muted-foreground hover:text-white transition-colors">Pricing</Link>
+            <Link href="/#faq" onClick={() => setMobileMenuOpen(false)} className="text-sm font-semibold py-2 border-b border-white/5 text-muted-foreground hover:text-white transition-colors">FAQ</Link>
+          </div>
+        )}
+      </div>
+
       <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-8 py-24">
         {/* Header */}
         <motion.div
@@ -60,12 +96,14 @@ export default function TermsConditions() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="mb-16 text-center flex flex-col items-center relative"
         >
-          <Link href="/" className="absolute left-0 top-1/2 -translate-y-1/2 hidden md:flex items-center gap-2 text-text-2 hover:text-white transition-colors">
-            <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center bg-white/5 hover:bg-[var(--neon)]/20 hover:border-[var(--neon)]/50 hover:text-[var(--neon)] transition-all">
-              <ArrowLeft className="w-4 h-4" />
-            </div>
-            <span className="font-mono text-xs uppercase tracking-widest font-bold">Back</span>
-          </Link>
+          <div className="w-full flex justify-start mb-6 md:absolute md:left-0 md:top-1/2 md:-translate-y-1/2 md:mb-0 md:w-auto">
+            <Link href="/" className="flex items-center gap-2 text-text-2 hover:text-white transition-colors">
+              <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center bg-white/5 hover:bg-[var(--neon)]/20 hover:border-[var(--neon)]/50 hover:text-[var(--neon)] transition-all">
+                <ArrowLeft className="w-4 h-4" />
+              </div>
+              <span className="font-mono text-xs uppercase tracking-widest font-bold">Back</span>
+            </Link>
+          </div>
           <div className="mb-8">
             <Logo />
           </div>

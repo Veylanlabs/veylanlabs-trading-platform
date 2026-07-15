@@ -15,6 +15,7 @@ import {
   TrendingUp,
   Check,
   X,
+  Menu,
   Zap,
   Code2
 } from 'lucide-react';
@@ -312,6 +313,7 @@ Aether SR is not a magic buy/sell bot. It is a decision-support tool. The best t
 export default function IndicatorsPage() {
 
   const [selectedIndicator, setSelectedIndicator] = useState<typeof INDICATORS[0] | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   
@@ -342,13 +344,31 @@ export default function IndicatorsPage() {
           <div className="nav-links hidden md:flex items-center gap-8">
             <Link href="/#features" className="hover:text-white transition-colors">Features</Link>
             <Link href="/indicators" className="active">Indicators</Link>
-            <Link href="/#testimonials" className="hover:text-white transition-colors">Testimonials</Link>
+            <Link href="/#telegram" className="hover:text-white transition-colors">Telegram</Link>
             <Link href="/#pricing" className="hover:text-white transition-colors">Pricing</Link>
             <Link href="/#faq" className="hover:text-white transition-colors">FAQ</Link>
           </div>
           <div className="nav-right flex items-center gap-4">
+            <button
+              className="md:hidden text-foreground p-2 focus:outline-none hover:bg-[var(--surface-2)] rounded-lg"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle Menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Menu Drawer */}
+        {mobileMenuOpen && (
+          <div className="md:hidden border-b border-white/5 bg-[var(--bg)] px-6 py-6 flex flex-col gap-4">
+            <Link href="/#aether-edge" onClick={() => setMobileMenuOpen(false)} className="text-sm font-semibold py-2 border-b border-white/5 text-muted-foreground hover:text-white transition-colors">Features</Link>
+            <Link href="/indicators" onClick={() => setMobileMenuOpen(false)} className="text-sm font-semibold py-2 border-b border-white/5 text-[var(--neon)]">Indicators</Link>
+            <Link href="/#telegram" onClick={() => setMobileMenuOpen(false)} className="text-sm font-semibold py-2 border-b border-white/5 text-muted-foreground hover:text-white transition-colors">Telegram</Link>
+            <Link href="/#pricing" onClick={() => setMobileMenuOpen(false)} className="text-sm font-semibold py-2 border-b border-white/5 text-muted-foreground hover:text-white transition-colors">Pricing</Link>
+            <Link href="/#faq" onClick={() => setMobileMenuOpen(false)} className="text-sm font-semibold py-2 border-b border-white/5 text-muted-foreground hover:text-white transition-colors">FAQ</Link>
+          </div>
+        )}
       </div>
 
       <main className="relative pt-32 pb-24 overflow-hidden">
@@ -411,10 +431,10 @@ export default function IndicatorsPage() {
                       />
                       {/* Top Badges */}
                       <div className="absolute top-4 right-4 z-20 flex gap-2">
-                        <span className="text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-1 rounded-full border border-border/50 bg-white/80 dark:bg-black/60 backdrop-blur-md text-slate-800 dark:text-text-3">
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-1 rounded-full border border-white/20 bg-black/80 backdrop-blur-md text-white shadow-sm">
                           {indicator.category}
                         </span>
-                        <span className="text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-1 rounded-full border border-[var(--neon)]/40 bg-[var(--neon)]/10 text-[var(--neon)] backdrop-blur-md">
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-1 rounded-full border border-[var(--neon)]/40 bg-black/80 text-[var(--neon)] backdrop-blur-md shadow-sm">
                           {indicator.badge}
                         </span>
                       </div>
@@ -483,11 +503,11 @@ export default function IndicatorsPage() {
                   Join VeylanLabs today to unlock the complete indicator suite, real-time alerts, and start trading with professional-grade structure.
                 </p>
 
-                <Link href="/#pricing" className="group/btn relative inline-block">
+                <Link href="/#pricing" className="group/btn relative inline-block max-w-full">
                   <div className="absolute -inset-1 bg-gradient-to-r from-[var(--neon)] to-emerald-500 rounded-xl blur opacity-30 group-hover/btn:opacity-60 transition duration-500" />
-                  <button className="mt-10 relative flex items-center justify-center gap-3 px-12 py-5 bg-[var(--surface-2)] border border-[var(--neon)]/50 hover:bg-[var(--neon)] hover:border-[var(--neon)] rounded-xl text-text hover:text-black text-base font-extrabold uppercase tracking-widest transition-all duration-300 transform group-hover/btn:-translate-y-1">
+                  <button className="mt-10 relative flex items-center justify-center gap-2 md:gap-3 px-6 md:px-12 py-4 md:py-5 bg-[var(--surface-2)] border border-[var(--neon)]/50 hover:bg-[var(--neon)] hover:border-[var(--neon)] rounded-xl text-text hover:text-black text-sm md:text-base font-extrabold uppercase tracking-widest transition-all duration-300 transform group-hover/btn:-translate-y-1 whitespace-nowrap">
                     Get Access Now
-                    <ChevronRight className="w-5 h-5 transition-transform duration-300 group-hover/btn:translate-x-1" strokeWidth={3} />
+                    <ChevronRight className="w-4 h-4 md:w-5 md:h-5 transition-transform duration-300 group-hover/btn:translate-x-1" strokeWidth={3} />
                   </button>
                 </Link>
 
@@ -505,23 +525,25 @@ export default function IndicatorsPage() {
       </main>
 
       <footer className="footer relative z-10 bg-[var(--surface)]">
-        <div className="foot max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
-          <div className="fb md:col-span-2">
+        <div className="foot">
+          <div className="fb">
             <Logo />
-            <p className="mt-6 max-w-md text-text-3 leading-relaxed">See the structure. Discipline, structure, execution — and a community that trades it live.</p>
+            <p>See the structure. Discipline, structure, execution — and a community that trades it live.</p>
           </div>
           <div>
-            <h5 className="text-slate-900 dark:text-white font-bold mb-6 tracking-wide">Product</h5>
-            <div className="flex flex-col gap-4">
-              <Link href="/#pricing" className="text-text-3 hover:text-[var(--neon)] transition-colors">Pricing</Link>
-            </div>
+            <h5>Product</h5>
+            <Link href="/indicators">Indicators</Link>
+            <Link href="/#pricing">Pricing</Link>
           </div>
           <div>
-            <h5 className="text-slate-900 dark:text-white font-bold mb-6 tracking-wide">Company</h5>
-            <div className="flex flex-col gap-4">
-              <Link href="/terms" className="text-text-3 hover:text-[var(--neon)] transition-colors">Terms</Link>
-              <Link href="/privacy" className="text-text-3 hover:text-[var(--neon)] transition-colors">Privacy</Link>
-            </div>
+            <h5>Learn</h5>
+            <Link href="/#aether-edge">Features</Link>
+            <Link href="/#faq">FAQ</Link>
+          </div>
+          <div>
+            <h5>Company</h5>
+            <Link href="/terms">Terms</Link>
+            <Link href="/privacy">Privacy</Link>
           </div>
         </div>
 

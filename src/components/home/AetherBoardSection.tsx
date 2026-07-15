@@ -13,7 +13,7 @@ export function AetherBoardSection() {
     setMounted(true);
   }, []);
   return (
-    <div className="sec relative py-24 border-t border-black/5 dark:border-white/5" id="aether-board">
+    <div className="sec relative" id="aether-board" style={{ paddingTop: '2rem', marginTop: 0, paddingBottom: '6rem' }}>
       {/* Ambient Glows */}
       <div className="neon-ambient w-[800px] h-[800px] top-0 left-1/2 -translate-x-1/2 opacity-[0.05]" />
 
@@ -33,17 +33,21 @@ export function AetherBoardSection() {
         </div>
 
         {/* Centerpiece Image Showcase */}
-        <div className="relative w-full max-w-3xl mx-auto mb-24 group cursor-pointer" onClick={() => setActiveImage('/atherbotnew.png')}>
+        <div className="relative w-full max-w-3xl mx-auto mb-24 group cursor-default md:cursor-pointer pointer-events-none md:pointer-events-auto" onClick={() => setActiveImage('/new.png')}>
           <div className="absolute -inset-4 bg-gradient-to-b from-[var(--neon)]/20 to-transparent rounded-[2rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
           
           <div className="relative rounded-sm overflow-hidden border border-black/10 dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.2)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] bg-white dark:bg-black transition-all duration-700 hover:scale-[1.02] hover:shadow-[0_30px_60px_rgba(163,230,53,0.15)] ring-1 ring-black/5 dark:ring-white/5 flex items-center justify-center">
             <img
-              src="/atherbotnew.png"
+              src="/new.png"
               alt="Aether Bot Interface"
-              className="w-full h-auto object-contain block relative z-0 invert dark:invert-0 hue-rotate-180 dark:hue-rotate-0"
+              className="w-full h-auto object-contain block relative z-0"
             />
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20">
-              <div className="w-16 h-16 rounded-full bg-[var(--neon)]/20 text-[var(--neon)] flex items-center justify-center border border-[var(--neon)]/30 scale-50 group-hover:scale-100 transition-all duration-300 shadow-[0_0_30px_rgba(163,230,53,0.4)]">
+            {/* Dark overlay */}
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10" />
+            
+            {/* Expand Icon */}
+            <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+              <div className="w-16 h-16 rounded-full bg-[var(--neon)]/20 text-[var(--neon)] flex items-center justify-center border border-[var(--neon)]/30 scale-50 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 shadow-[0_0_30px_rgba(163,230,53,0.4)] backdrop-blur-sm">
                 <Maximize2 className="w-8 h-8" />
               </div>
             </div>
@@ -53,7 +57,7 @@ export function AetherBoardSection() {
         {/* 3-Column Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {/* Trend & Power Card */}
-          <div className="glass-premium p-8 rounded-2xl border border-black/5 dark:border-white/5 hover:border-[var(--neon)]/30 transition-all duration-300 hover:-translate-y-2 group">
+          <div className="glass-premium p-8 rounded-2xl border border-black/5 dark:border-white/5 hover:border-[var(--neon)]/30 transition-all duration-300 hover:-translate-y-2 group cursor-pointer">
             <div className="w-14 h-14 rounded-xl bg-[var(--neon)]/10 flex items-center justify-center mb-6 border border-[var(--neon)]/20 shadow-[0_0_20px_rgba(163,230,53,0.15)] group-hover:bg-[var(--neon)]/20 transition-all duration-300 group-hover:scale-110">
               <Activity className="w-7 h-7 text-[var(--neon)]" />
             </div>
@@ -64,7 +68,7 @@ export function AetherBoardSection() {
           </div>
 
           {/* Aether Mentor Card */}
-          <div className="glass-premium p-8 rounded-2xl border border-black/5 dark:border-white/5 hover:border-[var(--neon)]/30 transition-all duration-300 hover:-translate-y-2 group">
+          <div className="glass-premium p-8 rounded-2xl border border-black/5 dark:border-white/5 hover:border-[var(--neon)]/30 transition-all duration-300 hover:-translate-y-2 group cursor-pointer">
             <div className="w-14 h-14 rounded-xl bg-purple-500/10 flex items-center justify-center mb-6 border border-purple-500/20 shadow-[0_0_20px_rgba(168,85,247,0.15)] group-hover:bg-purple-500/20 transition-all duration-300 group-hover:scale-110">
               <Zap className="w-7 h-7 text-purple-400" />
             </div>
@@ -75,7 +79,7 @@ export function AetherBoardSection() {
           </div>
 
           {/* Session countdown Card */}
-          <div className="glass-premium p-8 rounded-2xl border border-black/5 dark:border-white/5 hover:border-[var(--neon)]/30 transition-all duration-300 hover:-translate-y-2 group">
+          <div className="glass-premium p-8 rounded-2xl border border-black/5 dark:border-white/5 hover:border-[var(--neon)]/30 transition-all duration-300 hover:-translate-y-2 group cursor-pointer">
             <div className="w-14 h-14 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-6 border border-emerald-500/20 shadow-[0_0_20px_rgba(16,185,129,0.15)] group-hover:bg-emerald-500/20 transition-all duration-300 group-hover:scale-110">
               <Clock className="w-7 h-7 text-emerald-400" />
             </div>

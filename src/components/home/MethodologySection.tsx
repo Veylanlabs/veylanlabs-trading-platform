@@ -44,21 +44,31 @@ export function MethodologySection() {
       <div className="mk relative z-10 max-w-7xl mx-auto px-4">
         
         {/* Top Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="badge-interactive mb-6 mx-auto">
-            <span className="dotg" />
-            MORE THAN INDICATORS
+        <div className="sec-head center mb-16 text-center flex flex-col items-center">
+          {/* Section Separator */}
+          <div className="w-full flex items-center justify-center gap-4 mb-16 opacity-60 relative z-10">
+            <div className="h-[2px] w-24 md:w-48 bg-gradient-to-r from-transparent to-[var(--neon)]" />
+            <ShieldCheck className="w-8 h-8 text-[var(--neon)]" />
+            <div className="h-[2px] w-24 md:w-48 bg-gradient-to-l from-transparent to-[var(--neon)]" />
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold uppercase tracking-tight text-slate-900 dark:text-white leading-[1.1] drop-shadow-md mb-6">
-            Built for <br className="hidden md:block"/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon)] to-emerald-600 dark:to-emerald-400">Structure & Clarity</span>
+
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-display font-extrabold uppercase tracking-tight mb-8 leading-[1.05] relative z-10 text-white drop-shadow-xl">
+            MORE THAN INDICATORS
           </h2>
-          <p className="text-xl text-slate-600 dark:text-[var(--text-2)] font-medium leading-relaxed mb-4">
+
+          <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full border border-[var(--neon)]/30 bg-[var(--neon)]/10 text-[var(--neon)] text-sm md:text-base font-mono font-bold tracking-widest mb-10 relative z-10 shadow-[0_0_15px_rgba(163,230,53,0.15)] backdrop-blur-md">
+            <span className="w-2.5 h-2.5 rounded-full bg-[var(--neon)] shadow-[0_0_8px_var(--neon)] animate-pulse" />
+            BUILT FOR STRUCTURE & CLARITY
+          </div>
+          
+          <div className="w-32 h-1 rounded-full bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-50 mb-10 relative z-10" />
+
+          <p className="text-slate-600 dark:text-slate-400 text-xl md:text-2xl font-medium leading-relaxed max-w-3xl text-balance relative z-10 mb-4">
             Get ready for Aether Session Range and Asia High Low — built for traders who want real progression.
           </p>
-          <div className="flex flex-col items-center justify-center gap-1 mt-2 text-lg text-slate-800 dark:text-white/90 font-semibold">
+          <div className="flex flex-col items-center justify-center gap-1 mt-2 text-lg text-slate-800 dark:text-white/90 font-semibold relative z-10">
             <span>This is not just another indicator.</span>
-            <span className="text-slate-500 dark:text-[var(--text-3)] font-medium">And it is definitely not another blind signal service.</span>
+            <span>This is your ultimate trading assistant.</span>
           </div>
         </div>
 

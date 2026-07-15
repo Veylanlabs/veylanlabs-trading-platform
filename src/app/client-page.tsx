@@ -89,7 +89,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
       });
     }, { rootMargin: "-30% 0px -70% 0px" });
 
-    const sections = document.querySelectorAll("div.sec[id]");
+    const sections = document.querySelectorAll("div.sec[id], #telegram");
     sections.forEach((s) => observer.observe(s));
 
     return () => {
@@ -114,7 +114,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
             <div className="nav-links">
               <a href="#aether-edge" className={activeSection === "aether-edge" ? "active" : ""}>Features</a>
               <Link href="/indicators" className={activeSection === "indicators" ? "active" : ""}>Indicators</Link>
-              <a href="#testimonials" className={activeSection === "testimonials" ? "active" : ""}>Testimonials</a>
+              <a href="#telegram" className={activeSection === "telegram" ? "active" : ""}>Telegram</a>
               <a href="#pricing" className={activeSection === "pricing" ? "active" : ""}>Pricing</a>
               <a href="#faq" className={activeSection === "faq" ? "active" : ""}>FAQ</a>
             </div>
@@ -134,6 +134,8 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
           {mobileMenuOpen && (
             <div className="md:hidden border-b border-border bg-[var(--bg)] px-6 py-6 flex flex-col gap-4">
               <a href="#aether-edge" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "aether-edge" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>Features</a>
+              <Link href="/indicators" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "indicators" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>Indicators</Link>
+              <a href="#telegram" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "telegram" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>Telegram</a>
               <a href="#pricing" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "pricing" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>Pricing</a>
               <a href="#faq" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "faq" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>FAQ</a>
             </div>
@@ -171,54 +173,6 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
 
           <FAQSection />
 
-          {/* Testimonial Section */}
-          <div className="sec">
-            <div className="mk">
-              <div className="glass-premium p-0 rounded-3xl overflow-hidden border border-[var(--border)] flex flex-col md:flex-row relative group hover:border-[var(--neon)] transition-all duration-500 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)] min-h-[380px]">
-
-                {/* Testimonial text block */}
-                <div className="p-10 md:p-14 lg:p-16 flex-1 flex flex-col justify-center relative z-10 w-full md:w-[60%] lg:w-[55%] pr-4 md:pr-16 lg:pr-24">
-                  {/* Decorative background quote */}
-                  <Quote className="absolute top-6 left-6 md:top-10 md:left-10 w-32 h-32 text-[var(--neon)] opacity-[0.03] -z-10 -rotate-6" />
-                  
-                  <div className="flex items-center gap-1.5 mb-6">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <Star key={star} className="w-5 h-5 text-[var(--neon)] fill-[var(--neon)] drop-shadow-[0_0_8px_rgba(163,230,53,0.4)]" />
-                    ))}
-                  </div>
-
-                  <p className="text-xl md:text-2xl lg:text-[28px] font-medium mb-10 leading-snug tracking-tight text-[var(--text)]">
-                    "VeylanLabs indicators have completely transformed the way I trade. <br className="hidden lg:block md:block" />
-                    <span className="text-[var(--neon)] font-bold drop-shadow-[0_0_12px_rgba(163,230,53,0.3)]">The edge is real.</span>"
-                  </p>
-
-                  <div className="flex items-center gap-4 mt-2">
-                    <div className="w-12 h-12 rounded-full bg-black border border-[var(--border)] flex items-center justify-center shadow-[0_0_20px_rgba(163,230,53,0.05)] relative overflow-hidden group-hover:border-[var(--neon)] group-hover:shadow-[0_0_25px_rgba(163,230,53,0.2)] transition-all duration-500">
-                      <User className="w-5 h-5 text-[var(--text-2)] group-hover:text-[var(--neon)] transition-colors duration-500" />
-                    </div>
-                    <div>
-                      <div className="font-bold text-lg tracking-wide text-slate-900 dark:text-white group-hover:text-[var(--neon)] transition-colors duration-500">Alex T.</div>
-                      <div className="text-[var(--text-3)] text-xs font-mono tracking-widest uppercase mt-0.5">Full-time Trader</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Hooded trader image block */}
-                <div className="hidden md:block absolute top-0 right-0 bottom-0 w-1/2 lg:w-[50%] overflow-hidden rounded-r-3xl">
-                  <div 
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" 
-                    style={{ 
-                      backgroundImage: "url('/hero-trader.png')",
-                      maskImage: "linear-gradient(to right, transparent 0%, black 40%)",
-                      WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 40%)"
-                    }} 
-                  />
-                  {/* Subtle vignette on the bottom */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-50" />
-                </div>
-              </div>
-            </div>
-          </div>
 
           <CTASection />
 
@@ -262,11 +216,15 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
             </div>
           </div>
 
-          <div className="foot-bot flex flex-col md:flex-row justify-between items-center gap-6 mt-16 pt-8 border-t border-white/10">
-            <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left text-sm text-text-3">
+          <div className="foot-bot flex flex-col md:flex-row justify-between items-center gap-6 border-t border-white/10">
+            <div className="text-center md:text-left text-[10px] md:text-sm text-[var(--text-3)] leading-relaxed">
               <span>© 2026 VeylanLabs</span>
-              <span className="hidden md:inline">·</span>
-              <span>Educational use only · Not financial advice · Trade at your own risk.</span>
+              <span className="mx-2">·</span>
+              <span>Educational use only</span>
+              <span className="mx-2">·</span>
+              <span>Not financial advice</span>
+              <span className="mx-2">·</span>
+              <span>Trade at your own risk.</span>
             </div>
 
             <div className="flex items-center gap-6">

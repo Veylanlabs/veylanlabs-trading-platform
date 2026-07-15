@@ -152,16 +152,16 @@ export function PricingSection() {
   const m = [pricingData.displayPrice, pricingData.displaySub, pricingData.displaySuffix];
 
   return (
-    <div className="sec animate-fade-in-up" id="pricing">
+    <div className="sec animate-fade-in-up" id="pricing" style={{ paddingBottom: '2rem' }}>
       <div className="hero mk" style={{ paddingBottom: 30, paddingTop: 0 }}>
         <span className="eyebrow">Membership</span>
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold uppercase tracking-tight mt-2 mb-6">
+        <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold uppercase tracking-tight mt-2 mb-4 md:mb-6 leading-tight">
           Pricing that respects<br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 dark:from-emerald-400 via-[var(--neon)] to-emerald-600 dark:to-emerald-400 animate-gradient-x inline-block">
             serious traders.
           </span>
         </h2>
-        <p className="text-[var(--text-2)] text-lg">One ecosystem — indicators, academy, and a live community. Cancel anytime.</p>
+        <p className="text-[var(--text-2)] text-base md:text-lg max-w-md mx-auto">One ecosystem — indicators, academy, and a live community. Cancel anytime.</p>
         <div className="bill" style={{ marginTop: 34 }}>
           {[["m", "Monthly"], ["q", "Quarterly"], ["y", "Yearly"]].map(b => {
             const periodMap = { m: 30, q: 90, y: 365 };
@@ -198,7 +198,7 @@ export function PricingSection() {
             </PricingButton>
           </div>
         </div>
-        <p style={{ textAlign: "center", fontFamily: "var(--font-mono)", fontSize: 11.5, color: "var(--text-3)", margin: "24px 0 90px" }}>
+        <p style={{ textAlign: "center", fontFamily: "var(--font-mono)", fontSize: 11.5, color: "var(--text-3)", margin: "24px 0 0" }}>
           <span className="grn">◆ Founding Member pricing</span> — locked for life while we build.
         </p>
       </div>

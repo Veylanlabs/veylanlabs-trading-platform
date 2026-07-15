@@ -6,7 +6,7 @@ export function FAQSection() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <div className="sec" id="faq">
+    <div className="sec" id="faq" style={{ paddingTop: '2rem' }}>
       <div className="mk">
         <div className="max-w-[720px] mx-auto w-full">
           <div className="flex flex-col items-start text-left mb-16">

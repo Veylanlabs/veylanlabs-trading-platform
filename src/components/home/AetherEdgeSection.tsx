@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTheme } from "next-themes";
-import { XCircle, CheckCircle2, Sun, Moon } from 'lucide-react';
+import { XCircle, CheckCircle2, Sun, Moon, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export function AetherEdgeSection() {
@@ -32,44 +32,54 @@ export function AetherEdgeSection() {
 
       <div className="mk animate-fade-in-up relative z-10 max-w-6xl mx-auto px-4">
         
-        <div className="sec-head center mb-12 text-center">
-          <div className="badge-interactive mb-8 mx-auto">
-            <span className="dotg" />
-            THE AETHER EDGE
+        <div className="sec-head center mb-12 text-center flex flex-col items-center">
+          {/* Section Separator */}
+          <div className="w-full flex items-center justify-center gap-4 mb-16 opacity-60 relative z-10">
+            <div className="h-[2px] w-24 md:w-48 bg-gradient-to-r from-transparent to-[var(--neon)]" />
+            <Zap className="w-8 h-8 text-[var(--neon)]" />
+            <div className="h-[2px] w-24 md:w-48 bg-gradient-to-l from-transparent to-[var(--neon)]" />
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold uppercase tracking-tight text-center text-slate-900 dark:text-white drop-shadow-md mb-6 leading-[1.1]">
-            SEE THE MARKET IN <br className="hidden md:block"/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon)] to-emerald-600 dark:to-emerald-400 pb-2 inline-block">HIGH DEFINITION</span>
+
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-display font-extrabold uppercase tracking-tight mb-8 leading-[1.05] relative z-10 text-white drop-shadow-xl">
+            THE AETHER EDGE
           </h2>
-          <p className="max-w-3xl mx-auto text-[var(--text-2)] text-xl font-medium leading-relaxed">
+
+          <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full border border-[var(--neon)]/30 bg-[var(--neon)]/10 text-[var(--neon)] text-sm md:text-base font-mono font-bold tracking-widest mb-10 relative z-10 shadow-[0_0_15px_rgba(163,230,53,0.15)] backdrop-blur-md">
+            <span className="w-2.5 h-2.5 rounded-full bg-[var(--neon)] shadow-[0_0_8px_var(--neon)] animate-pulse" />
+            SEE THE MARKET IN HIGH DEFINITION
+          </div>
+          
+          <div className="w-32 h-1 rounded-full bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-50 mb-10 relative z-10" />
+
+          <p className="text-slate-600 dark:text-slate-400 text-xl md:text-2xl font-medium leading-relaxed max-w-3xl text-balance relative z-10">
             Stop guessing. See exactly where liquidity rests, when the sessions shift, and where your invalidation lies.
           </p>
         </div>
 
         {/* Premium Tab Toggle */}
         <div className="flex justify-center mb-10">
-          <div className="glass-premium p-1.5 rounded-full flex gap-2 border border-black/10 dark:border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.1)] dark:shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+          <div className="glass-premium p-1.5 rounded-full flex gap-1 sm:gap-2 border border-black/10 dark:border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.1)] dark:shadow-[0_0_30px_rgba(0,0,0,0.5)] w-full max-w-[95vw] sm:max-w-fit mx-auto">
             <button 
               onClick={() => setActiveTab('old')}
-              className={`px-6 md:px-8 py-3 rounded-full text-xs md:text-sm font-bold tracking-widest uppercase transition-all duration-300 flex items-center gap-2 ${
+              className={`px-2 sm:px-6 md:px-8 py-2.5 md:py-3 rounded-full text-[10px] sm:text-xs md:text-sm font-bold tracking-widest uppercase whitespace-nowrap transition-all duration-300 flex items-center justify-center gap-1.5 md:gap-2 flex-1 sm:flex-none ${
                 activeTab === 'old' 
                   ? 'bg-red-500/10 text-red-400 border border-red-500/30 shadow-[0_0_15px_rgba(239,68,68,0.2)]' 
                   : 'text-text-3 hover:text-slate-900 dark:hover:text-white border border-transparent hover:bg-black/5 dark:hover:bg-white/5'
               }`}
             >
-              <XCircle className="w-4 h-4" />
-              The Old Way
+              <XCircle className="w-3.5 h-3.5 md:w-4 md:h-4 shrink-0" />
+              <span><span className="hidden sm:inline">The </span>Old Way</span>
             </button>
             <button 
               onClick={() => setActiveTab('new')}
-              className={`px-6 md:px-8 py-3 rounded-full text-xs md:text-sm font-bold tracking-widest uppercase transition-all duration-300 flex items-center gap-2 ${
+              className={`px-2 sm:px-6 md:px-8 py-2.5 md:py-3 rounded-full text-[10px] sm:text-xs md:text-sm font-bold tracking-widest uppercase whitespace-nowrap transition-all duration-300 flex items-center justify-center gap-1.5 md:gap-2 flex-1 sm:flex-none ${
                 activeTab === 'new' 
                   ? 'bg-[var(--neon)]/10 text-[var(--neon)] border border-[var(--neon)]/30 shadow-[0_0_15px_rgba(163,230,53,0.2)]' 
                   : 'text-text-3 hover:text-slate-900 dark:hover:text-white border border-transparent hover:bg-black/5 dark:hover:bg-white/5'
               }`}
             >
-              <CheckCircle2 className="w-4 h-4" />
-              The VeylanLabs Way
+              <CheckCircle2 className="w-3.5 h-3.5 md:w-4 md:h-4 shrink-0" />
+              <span><span className="hidden sm:inline">The </span>VeylanLabs Way</span>
             </button>
           </div>
         </div>

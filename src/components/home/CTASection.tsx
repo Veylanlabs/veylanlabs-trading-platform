@@ -6,7 +6,7 @@ export function CTASection() {
   return (
     <div className="sec pb-12">
       <div className="mk">
-        <div className="relative rounded-3xl overflow-hidden p-8 md:p-14 text-center border border-[var(--border)] flex flex-col items-center justify-center min-h-[320px] bg-[var(--surface)] shadow-[0_0_40px_rgba(16,185,129,0.08)] transition-all duration-700 hover:border-[var(--neon)] group">
+        <div className="relative rounded-3xl overflow-hidden p-8 md:p-14 text-center border-2 border-[var(--neon)] flex flex-col items-center justify-center min-h-[320px] bg-[var(--surface)] shadow-[0_0_40px_rgba(16,185,129,0.08)] transition-all duration-700 group">
           {/* Background gradient/textures */}
           <div className="absolute inset-0 bg-cover bg-center opacity-10 mix-blend-overlay" style={{ backgroundImage: "url('/showcase-1.png')" }} />
           <div className="bg-mesh opacity-30 group-hover:opacity-50 transition-opacity duration-700" />

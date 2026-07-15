@@ -42,7 +42,6 @@ export default function AetherBoardPage() {
             <Link href="/#faq">FAQ</Link>
           </div>
           <div className="nav-right" style={{ gap: '16px' }}>
-            <ThemeToggle />
 
           </div>
         </div>

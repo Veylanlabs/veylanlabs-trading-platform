@@ -26,11 +26,11 @@ export default function PrivacyPolicy() {
   };
 
   return (
-    <div className="vl min-h-screen bg-[#0a0f17] text-text relative overflow-hidden selection:bg-[var(--neon)]/30">
+    <div className="vl min-h-screen bg-[var(--bg)] text-text relative overflow-hidden selection:bg-[var(--neon)]/30">
 
       {/* Dynamic Interactive Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0f17] via-[#091512] to-[#0a0f17]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[var(--bg)] via-[var(--bg-2)] to-[var(--bg)]" />
         <div className="absolute inset-0 bg-mesh opacity-[0.25]" />
 
         {/* Animated Glows */}

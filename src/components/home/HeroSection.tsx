@@ -31,13 +31,22 @@ export function HeroSection() {
         justifyContent: "center"
       }}>
         {/* Background Video */}
-        {/* Background Video (Dark Mode Only) */}
-        <div className="absolute inset-0 z-[0] pointer-events-none overflow-hidden hidden dark:block bg-black">
-          <SeamlessVideoLoop src="/test_2.mp4" />
+        <div className="absolute inset-0 z-[0] pointer-events-none overflow-hidden block bg-[#F8FAFC] dark:bg-[#050505]">
+          <div className="absolute inset-0 block dark:hidden">
+            <SeamlessVideoLoop src="/whitetheme.mp4" />
+          </div>
+          <div className="absolute inset-0 hidden dark:block">
+            <SeamlessVideoLoop src="/test_2.mp4" />
+          </div>
 
-          {/* Dark overlays to hide video artifacts and ensure text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050505]/50 to-[#050505]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,#050505_100%)]" />
+          {/* Overlays to hide video artifacts and ensure text readability */}
+          <div className="absolute inset-0 bg-white/20 dark:bg-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#F8FAFC]/30 to-[#F8FAFC] dark:from-transparent dark:via-[#050505]/60 dark:to-[#050505]" />
+
+          {/* Central soft white glow specifically behind the text to ensure perfect contrast without washing out the whole video */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] max-w-[1000px] h-[50vh] bg-white/70 blur-[100px] rounded-[50%] pointer-events-none dark:hidden" />
+
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,#F8FAFC_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_40%,#050505_100%)]" />
         </div>
 
         {/* Content */}
@@ -50,12 +59,14 @@ export function HeroSection() {
           margin: "0 auto",
           textAlign: "center"
         }}>
-          <div className="badge-interactive" style={{ margin: "0 auto 24px" }}>
+          <div className="badge-interactive text-slate-900 font-semibold border-black/15 bg-white/60 backdrop-blur-md shadow-[0_4px_15px_rgba(0,0,0,0.05)] dark:bg-transparent dark:shadow-none dark:font-normal dark:text-white/90 dark:border-white/20" style={{ margin: "0 auto 24px" }}>
             <span className="dotg" />
             PREMIUM TRADING ECOSYSTEM
           </div>
 
-          <h1 className="font-display uppercase tracking-tighter text-slate-900 dark:text-white drop-shadow-md dark:drop-shadow-[0_4px_30px_rgba(0,0,0,0.8)]" style={{
+
+
+          <h1 className="font-display uppercase tracking-tighter text-slate-900 drop-shadow-none dark:text-white dark:drop-shadow-[0_4px_30px_rgba(0,0,0,0.8)]" style={{
             fontSize: "clamp(48px, 8vw, 80px)",
             lineHeight: 1.0,
             marginBottom: 24,
@@ -65,10 +76,10 @@ export function HeroSection() {
             position: "relative"
           }}>
             Stop chasing signals.<br />
-            Understand <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon)] to-emerald-600 dark:to-emerald-400 drop-shadow-[0_0_15px_var(--neon-dim)]">{heroWords[heroWordIdx]}</span>
+            Understand <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon)] to-green-700 dark:to-emerald-400 drop-shadow-none dark:drop-shadow-[0_0_15px_var(--neon-dim)]">{heroWords[heroWordIdx]}</span>
           </h1>
 
-          <p className="text-slate-600 dark:text-[var(--text-2)] drop-shadow-sm dark:drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]" style={{
+          <p className="text-slate-800 font-medium drop-shadow-none dark:font-normal dark:text-slate-200 dark:drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]" style={{
             fontSize: "19px",
             marginBottom: 36,
             maxWidth: "600px",
@@ -80,7 +91,7 @@ export function HeroSection() {
 
           <div className="hero-cta flex flex-col sm:flex-row items-center justify-center gap-4">
             <a href="#pricing" className="btn btn-primary hover-pulse-glow w-full sm:w-auto text-center" style={{ padding: "14px 28px", fontSize: 16 }}>Start trading smarter</a>
-            <a href="#aether-edge" className="btn btn-ghost w-full sm:w-auto text-center" style={{ padding: "14px 28px", fontSize: 16 }}>View features</a>
+            <a href="#aether-edge" className="btn btn-ghost w-full sm:w-auto text-center text-slate-900 font-semibold bg-white/50 backdrop-blur-md border-black/15 shadow-[0_4px_15px_rgba(0,0,0,0.05)] hover:bg-white/80 dark:bg-transparent dark:shadow-none dark:font-normal dark:text-white dark:border-white/20 dark:hover:bg-white/10" style={{ padding: "14px 28px", fontSize: 16 }}>View features</a>
           </div>
         </div>
       </div>

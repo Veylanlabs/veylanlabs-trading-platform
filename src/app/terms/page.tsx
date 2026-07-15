@@ -26,11 +26,11 @@ export default function TermsConditions() {
   };
 
   return (
-    <div className="vl min-h-screen bg-[#0a0f17] text-text relative overflow-hidden selection:bg-[var(--neon)]/30">
+    <div className="vl min-h-screen bg-[var(--bg)] text-text relative overflow-hidden selection:bg-[var(--neon)]/30">
 
       {/* Dynamic Interactive Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0f17] via-[#091512] to-[#0a0f17]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[var(--bg)] via-[var(--bg-2)] to-[var(--bg)]" />
         <div className="absolute inset-0 bg-mesh opacity-[0.25]" />
 
         {/* Animated Glows */}
@@ -247,7 +247,7 @@ export default function TermsConditions() {
           </motion.section>
 
           <motion.section variants={itemVariants}>
-            <div className="relative p-8 rounded-3xl border border-white/10 bg-[#0d1317] backdrop-blur-xl overflow-hidden group">
+            <div className="relative p-8 rounded-3xl border border-border bg-[var(--surface)] backdrop-blur-xl overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 pointer-events-none" />
               <div className="relative z-10">
                 <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">

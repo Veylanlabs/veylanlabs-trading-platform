@@ -13,9 +13,17 @@ export function AetherEdgeSection() {
   
   useEffect(() => setMounted(true), []);
 
+  // Sync chart theme with global theme by default
+  useEffect(() => {
+    if (resolvedTheme === 'light' || resolvedTheme === 'dark') {
+      setChartTheme(resolvedTheme);
+    }
+  }, [resolvedTheme]);
+
   const afterImageSrc = "/veylanlabsimage.png"; // User requested image
   const afterImageLightSrc = "/veylanlabsimagewhitetheme.png"; // Light theme chart
   const beforeImageSrc = "/clean_chart.png"; // AI cleaned version of the chart
+  const beforeImageLightSrc = "/clean_chart_light.png"; // Light theme cleaned chart
 
   return (
     <div className="sec relative py-24 border-t border-black/5 dark:border-white/5" id="aether-edge">
@@ -81,12 +89,11 @@ export function AetherEdgeSection() {
                 <div className="w-2.5 h-2.5 rounded-full bg-black/10 dark:bg-white/10"></div>
               </div>
               
-              <div className="absolute left-1/2 -translate-x-1/2 text-[10px] text-slate-500 dark:text-white/30 font-bold tracking-[0.2em] uppercase">
-                {activeTab === 'old' ? 'STANDARD CHART' : 'VEYLANLABS AETHER'}
+              <div className="absolute left-1/2 -translate-x-1/2 text-[9px] md:text-[10px] text-slate-500 dark:text-white/30 font-mono tracking-widest uppercase">
+                VeylanLabs Aether
               </div>
               
               <div className="w-16 flex justify-end">
-                {activeTab === 'new' && (
                   <button 
                     onClick={() => setChartTheme(prev => prev === 'dark' ? 'light' : 'dark')}
                     className="w-6 h-6 flex items-center justify-center rounded-md bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors border border-black/5 dark:border-white/5 text-slate-500 dark:text-white/50 hover:text-slate-900 dark:hover:text-white"
@@ -94,12 +101,11 @@ export function AetherEdgeSection() {
                   >
                     {chartTheme === 'dark' ? <Sun className="w-3 h-3" /> : <Moon className="w-3 h-3" />}
                   </button>
-                )}
               </div>
             </div>
 
             {/* Chart Image */}
-            <div className="relative w-full bg-white dark:bg-[#050505] aspect-[1280/673] overflow-hidden">
+            <div className={`relative w-full aspect-[1280/580] overflow-hidden transition-colors duration-500 ${chartTheme === 'light' ? 'bg-white' : 'bg-[#000000]'}`}>
               {/* Subtle Inner Shadow only */}
               <div className="absolute inset-0 shadow-[inset_0_0_100px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_0_100px_rgba(0,0,0,0.3)] z-10 pointer-events-none transition-opacity duration-500" />
               
@@ -113,7 +119,7 @@ export function AetherEdgeSection() {
                     transition={{ duration: 0.5, ease: "easeOut" }}
                     className="absolute inset-0"
                   >
-                    <img src={beforeImageSrc} alt="The Old Way" className="w-full h-full object-cover opacity-80" />
+                    <img src={beforeImageSrc} alt="The Old Way" className={`w-full h-full object-contain opacity-80 ${chartTheme === 'light' ? 'invert hue-rotate-180' : ''}`} />
                   </motion.div>
                 ) : (
                   <motion.div
@@ -124,7 +130,16 @@ export function AetherEdgeSection() {
                     transition={{ duration: 0.5, ease: "easeOut" }}
                     className="absolute inset-0"
                   >
-                    <img src={chartTheme === 'dark' ? afterImageSrc : afterImageLightSrc} alt="The VeylanLabs Way" className={`w-full h-full object-cover ${chartTheme === 'light' ? 'bg-white' : ''}`} />
+                    {/* Base Chart */}
+                    <img src={afterImageLightSrc} alt="The VeylanLabs Way" className={`w-full h-full object-contain ${chartTheme === 'dark' ? 'invert hue-rotate-180' : 'bg-white'}`} />
+                    
+                    {/* Dynamic AetherBot Panel Overlay */}
+                    <img 
+                      src="/atherbotnew.png" 
+                      alt="AetherBot Panel" 
+                      className={`absolute left-0 bottom-0 transition-all duration-500 ${chartTheme === 'light' ? 'invert hue-rotate-180 drop-shadow-xl' : 'drop-shadow-2xl'}`}
+                      style={{ width: '38.28125%', height: 'auto' }}
+                    />
                   </motion.div>
                 )}
               </AnimatePresence>

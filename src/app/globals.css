@@ -88,6 +88,9 @@ h1, h2, h3, h4, h5, .font-display {
   background-size: 200% 200%;
   animation: fluidMesh 15s ease-in-out infinite alternate;
 }
+html:not(.dark) .bg-mesh {
+  display: none !important;
+}
 
 @keyframes fluidMesh {
   0% { background-position: 0% 0%; }
@@ -107,8 +110,8 @@ h1, h2, h3, h4, h5, .font-display {
    ============================================================ */
 
 .vl {
-  --bg:#FFFFFF; --bg-2:#F8FAFC; --surface:#FFFFFF; --surface-2:#F1F5F9; --surface-3:#E2E8F0;
-  --border:rgba(0,0,0,.08); --border-2:rgba(0,0,0,.12);
+  --bg:#F8FAFC; --bg-2:#F1F5F9; --surface:#FFFFFF; --surface-2:#F8FAFC; --surface-3:#E2E8F0;
+  --border:rgba(15,23,42,0.06); --border-2:rgba(15,23,42,0.12);
   --text:#0F172A; --text-2:#475569; --text-3:#94A3B8;
   --accent:#65a30d; --accent-2:#84cc16; --accent-ink:#FFFFFF; --accent-text:#4d7c0f;
   --red:#EF4444; --up:#65a30d;
@@ -412,6 +415,9 @@ html:not(.dark) .vl .input { background: var(--surface-2); }
   pointer-events: none;
   z-index: 0;
 }
+html:not(.dark) .neon-ambient {
+  display: none !important;
+}
 
 /* Premium Grid and Glow Backgrounds */
 .bg-grid {
@@ -433,6 +439,9 @@ html:not(.dark) .vl .input { background: var(--surface-2); }
   opacity: 0.8;
   transition: opacity 0.3s ease;
 }
+html:not(.dark) .interactive-glow {
+  display: none !important;
+}
 
 .dark .interactive-glow {
   opacity: 0.6;
@@ -453,6 +462,9 @@ html:not(.dark) .vl .input { background: var(--surface-2); }
   opacity: 0.4;
   border-radius: 50%;
   animation: floatAmbient 12s ease-in-out infinite alternate;
+}
+html:not(.dark) .glow-ambient {
+  display: none !important;
 }
 
 @keyframes floatAmbient {
@@ -2007,6 +2019,15 @@ html:not(.dark) .vl .input { background: var(--surface-2); }
     radial-gradient(550px circle at 85% 75%, rgba(76, 217, 100, 0.12), transparent 60%);
   animation: glowPulse 8s ease-in-out infinite alternate;
   pointer-events: none;
+}
+
+/* Fix light mode for .sec */
+html:not(.dark) .sec {
+  background: transparent !important;
+}
+html:not(.dark) .sec::before,
+html:not(.dark) .sec::after {
+  display: none !important;
 }
 
 .sec .mk {

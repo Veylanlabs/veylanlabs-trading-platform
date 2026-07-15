@@ -5,6 +5,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from 'next-themes';
+import { useEffect } from 'react';
 import {
   ArrowLeft,
   ChevronRight,
@@ -310,6 +312,10 @@ Aether SR is not a magic buy/sell bot. It is a decision-support tool. The best t
 export default function IndicatorsPage() {
 
   const [selectedIndicator, setSelectedIndicator] = useState<typeof INDICATORS[0] | null>(null);
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => setMounted(true), []);
 
   const colorMap: Record<string, string> = {
     emerald: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.3)]',
@@ -320,6 +326,7 @@ export default function IndicatorsPage() {
 
   return (
     <div className="vl min-h-screen bg-[var(--bg)] text-text selection:bg-[var(--neon)]/30">
+      {/* Dynamic Backgrounds */}
       {/* Dynamic Backgrounds */}
       <div className="fixed inset-0 z-[-2] pointer-events-none overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg)] via-[var(--bg)]/90 to-[var(--bg)]" />
@@ -340,7 +347,6 @@ export default function IndicatorsPage() {
             <Link href="/#faq" className="hover:text-white transition-colors">FAQ</Link>
           </div>
           <div className="nav-right flex items-center gap-4">
-            <ThemeToggle />
           </div>
         </div>
       </div>
@@ -361,7 +367,7 @@ export default function IndicatorsPage() {
               PROFESSIONAL SUITE
             </div>
             <h1 className="text-5xl md:text-7xl font-display font-extrabold uppercase tracking-tight leading-[1.1] mb-6">
-              VeylanLabs <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon)] to-emerald-400 drop-shadow-sm">Toolkit</span>
+              VeylanLabs <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon)] to-emerald-600 dark:to-emerald-400 drop-shadow-[0_0_15px_var(--neon-dim)] pb-2 inline-block">Toolkit</span>
             </h1>
 
             {/* Subtitle with controlled line breaks */}
@@ -384,14 +390,14 @@ export default function IndicatorsPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.15 }}
-                    className="h-full group cursor-pointer relative rounded-2xl glass-premium border border-border/40 hover:border-[var(--neon)]/60 transition-all duration-500 overflow-hidden bg-[var(--surface)] hover:shadow-[0_20px_60px_-15px_rgba(16,185,129,0.15)] flex flex-col"
+                    className="h-full group cursor-pointer relative rounded-3xl glass-premium border border-black/5 dark:border-white/10 hover:border-[var(--neon)]/60 transition-all duration-500 overflow-hidden bg-white/60 dark:bg-[#0a0a0a]/60 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:shadow-none hover:shadow-[0_20px_60px_-15px_rgba(16,185,129,0.2)] flex flex-col"
                     onClick={() => setSelectedIndicator(indicator)}
                   >
                     {/* Hover Glow Background */}
                     <div className="absolute inset-0 bg-gradient-to-br from-[var(--neon)]/0 via-[var(--neon)]/0 to-[var(--neon)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
                     {/* Image Header with Gradient Mask */}
-                    <div className="relative h-56 w-full overflow-hidden bg-[#050505]">
+                    <div className="relative h-56 w-full overflow-hidden bg-[var(--surface-2)]">
                       <div className="absolute inset-0 bg-gradient-to-t from-[var(--surface)] via-transparent to-transparent z-10" />
                       <Image
                         src={indicator.image_path}
@@ -405,7 +411,7 @@ export default function IndicatorsPage() {
                       />
                       {/* Top Badges */}
                       <div className="absolute top-4 right-4 z-20 flex gap-2">
-                        <span className="text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-1 rounded-full border border-border/50 bg-black/60 backdrop-blur-md text-text-3">
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-1 rounded-full border border-border/50 bg-white/80 dark:bg-black/60 backdrop-blur-md text-slate-800 dark:text-text-3">
                           {indicator.category}
                         </span>
                         <span className="text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-1 rounded-full border border-[var(--neon)]/40 bg-[var(--neon)]/10 text-[var(--neon)] backdrop-blur-md">
@@ -498,20 +504,20 @@ export default function IndicatorsPage() {
         </div>
       </main>
 
-      <footer className="footer relative z-10 bg-[#050505]">
+      <footer className="footer relative z-10 bg-[var(--surface)]">
         <div className="foot max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="fb md:col-span-2">
             <Logo />
             <p className="mt-6 max-w-md text-text-3 leading-relaxed">See the structure. Discipline, structure, execution — and a community that trades it live.</p>
           </div>
           <div>
-            <h5 className="text-white font-bold mb-6 tracking-wide">Product</h5>
+            <h5 className="text-slate-900 dark:text-white font-bold mb-6 tracking-wide">Product</h5>
             <div className="flex flex-col gap-4">
               <Link href="/#pricing" className="text-text-3 hover:text-[var(--neon)] transition-colors">Pricing</Link>
             </div>
           </div>
           <div>
-            <h5 className="text-white font-bold mb-6 tracking-wide">Company</h5>
+            <h5 className="text-slate-900 dark:text-white font-bold mb-6 tracking-wide">Company</h5>
             <div className="flex flex-col gap-4">
               <Link href="/terms" className="text-text-3 hover:text-[var(--neon)] transition-colors">Terms</Link>
               <Link href="/privacy" className="text-text-3 hover:text-[var(--neon)] transition-colors">Privacy</Link>
@@ -531,7 +537,7 @@ export default function IndicatorsPage() {
               <Link href="https://www.facebook.com/profile.php?id=61590814831781" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
                 <FaFacebook className="w-6 h-6" />
               </Link>
-              <div className="absolute -top-11 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 bg-[#0a0a0a] text-[var(--neon)] text-[10px] font-mono tracking-widest uppercase px-3 py-1.5 rounded-md border border-[var(--neon)]/40 shadow-[0_0_15px_rgba(163,230,53,0.3)] pointer-events-none whitespace-nowrap z-50 font-bold">
+              <div className="absolute -top-11 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 bg-[var(--surface)] text-[var(--neon)] text-[10px] font-mono tracking-widest uppercase px-3 py-1.5 rounded-md border border-[var(--neon)]/40 shadow-[0_0_15px_rgba(163,230,53,0.3)] pointer-events-none whitespace-nowrap z-50 font-bold">
                 Facebook
               </div>
             </div>
@@ -539,7 +545,7 @@ export default function IndicatorsPage() {
               <Link href="https://telegram.me/Veylanlabs" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
                 <FaTelegramPlane className="w-6 h-6" />
               </Link>
-              <div className="absolute -top-11 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 bg-[#0a0a0a] text-[var(--neon)] text-[10px] font-mono tracking-widest uppercase px-3 py-1.5 rounded-md border border-[var(--neon)]/40 shadow-[0_0_15px_rgba(163,230,53,0.3)] pointer-events-none whitespace-nowrap z-50 font-bold">
+              <div className="absolute -top-11 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 bg-[var(--surface)] text-[var(--neon)] text-[10px] font-mono tracking-widest uppercase px-3 py-1.5 rounded-md border border-[var(--neon)]/40 shadow-[0_0_15px_rgba(163,230,53,0.3)] pointer-events-none whitespace-nowrap z-50 font-bold">
                 Telegram
               </div>
             </div>
@@ -547,7 +553,7 @@ export default function IndicatorsPage() {
               <Link href="https://www.youtube.com/@VeylanLabs" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
                 <FaYoutube className="w-6 h-6" />
               </Link>
-              <div className="absolute -top-11 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 bg-[#0a0a0a] text-[var(--neon)] text-[10px] font-mono tracking-widest uppercase px-3 py-1.5 rounded-md border border-[var(--neon)]/40 shadow-[0_0_15px_rgba(163,230,53,0.3)] pointer-events-none whitespace-nowrap z-50 font-bold">
+              <div className="absolute -top-11 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 bg-[var(--surface)] text-[var(--neon)] text-[10px] font-mono tracking-widest uppercase px-3 py-1.5 rounded-md border border-[var(--neon)]/40 shadow-[0_0_15px_rgba(163,230,53,0.3)] pointer-events-none whitespace-nowrap z-50 font-bold">
                 YouTube
               </div>
             </div>
@@ -555,7 +561,7 @@ export default function IndicatorsPage() {
               <Link href="https://www.instagram.com/Veylanlabs/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
                 <FaInstagram className="w-6 h-6" />
               </Link>
-              <div className="absolute -top-11 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 bg-[#0a0a0a] text-[var(--neon)] text-[10px] font-mono tracking-widest uppercase px-3 py-1.5 rounded-md border border-[var(--neon)]/40 shadow-[0_0_15px_rgba(163,230,53,0.3)] pointer-events-none whitespace-nowrap z-50 font-bold">
+              <div className="absolute -top-11 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 bg-[var(--surface)] text-[var(--neon)] text-[10px] font-mono tracking-widest uppercase px-3 py-1.5 rounded-md border border-[var(--neon)]/40 shadow-[0_0_15px_rgba(163,230,53,0.3)] pointer-events-none whitespace-nowrap z-50 font-bold">
                 Instagram
               </div>
             </div>
@@ -573,7 +579,7 @@ export default function IndicatorsPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 z-[90] bg-black/60 backdrop-blur-sm cursor-pointer"
+              className="fixed inset-0 z-[90] bg-white/40 dark:bg-black/60 backdrop-blur-md cursor-pointer"
               onClick={() => setSelectedIndicator(null)}
             />
 
@@ -583,16 +589,16 @@ export default function IndicatorsPage() {
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: '100%', opacity: 0.5 }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 right-0 z-[100] w-full md:w-[600px] bg-[#080808] border-l border-border/20 shadow-2xl flex flex-col h-full overflow-hidden"
+              className="fixed inset-y-0 right-0 z-[100] w-full md:w-[600px] bg-white/95 dark:bg-[#050505]/95 backdrop-blur-2xl border-l border-black/5 dark:border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.1)] dark:shadow-2xl flex flex-col h-full overflow-hidden"
             >
               {/* Panel Header */}
-              <div className="flex items-start justify-between p-6 md:p-8 border-b border-border/10 bg-[#050505]/80 backdrop-blur-xl relative z-10">
+              <div className="flex items-start justify-between p-6 md:p-8 border-b border-border/10 bg-[var(--bg)]/80 backdrop-blur-xl relative z-10">
                 <div className="flex items-center gap-4">
                   <div className={`p-3 rounded-xl border ${colorMap[selectedIndicator.color]} backdrop-blur-sm shadow-lg`}>
                     {React.createElement(selectedIndicator.icon, { className: "w-6 h-6" })}
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-white leading-tight">{selectedIndicator.name}</h2>
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white leading-tight">{selectedIndicator.name}</h2>
                     <div className="flex items-center gap-2 mt-1.5">
                       <span className="text-xs font-mono font-medium text-[var(--neon)]">{selectedIndicator.category}</span>
                       <span className="w-1 h-1 rounded-full bg-text-3" />
@@ -601,7 +607,7 @@ export default function IndicatorsPage() {
                   </div>
                 </div>
                 <button
-                  className="p-2 rounded-full hover:bg-white/5 text-text-3 hover:text-white transition-colors"
+                  className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 text-text-3 hover:text-slate-900 dark:hover:text-white transition-colors"
                   onClick={() => setSelectedIndicator(null)}
                 >
                   <X className="w-6 h-6" />
@@ -612,7 +618,7 @@ export default function IndicatorsPage() {
               <div className="flex-1 overflow-y-auto p-6 md:p-8 custom-scrollbar">
 
                 {/* Image Preview inside panel */}
-                <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-border/20 mb-8 bg-[#030303]">
+                <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-border/20 mb-8 bg-[var(--bg-2)]">
                   <Image
                     src={selectedIndicator.image_path}
                     alt={selectedIndicator.name}
@@ -623,7 +629,7 @@ export default function IndicatorsPage() {
                       target.style.display = 'none';
                     }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#080808] to-transparent opacity-80" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--surface)] to-transparent opacity-80" />
                 </div>
 
                 {/* Key Features Inline List */}
@@ -648,7 +654,7 @@ export default function IndicatorsPage() {
                   <h4 className="text-sm font-mono font-bold uppercase tracking-widest text-[var(--neon)] mb-4 flex items-center gap-2">
                     <Code2 className="w-4 h-4" /> Deep Dive
                   </h4>
-                  <div className="prose prose-invert prose-sm max-w-none prose-p:leading-relaxed prose-p:text-text-3 prose-strong:text-white prose-strong:font-bold">
+                  <div className="prose dark:prose-invert prose-sm max-w-none prose-p:leading-relaxed prose-p:text-text-3 prose-strong:text-slate-900 dark:prose-strong:text-white prose-strong:font-bold">
                     <div className="whitespace-pre-wrap">
                       {selectedIndicator.fullDescription}
                     </div>
@@ -657,7 +663,7 @@ export default function IndicatorsPage() {
               </div>
 
               {/* Panel Footer */}
-              <div className="p-6 md:p-8 border-t border-border/10 bg-[#050505] flex gap-4">
+              <div className="p-6 md:p-8 border-t border-border/10 bg-[var(--surface)] flex gap-4">
                 <Link href="/#pricing" className="flex-1">
                   <button className="w-full relative overflow-hidden group flex items-center justify-center gap-2 py-4 bg-[var(--neon)] hover:bg-emerald-400 text-black font-extrabold uppercase tracking-widest rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)]">
                     Unlock Access

@@ -26,7 +26,7 @@ export function StickyCTA({ isVisible = true }: { isVisible?: boolean }) {
               <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-3 relative z-10 text-center">
                 <span className="tracking-wide flex items-center gap-2">
                   <Sparkles className="w-4 h-4 hidden sm:block" />
-                  <strong className="font-bold">Aether Bot v1 is Now Live</strong> <span className="hidden sm:inline">•</span> <span className="sm:hidden"> </span> Join the Early Access
+                  <strong className="font-bold">VeylanLabs is Now Live</strong> <span className="hidden sm:inline">•</span> <span className="sm:hidden"> </span> Join the Early Access
                 </span>
                 <span className="opacity-40 hidden sm:inline">|</span>
                 <span className="flex items-center gap-1 font-bold group-hover:gap-2 transition-all duration-300 mt-1 sm:mt-0">

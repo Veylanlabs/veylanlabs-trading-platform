@@ -26,7 +26,7 @@ import { AetherBoardSection } from '@/components/home/AetherBoardSection';
 import { HowItWorksSection } from '@/components/home/HowItWorksSection';
 import { AetherEdgeSection } from '@/components/home/AetherEdgeSection';
 import { ComparisonSection } from '@/components/home/ComparisonSection';
-import { TestimonialsSection } from '@/components/home/TestimonialsSection';
+
 
 import { PricingSection } from '@/components/home/PricingSection';
 import { FAQSection } from '@/components/home/FAQSection';
@@ -119,7 +119,6 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
               <a href="#faq" className={activeSection === "faq" ? "active" : ""}>FAQ</a>
             </div>
             <div className="nav-right" style={{ gap: "16px" }}>
-              <ThemeToggle />
 
               <button
                 className="md:hidden text-foreground p-2 focus:outline-none hover:bg-surface-2 rounded-lg"
@@ -168,7 +167,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
 
           <PricingSection />
 
-          <TestimonialsSection />
+
 
           <FAQSection />
 
@@ -198,7 +197,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
                       <User className="w-5 h-5 text-[var(--text-2)] group-hover:text-[var(--neon)] transition-colors duration-500" />
                     </div>
                     <div>
-                      <div className="font-bold text-lg tracking-wide text-white group-hover:text-[var(--neon)] transition-colors duration-500">Alex T.</div>
+                      <div className="font-bold text-lg tracking-wide text-slate-900 dark:text-white group-hover:text-[var(--neon)] transition-colors duration-500">Alex T.</div>
                       <div className="text-[var(--text-3)] text-xs font-mono tracking-widest uppercase mt-0.5">Full-time Trader</div>
                     </div>
                   </div>
@@ -275,7 +274,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
                 <Link href="https://www.facebook.com/profile.php?id=61590814831781" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
                   <FaFacebook className="w-6 h-6" />
                 </Link>
-                <div className="absolute -top-11 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 bg-[#0a0a0a] text-[var(--neon)] text-[10px] font-mono tracking-widest uppercase px-3 py-1.5 rounded-md border border-[var(--neon)]/40 shadow-[0_0_15px_rgba(163,230,53,0.3)] pointer-events-none whitespace-nowrap z-50 font-bold">
+                <div className="absolute -top-11 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 bg-[var(--surface)] text-[var(--neon)] text-[10px] font-mono tracking-widest uppercase px-3 py-1.5 rounded-md border border-[var(--neon)]/40 shadow-[0_0_15px_rgba(163,230,53,0.3)] pointer-events-none whitespace-nowrap z-50 font-bold">
                   Facebook
                 </div>
               </div>
@@ -283,7 +282,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
                 <Link href="https://telegram.me/Veylanlabs" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
                   <FaTelegramPlane className="w-6 h-6" />
                 </Link>
-                <div className="absolute -top-11 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 bg-[#0a0a0a] text-[var(--neon)] text-[10px] font-mono tracking-widest uppercase px-3 py-1.5 rounded-md border border-[var(--neon)]/40 shadow-[0_0_15px_rgba(163,230,53,0.3)] pointer-events-none whitespace-nowrap z-50 font-bold">
+                <div className="absolute -top-11 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 bg-[var(--surface)] text-[var(--neon)] text-[10px] font-mono tracking-widest uppercase px-3 py-1.5 rounded-md border border-[var(--neon)]/40 shadow-[0_0_15px_rgba(163,230,53,0.3)] pointer-events-none whitespace-nowrap z-50 font-bold">
                   Telegram
                 </div>
               </div>
@@ -291,7 +290,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
                 <Link href="https://www.youtube.com/@VeylanLabs" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
                   <FaYoutube className="w-6 h-6" />
                 </Link>
-                <div className="absolute -top-11 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 bg-[#0a0a0a] text-[var(--neon)] text-[10px] font-mono tracking-widest uppercase px-3 py-1.5 rounded-md border border-[var(--neon)]/40 shadow-[0_0_15px_rgba(163,230,53,0.3)] pointer-events-none whitespace-nowrap z-50 font-bold">
+                <div className="absolute -top-11 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 bg-[var(--surface)] text-[var(--neon)] text-[10px] font-mono tracking-widest uppercase px-3 py-1.5 rounded-md border border-[var(--neon)]/40 shadow-[0_0_15px_rgba(163,230,53,0.3)] pointer-events-none whitespace-nowrap z-50 font-bold">
                   YouTube
                 </div>
               </div>
@@ -299,7 +298,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
                 <Link href="https://www.instagram.com/Veylanlabs/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" style={{ color: "var(--neon)" }}>
                   <FaInstagram className="w-6 h-6" />
                 </Link>
-                <div className="absolute -top-11 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 bg-[#0a0a0a] text-[var(--neon)] text-[10px] font-mono tracking-widest uppercase px-3 py-1.5 rounded-md border border-[var(--neon)]/40 shadow-[0_0_15px_rgba(163,230,53,0.3)] pointer-events-none whitespace-nowrap z-50 font-bold">
+                <div className="absolute -top-11 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 bg-[var(--surface)] text-[var(--neon)] text-[10px] font-mono tracking-widest uppercase px-3 py-1.5 rounded-md border border-[var(--neon)]/40 shadow-[0_0_15px_rgba(163,230,53,0.3)] pointer-events-none whitespace-nowrap z-50 font-bold">
                   Instagram
                 </div>
               </div>
@@ -318,7 +317,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
               <ChevronLeft className="w-10 h-10 drop-shadow-md" />
             </button>
 
-            <div className="relative w-full max-w-5xl aspect-[16/9] rounded-xl overflow-hidden border border-border shadow-[0_0_50px_rgba(16,185,129,0.2)] bg-[#0a0a0a] flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+            <div className="relative w-full max-w-5xl aspect-[16/9] rounded-xl overflow-hidden border border-border shadow-[0_0_50px_rgba(16,185,129,0.2)] bg-[var(--surface)] flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
               <img src={galleryImages[lightboxIndex].src} alt={galleryImages[lightboxIndex].title} className="w-full h-full object-scale-down p-4" />
               <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-6 pt-12 text-center pointer-events-none">
                 <h3 className="text-white font-bold text-xl tracking-wide">{galleryImages[lightboxIndex].title}</h3>
@@ -339,7 +338,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             onClick={scrollToTop}
-            className="fixed bottom-8 right-8 z-50 flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-[#0a0f14]/80 backdrop-blur-xl border border-[var(--neon)]/30 text-[var(--neon)] hover:bg-[var(--neon)] hover:text-black shadow-[0_0_15px_rgba(163,230,53,0.15)] hover:shadow-[0_0_30px_rgba(163,230,53,0.4)] transition-all duration-300 hidden md:flex group"
+            className="fixed bottom-8 right-8 z-50 flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-[var(--surface)]/80 backdrop-blur-xl border border-[var(--neon)]/30 text-[var(--neon)] hover:bg-[var(--neon)] hover:text-[var(--text)] shadow-[0_0_15px_rgba(163,230,53,0.15)] hover:shadow-[0_0_30px_rgba(163,230,53,0.4)] transition-all duration-300 hidden md:flex group"
             aria-label="Back to top"
           >
             <ArrowUp className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-0.5" strokeWidth={3} />

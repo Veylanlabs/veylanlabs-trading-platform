@@ -61,8 +61,6 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
 
   const galleryImages = [
     { src: "/sc-1.png", title: "Market Cap BTC Dominance" },
-    { src: "/sc-2.png", title: "Technicals Gauge" },
-    { src: "/sc-3.png", title: "Performance Metrics" },
     { src: "/sc-4.png", title: "Seasonals Chart" }
   ];
 

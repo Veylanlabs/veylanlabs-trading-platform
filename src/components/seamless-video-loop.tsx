@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
 
-// Simplified and highly performant VideoLoop for ping-pong videos
+// Standard native video loop
 export const SeamlessVideoLoop = ({ src }: { src: string }) => {
   return (
-    <div className="absolute inset-0 w-full h-full bg-black">
+    <div className="absolute inset-0 w-full h-full bg-[#050505]">
       <video
         src={src}
         autoPlay
@@ -12,10 +12,10 @@ export const SeamlessVideoLoop = ({ src }: { src: string }) => {
         muted
         playsInline
         preload="auto"
-        className="absolute inset-0 w-full h-full object-cover opacity-80"
+        className="absolute inset-0 w-full h-full object-cover"
         style={{
-          // Fade in gently on load
-          animation: "fadeIn 2s ease-in-out forwards"
+          // Fade in gently only once on initial load
+          animation: "fadeIn 1s ease-in-out forwards"
         }}
       />
     </div>

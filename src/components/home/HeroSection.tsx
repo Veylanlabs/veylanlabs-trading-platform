@@ -23,7 +23,7 @@ export function HeroSection() {
         position: "relative",
         overflow: "hidden",
         width: "100%",
-        minHeight: "100vh",
+        minHeight: "100svh",
         margin: 0,
         padding: 0,
         display: "flex",
@@ -36,7 +36,7 @@ export function HeroSection() {
             <SeamlessVideoLoop src="/whitetheme.mp4" />
           </div>
           <div className="absolute inset-0 hidden dark:block">
-            <SeamlessVideoLoop src="/test_2_pingpong.mp4" />
+            <SeamlessVideoLoop src="/test_2_no_audio.mp4" />
           </div>
 
           {/* Overlays to hide video artifacts and ensure text readability */}
@@ -44,7 +44,7 @@ export function HeroSection() {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#F8FAFC]/30 to-[#F8FAFC] dark:from-transparent dark:via-[#050505]/60 dark:to-[#050505]" />
 
           {/* Central soft white glow specifically behind the text to ensure perfect contrast without washing out the whole video */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] max-w-[1000px] h-[50vh] bg-white/70 blur-[100px] rounded-[50%] pointer-events-none dark:hidden" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] max-w-[1000px] h-[50svh] bg-white/70 blur-[100px] rounded-[50%] pointer-events-none dark:hidden" />
 
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,#F8FAFC_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_40%,#050505_100%)]" />
         </div>
@@ -76,7 +76,7 @@ export function HeroSection() {
             position: "relative"
           }}>
             Stop chasing signals.<br />
-            Understand <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon)] to-green-700 dark:to-emerald-400 drop-shadow-none dark:drop-shadow-[0_0_15px_var(--neon-dim)]">{heroWords[heroWordIdx]}</span>
+            Understand <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon)] to-[#00ffcc] drop-shadow-none dark:drop-shadow-[0_0_20px_rgba(163,230,53,0.3)]">{heroWords[heroWordIdx]}</span>
           </h1>
 
           <p className="text-slate-800 font-medium drop-shadow-none dark:font-normal dark:text-slate-200 dark:drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]" style={{

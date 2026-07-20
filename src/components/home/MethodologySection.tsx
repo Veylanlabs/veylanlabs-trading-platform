@@ -97,14 +97,20 @@ export function MethodologySection() {
           <div className="relative p-[1px] rounded-3xl bg-gradient-to-b from-[var(--neon)]/40 via-transparent to-transparent shadow-[0_20px_50px_rgba(163,230,53,0.1)]">
             <div className="bg-white dark:bg-[#050505] p-8 md:p-12 rounded-3xl text-center relative overflow-hidden">
               <div className="absolute inset-0 bg-emerald-500/5 dark:bg-[var(--neon)]/5 blur-[50px] rounded-full pointer-events-none" />
-              <p className="relative z-10 text-xl md:text-2xl lg:text-3xl font-bold text-slate-900 dark:text-white leading-tight tracking-tight">
-                VeylanLabs is built around a real human trading method.
-                <br className="hidden md:block" />
-                <span className="text-emerald-600 dark:text-[var(--neon)] mt-4 inline-block drop-shadow-sm">
-                  The real value is bigger than just signals.<br/>
-                  This is built to help you actually learn to trade.
-                </span>
-              </p>
+              <div className="relative z-10 flex flex-col items-center gap-4 md:gap-6">
+                <h3 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+                  VeylanLabs is more than only signals.
+                </h3>
+                
+                <div className="h-px w-24 bg-gradient-to-r from-transparent via-[var(--neon)] to-transparent opacity-50" />
+                
+                <p className="text-lg md:text-xl lg:text-2xl font-medium text-slate-700 dark:text-slate-300 leading-relaxed text-balance">
+                  It is a real human trading method programmed into TradingView
+                  <span className="block mt-2 md:mt-3 text-emerald-600 dark:text-[var(--neon)] font-bold drop-shadow-[0_0_15px_rgba(163,230,53,0.3)]">
+                    Built to help you read structure, understand direction, and actually learn to trade.
+                  </span>
+                </p>
+              </div>
             </div>
           </div>
         </div>

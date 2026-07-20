@@ -30,7 +30,6 @@ import { ComparisonSection } from '@/components/home/ComparisonSection';
 
 import { PricingSection } from '@/components/home/PricingSection';
 import { FAQSection } from '@/components/home/FAQSection';
-import { StatsSection } from '@/components/home/StatsSection';
 import { CTASection } from '@/components/home/CTASection';
 import { StickyCTA } from '@/components/home/StickyCTA';
 
@@ -111,7 +110,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
             <Logo />
             <div className="nav-links">
               <a href="#aether-edge" className={activeSection === "aether-edge" ? "active" : ""}>Features</a>
-              <Link href="/indicators" className={activeSection === "indicators" ? "active" : ""}>Indicators</Link>
+              <a href="#indicators" className={activeSection === "indicators" ? "active" : ""}>Indicators</a>
               <a href="#telegram" className={activeSection === "telegram" ? "active" : ""}>Telegram</a>
               <a href="#pricing" className={activeSection === "pricing" ? "active" : ""}>Pricing</a>
               <a href="#faq" className={activeSection === "faq" ? "active" : ""}>FAQ</a>
@@ -132,7 +131,7 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
           {mobileMenuOpen && (
             <div className="md:hidden border-b border-border bg-[var(--bg)] px-6 py-6 flex flex-col gap-4">
               <a href="#aether-edge" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "aether-edge" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>Features</a>
-              <Link href="/indicators" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "indicators" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>Indicators</Link>
+              <a href="#indicators" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "indicators" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>Indicators</a>
               <a href="#telegram" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "telegram" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>Telegram</a>
               <a href="#pricing" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "pricing" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>Pricing</a>
               <a href="#faq" onClick={() => setMobileMenuOpen(false)} className={`text-sm font-semibold py-2 border-b border-border/50 ${activeSection === "faq" ? "text-[var(--accent)]" : "text-muted-foreground hover:text-foreground"}`}>FAQ</a>
@@ -150,13 +149,11 @@ export default function LandingPageClient({ initialPrices }: { initialPrices: an
 
           <HeroSection />
 
-          <StatsSection />
+          <ToolkitSection />
           
           <MethodologySection />
 
           <AetherEdgeSection />
-
-          <ToolkitSection />
           
           <CommunitySection />
 

@@ -13,6 +13,7 @@ export function ToolkitSection() {
   useEffect(() => {
     setMounted(true);
   }, []);
+  
   return (
     <div className="sec relative overflow-hidden py-24" id="indicators">
       {/* Background Ambient Glows */}
@@ -64,9 +65,7 @@ export function ToolkitSection() {
               <div className="w-full relative hover:-translate-y-2 transition-transform duration-700 hover:shadow-[0_0_120px_rgba(163,230,53,0.25)] group z-10">
                 <div className="bg-slate-50 dark:bg-[#0f0f13] rounded-2xl overflow-hidden relative z-10 border-2 border-[var(--neon)]/40 shadow-[0_20px_50px_rgba(163,230,53,0.15)] ring-1 ring-[var(--neon)]/20 transform-gpu">
                   <div className="h-6 md:h-8 w-full bg-slate-100/90 dark:bg-[#1c1c22]/90 backdrop-blur border-b border-[var(--neon)]/20 flex items-center px-4 gap-2 rounded-t-[14px]">
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
+
                     <div className="absolute left-1/2 -translate-x-1/2 text-[9px] md:text-[10px] text-slate-500 dark:text-white/30 font-mono tracking-widest uppercase">
                       Session Range 2.0
                     </div>
@@ -151,13 +150,14 @@ export function ToolkitSection() {
                   <Crosshair className="w-6 h-6" />
                 </div>
                 <h3 className="text-3xl lg:text-4xl font-display font-bold uppercase tracking-tight text-white">
-                  The Asia High Low
+                  AETHER AHL INDICATOR
                 </h3>
               </div>
 
-              <p className="text-slate-300 text-xl leading-relaxed font-medium mb-10">
-                Our premier mark
-                et structure framework. Read liquidity sweeps, spot market rejections, and ride trend continuations anchored to the Asian session boundaries.
+              <p className="text-slate-300 text-lg leading-relaxed font-medium mb-10">
+                Aether AHL is built to show traders the active direction around the Asian session range. It marks the Asia High and Asia Low, tracks whether price is trading above, below, or inside the range, and gives clear long or short signals when the setup starts to develop with the intelligently built Aether engine.
+                <br /><br />
+                Instead of guessing which side to trade, Aether gives live feedback on the chart so you can see the current bias, follow the right direction, and manage the opportunity with your own risk rules. No more trading blindly.
               </p>
 
               <button
@@ -179,9 +179,7 @@ export function ToolkitSection() {
               <div className="w-full relative hover:-translate-y-2 transition-transform duration-700 hover:shadow-[0_0_120px_rgba(163,230,53,0.25)] group z-10">
                 <div className="bg-slate-50 dark:bg-[#0f0f13] rounded-2xl overflow-hidden relative z-10 border-2 border-[var(--neon)]/40 shadow-[0_20px_50px_rgba(163,230,53,0.15)] ring-1 ring-[var(--neon)]/20 transform-gpu">
                   <div className="h-6 md:h-8 w-full bg-slate-100/90 dark:bg-[#1c1c22]/90 backdrop-blur border-b border-[var(--neon)]/20 flex items-center px-4 gap-2 rounded-t-[14px]">
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
+
                     <div className="absolute left-1/2 -translate-x-1/2 text-[9px] md:text-[10px] text-slate-500 dark:text-white/30 font-mono tracking-widest uppercase">
                       Asia High Low Tracker
                     </div>
@@ -205,15 +203,30 @@ export function ToolkitSection() {
           {/* Feature 2 Bullets Row */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-10 border-t border-white/10 w-full relative z-10">
             {[
-              { text: "Highly accurate Buy/Sell zones", icon: Target },
-              { text: "Identifies major liquidity sweeps", icon: Waves },
-              { text: "Precise stop-loss invalidation", icon: ShieldX }
+              { 
+                title: "Shows Directional Bias", 
+                desc: "See if price is leaning long, short, or still waiting inside the Asia range.",
+                icon: Target 
+              },
+              { 
+                title: "Gives Long Or Short setups", 
+                desc: "Highlights structured buy or sell opportunities when the setup starts to develop.",
+                icon: Waves 
+              },
+              { 
+                title: "Guides Trade Management", 
+                desc: "Aether gives live feedback so you know when to follow, wait, or avoid the setup.",
+                icon: ShieldX 
+              }
             ].map((item, i) => (
-              <div key={i} className="flex items-center gap-3 group p-4 rounded-xl bg-[#111111]/80 dark:bg-[#111111]/80 border border-white/5 hover:border-[var(--neon)]/40 hover:bg-[#1a1a1a]/90 transition-all duration-300 relative z-10 shadow-lg cursor-pointer">
+              <div key={i} className="flex flex-col items-start gap-2 group p-4 rounded-xl bg-[#111111]/80 dark:bg-[#111111]/80 border border-white/5 hover:border-[var(--neon)]/40 hover:bg-[#1a1a1a]/90 transition-all duration-300 relative z-10 shadow-lg cursor-pointer">
                 <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--neon)]/10 flex items-center justify-center border border-[var(--neon)]/30 shadow-[0_0_15px_rgba(163,230,53,0.15)] group-hover:scale-110 transition-transform">
                   <item.icon className="w-4 h-4 text-[var(--neon)]" />
                 </div>
-                <span className="text-white font-bold text-sm md:text-base tracking-tight leading-snug">{item.text}</span>
+                <div className="flex flex-col">
+                  <span className="text-white font-bold mb-1 text-sm md:text-base tracking-tight leading-snug">{item.title}</span>
+                  <span className="text-slate-400 text-xs leading-relaxed">{item.desc}</span>
+                </div>
               </div>
             ))}
           </div>

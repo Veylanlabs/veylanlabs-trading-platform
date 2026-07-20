@@ -94,9 +94,7 @@ export function AetherEdgeSection() {
             {/* Premium Window Frame */}
             <div className="h-10 w-full bg-slate-50 dark:bg-[#0a0a0a] border-b border-black/5 dark:border-white/5 flex items-center justify-between px-4 relative z-20">
               <div className="flex gap-1.5 w-16">
-                <div className="w-2.5 h-2.5 rounded-full bg-black/10 dark:bg-white/10"></div>
-                <div className="w-2.5 h-2.5 rounded-full bg-black/10 dark:bg-white/10"></div>
-                <div className="w-2.5 h-2.5 rounded-full bg-black/10 dark:bg-white/10"></div>
+
               </div>
               
               <div className="absolute left-1/2 -translate-x-1/2 text-[9px] md:text-[10px] text-slate-500 dark:text-white/30 font-mono tracking-widest uppercase">

@@ -33,10 +33,10 @@ export function HeroSection() {
         {/* Background Video */}
         <div className="absolute inset-0 z-[0] pointer-events-none overflow-hidden block bg-[#F8FAFC] dark:bg-[#050505]">
           <div className="absolute inset-0 block dark:hidden">
-            <SeamlessVideoLoop src="/whitetheme.mp4" />
+            <SeamlessVideoLoop src="testrecent.mp4" />
           </div>
           <div className="absolute inset-0 hidden dark:block">
-            <SeamlessVideoLoop src="/test_2_no_audio.mp4" />
+            <SeamlessVideoLoop src="/testrecent.mp4" />
           </div>
 
           {/* Overlays to hide video artifacts and ensure text readability */}

@@ -72,9 +72,13 @@ export function ToolkitSection() {
                   </div>
                   <div
                     className="relative bg-slate-100 dark:bg-black w-full overflow-hidden rounded-b-[14px] group cursor-pointer transform-gpu"
-                    onClick={() => setActiveImage('/sessionrange2.0.png')}
+                    onClick={() => setActiveImage(mounted && resolvedTheme === 'light' ? '/sessionrange2_light.png' : '/sessionrange2.0.png')}
                   >
-                    <img src="/sessionrange2.0.png" alt="Session Range Interface" className="w-full h-auto block invert dark:invert-0 hue-rotate-180 dark:hue-rotate-0 rounded-b-[14px]" />
+                    <img 
+                      src={mounted && resolvedTheme === 'light' ? '/sessionrange2_light.png' : '/sessionrange2.0.png'} 
+                      alt="Session Range Interface" 
+                      className="w-full h-auto block rounded-b-[14px]" 
+                    />
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-b-[14px]">
                       <div className="w-12 h-12 rounded-full bg-[var(--neon)]/20 text-[var(--neon)] flex items-center justify-center border border-[var(--neon)]/30 scale-50 group-hover:scale-100 transition-all duration-300 shadow-[0_0_20px_rgba(163,230,53,0.3)]">
                         <Maximize2 className="w-5 h-5" />
@@ -186,9 +190,13 @@ export function ToolkitSection() {
                   </div>
                   <div
                     className="relative bg-slate-100 dark:bg-black w-full overflow-hidden rounded-b-[14px] group cursor-pointer transform-gpu"
-                    onClick={() => setActiveImage('/asiahighrange.png')}
+                    onClick={() => setActiveImage(mounted && resolvedTheme === 'light' ? '/asiahighrange_light.png' : '/asiahighrange.png')}
                   >
-                    <img src="/asiahighrange.png" alt="Asia High Low Interface" className="w-full h-auto block transition-transform duration-500 group-hover:scale-105 invert dark:invert-0 hue-rotate-180 dark:hue-rotate-0 rounded-b-[14px]" />
+                    <img 
+                      src={mounted && resolvedTheme === 'light' ? '/asiahighrange_light.png' : '/asiahighrange.png'} 
+                      alt="Asia High Low Interface" 
+                      className="w-full h-auto block transition-transform duration-500 group-hover:scale-105 rounded-b-[14px]" 
+                    />
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-b-[14px]">
                       <div className="w-12 h-12 rounded-full bg-[var(--neon)]/20 text-[var(--neon)] flex items-center justify-center border border-[var(--neon)]/30 scale-50 group-hover:scale-100 transition-all duration-300 shadow-[0_0_20px_rgba(163,230,53,0.3)]">
                         <Maximize2 className="w-5 h-5" />
@@ -259,7 +267,7 @@ export function ToolkitSection() {
                 className="relative max-w-[95vw] max-h-[95vh] rounded-xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10 dark:border-white/10 bg-white"
                 onClick={(e) => e.stopPropagation()}
               >
-                <img src={activeImage} alt="Expanded View" className="w-full h-full object-contain max-h-[95vh] invert dark:invert-0 hue-rotate-180 dark:hue-rotate-0" />
+                <img src={activeImage} alt="Expanded View" className="w-full h-full object-contain max-h-[95vh]" />
               </motion.div>
             </motion.div>
           )}

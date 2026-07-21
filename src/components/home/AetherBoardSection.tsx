@@ -117,7 +117,7 @@ export function AetherBoardSection() {
                 className="relative max-w-[95vw] max-h-[95vh] rounded-sm overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10 bg-black"
                 onClick={(e) => e.stopPropagation()}
               >
-                <img src={activeImage} alt="Expanded View" className="w-full h-full object-contain max-h-[95vh] invert dark:invert-0 hue-rotate-180 dark:hue-rotate-0" />
+                <img src={activeImage} alt="Expanded View" className="w-full h-full object-contain max-h-[95vh]" />
               </motion.div>
             </motion.div>
           )}

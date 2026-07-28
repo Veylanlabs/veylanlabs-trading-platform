@@ -17,7 +17,7 @@ export function MethodologySection() {
     },
     { 
       title: "Session Structure",
-      text: "FULL Session structure for London and New York", 
+      text: "FULL Session structure for Asia, London, and New York", 
       icon: <Globe className="w-6 h-6" /> 
     },
     { 

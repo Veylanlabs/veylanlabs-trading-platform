@@ -60,17 +60,6 @@ export function AetherEdgeSection() {
         <div className="flex justify-center mb-10">
           <div className="glass-premium p-1.5 rounded-full flex gap-1 sm:gap-2 border border-black/10 dark:border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.1)] dark:shadow-[0_0_30px_rgba(0,0,0,0.5)] w-full max-w-[95vw] sm:max-w-fit mx-auto">
             <button 
-              onClick={() => setActiveTab('old')}
-              className={`px-2 sm:px-6 md:px-8 py-2.5 md:py-3 rounded-full text-[10px] sm:text-xs md:text-sm font-bold tracking-widest uppercase whitespace-nowrap transition-all duration-300 flex items-center justify-center gap-1.5 md:gap-2 flex-1 sm:flex-none ${
-                activeTab === 'old' 
-                  ? 'bg-red-500/10 text-red-400 border border-red-500/30 shadow-[0_0_15px_rgba(239,68,68,0.2)]' 
-                  : 'text-text-3 hover:text-slate-900 dark:hover:text-white border border-transparent hover:bg-black/5 dark:hover:bg-white/5'
-              }`}
-            >
-              <XCircle className="w-3.5 h-3.5 md:w-4 md:h-4 shrink-0" />
-              <span><span className="hidden sm:inline">The </span>Old Way</span>
-            </button>
-            <button 
               onClick={() => setActiveTab('new')}
               className={`px-2 sm:px-6 md:px-8 py-2.5 md:py-3 rounded-full text-[10px] sm:text-xs md:text-sm font-bold tracking-widest uppercase whitespace-nowrap transition-all duration-300 flex items-center justify-center gap-1.5 md:gap-2 flex-1 sm:flex-none ${
                 activeTab === 'new' 
@@ -80,6 +69,17 @@ export function AetherEdgeSection() {
             >
               <CheckCircle2 className="w-3.5 h-3.5 md:w-4 md:h-4 shrink-0" />
               <span><span className="hidden sm:inline">The </span>VeylanLabs Way</span>
+            </button>
+            <button 
+              onClick={() => setActiveTab('old')}
+              className={`px-2 sm:px-6 md:px-8 py-2.5 md:py-3 rounded-full text-[10px] sm:text-xs md:text-sm font-bold tracking-widest uppercase whitespace-nowrap transition-all duration-300 flex items-center justify-center gap-1.5 md:gap-2 flex-1 sm:flex-none ${
+                activeTab === 'old' 
+                  ? 'bg-red-500/10 text-red-400 border border-red-500/30 shadow-[0_0_15px_rgba(239,68,68,0.2)]' 
+                  : 'text-text-3 hover:text-slate-900 dark:hover:text-white border border-transparent hover:bg-black/5 dark:hover:bg-white/5'
+              }`}
+            >
+              <XCircle className="w-3.5 h-3.5 md:w-4 md:h-4 shrink-0" />
+              <span><span className="hidden sm:inline">The </span>Old Way</span>
             </button>
           </div>
         </div>

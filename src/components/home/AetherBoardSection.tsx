@@ -33,22 +33,26 @@ export function AetherBoardSection() {
         </div>
 
         {/* Centerpiece Image Showcase */}
-        <div className="relative w-full max-w-3xl mx-auto mb-24 group cursor-default md:cursor-pointer pointer-events-none md:pointer-events-auto" onClick={() => setActiveImage('/new.png')}>
-          <div className="absolute -inset-4 bg-gradient-to-b from-[var(--neon)]/20 to-transparent rounded-[2rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+        <div className="relative w-full max-w-4xl mx-auto mb-24 group cursor-default md:cursor-pointer pointer-events-none md:pointer-events-auto" onClick={() => setActiveImage('/new.png')}>
           
-          <div className="relative rounded-sm overflow-hidden border border-black/10 dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.2)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] bg-white dark:bg-black transition-all duration-700 hover:scale-[1.02] hover:shadow-[0_30px_60px_rgba(163,230,53,0.15)] ring-1 ring-black/5 dark:ring-white/5 flex items-center justify-center">
-            <img
-              src="/new.png"
-              alt="Aether Bot Interface"
-              className="w-full h-auto object-contain block relative z-0"
-            />
-            {/* Dark overlay */}
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10" />
+          <div className="relative p-2 md:p-4 rounded-2xl md:rounded-[32px] border-2 border-[var(--neon)]/40 shadow-[0_0_50px_rgba(163,230,53,0.2)] bg-[#0A0A0A]/90 backdrop-blur-xl transition-all duration-700 hover:scale-[1.02] hover:shadow-[0_0_80px_rgba(163,230,53,0.3)] flex items-center justify-center hover:border-[var(--neon)]/60">
+            {/* Ambient inner glow */}
+            <div className="absolute inset-0 bg-[var(--neon)]/10 blur-[80px] pointer-events-none z-0" />
             
-            {/* Expand Icon */}
-            <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-              <div className="w-16 h-16 rounded-full bg-[var(--neon)]/20 text-[var(--neon)] flex items-center justify-center border border-[var(--neon)]/30 scale-50 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 shadow-[0_0_30px_rgba(163,230,53,0.4)] backdrop-blur-sm">
-                <Maximize2 className="w-8 h-8" />
+            <div className="relative rounded-xl overflow-hidden w-full z-10 shadow-2xl border border-white/10 dark:border-white/5 bg-[#050505]">
+              <img
+                src="/new.png"
+                alt="Aether Bot Interface"
+                className="w-full h-auto object-contain block relative z-0 rounded-xl"
+              />
+              {/* Dark overlay */}
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10 rounded-xl" />
+              
+              {/* Expand Icon */}
+              <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                <div className="w-16 h-16 rounded-full bg-[var(--neon)]/20 text-[var(--neon)] flex items-center justify-center border border-[var(--neon)]/30 scale-50 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 shadow-[0_0_30px_rgba(163,230,53,0.4)] backdrop-blur-sm">
+                  <Maximize2 className="w-8 h-8" />
+                </div>
               </div>
             </div>
           </div>

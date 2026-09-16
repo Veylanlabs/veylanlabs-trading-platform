@@ -4,24 +4,31 @@ import { waitUntil } from "@vercel/functions";
 import type { Payment } from "@whop/sdk/resources.js";
 
 export const whopsdk = new Whop({
-   	apiKey: process.env.NEXT_PUBLIC_WHOP_API_KEY,
-   	webhookKey: btoa(process.env.NEXT_PUBLIC_WHOP_ACCOUNT_ID || ""),
+   	apiKey: process.env.NEXT_PUBLIC_WHOP_API_KEY || process.env.WHOP_API_KEY,
+   	webhookKey: process.env.WHOP_WEBHOOK_SECRET || btoa(process.env.NEXT_PUBLIC_WHOP_ACCOUNT_ID || process.env.WHOP_ACCOUNT_ID || ""),
 });
 
-
 export async function POST(request: NextRequest): Promise<Response> {
-   	// Validate the webhook to ensure it's from Whop
-   	const requestBodyText = await request.text();
-   	const headers = Object.fromEntries(request.headers);
-   	const webhookData = whopsdk.webhooks.unwrap(requestBodyText, { headers });
+   	try {
+   		// Validate the webhook to ensure it's from Whop
+   		const requestBodyText = await request.text();
+   		const headers = Object.fromEntries(request.headers);
+   		const webhookData = whopsdk.webhooks.unwrap(requestBodyText, { headers });
 
-   	// Handle the webhook event
-   	if (webhookData.type === "payment.succeeded") {
-  		waitUntil(handlePaymentSucceeded(webhookData.data));
+   		// Handle the webhook event
+   		if (webhookData.type === "payment.succeeded") {
+   			waitUntil(handlePaymentSucceeded(webhookData.data));
+   		}
+
+   		// Make sure to return a 2xx status code quickly. Otherwise the webhook will be retried.
+   		return new Response("OK", { status: 200 });
+   	} catch (error: any) {
+   		console.error("[WHOP WEBHOOK ERROR]", error);
+   		return new Response(JSON.stringify({ error: error?.message || "Webhook handling failed" }), {
+   			status: 400,
+   			headers: { "Content-Type": "application/json" },
+   		});
    	}
-
-   	// Make sure to return a 2xx status code quickly. Otherwise the webhook will be retried.
-   	return new Response("OK", { status: 200 });
 }
 
 async function handlePaymentSucceeded(invoice: Payment) {
